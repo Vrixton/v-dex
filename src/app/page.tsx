@@ -1,8 +1,10 @@
+import { Window } from "@/components/window/window";
+
 export default function HomePage() {
   return (
-    <section className="mx-auto max-w-6xl rounded-window bg-screen p-8 inset-shadow-screen">
-      <h1 className="text-4xl text-fg-accent text-shadow-glow">VICTOR VILLAVICENCIO</h1>
-      <p className="text-fg-muted">{"// REPOSITORY"}</p>
-    </section>
+    <Window title="TRAINER_INFO" breadcrumb="REPOSITORY">
+      <h1 className="text-3xl text-fg-accent text-shadow-glow md:text-5xl">VICTOR VILLAVICENCIO</h1>
+      <p className="mt-2 text-fg-muted">SR. FRONT END DEVELOPER && TECH LEAD</p>
+    </Window>
   );
 }
