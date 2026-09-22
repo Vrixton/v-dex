@@ -34,7 +34,7 @@ export function Shutter({ side, children }: ShutterProps) {
     <div
       data-state={shutterPosition}
       className={cn(
-        "ease-press fixed inset-x-0 h-[50dvh] border-seam transition-transform duration-(--shutter-duration) data-[state=closed]:translate-y-0",
+        "fixed inset-x-0 h-[50dvh] border-seam transition-transform duration-(--shutter-duration) ease-press data-[state=closed]:translate-y-0",
         sideClass[side],
       )}
       {...(side === "bottom" ? { "aria-hidden": true } : {})}

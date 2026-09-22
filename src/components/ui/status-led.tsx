@@ -1,6 +1,6 @@
 import { cn } from "@/lib/cn";
 
-type LedTone = "green" | "cyan" | "yellow" | "red" | "white";
+export type LedTone = "green" | "cyan" | "yellow" | "red" | "white";
 type LedShape = "round" | "square";
 
 type StatusLedProps = {
