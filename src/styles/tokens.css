@@ -1,0 +1,100 @@
+/*
+ * V-DEX · Design tokens
+ *
+ * Dos capas:
+ *  1. Primitivos (:root) — la paleta cruda del Figma. NO generan utilidades
+ *     de Tailwind, así ningún componente puede saltarse la capa semántica.
+ *  2. Semánticos (@theme inline) — nombres por intención de uso. Estos sí
+ *     generan utilidades (bg-screen, text-fg-muted, rounded-window…).
+ *
+ * Para personalizar: cambia un primitivo y se propaga a todo el sistema.
+ * Para añadir un token nuevo: primero el primitivo, luego su uso semántico.
+ * Los valores marcados como PROVISIONAL están pendientes de confirmar.
+ */
+
+:root {
+  /* ── Marca ─────────────────────────────────────────────── */
+  --vdex-red-500: #dc0a2d;
+  --vdex-red-700: #a2000e;
+  --vdex-red-300: #ff4d6a; /* Rojo para TEXTO sobre fondo oscuro (6:1). El #dc0a2d solo da 3.8:1 */
+  --vdex-red-200: #ff8a9b; /* Brillo central del botón rojo */
+
+  --vdex-cyan-500: #00f0ff;
+  --vdex-cyan-200: #a5fbff; /* Brillo central del botón cian */
+  --vdex-cyan-100: #b8f4f8; /* PROVISIONAL: fondo claro del dispositivo, fuera de las ventanas */
+
+  --vdex-yellow-400: #facc15;
+  --vdex-green-500: #22c55e; /* PROVISIONAL: estado "SYNC: READY" */
+
+  /* ── Neutros ───────────────────────────────────────────── */
+  --vdex-ink-950: #031016; /* Fondo de la pantalla CRT */
+  --vdex-navy-950: #010618; /* Base de las tarjetas */
+  --vdex-black: #000000;
+  --vdex-white: #ffffff;
+  --vdex-gray-400: #7a8a91; /* PROVISIONAL: texto secundario (5.4:1 sobre la pantalla) */
+  --vdex-metal-100: #ffffff;
+  --vdex-metal-400: #b1b1b1;
+  --vdex-maroon-900: #4a1414; /* PROVISIONAL: texto y rejillas del bisel metálico (7:1) */
+
+  /* ── Degradados ────────────────────────────────────────── */
+  /* Oscuro arriba y claro en la unión, como en el estado cerrado del diseño */
+  --gradient-bezel-top: linear-gradient(180deg, var(--vdex-red-700), var(--vdex-red-500));
+  /* Claro en la unión y gris abajo */
+  --gradient-bezel-bottom: linear-gradient(180deg, var(--vdex-metal-100), var(--vdex-metal-400));
+
+  --gradient-button-cyan: radial-gradient(
+    circle at 50% 35%,
+    var(--vdex-cyan-200),
+    var(--vdex-cyan-500) 70%
+  );
+  --gradient-button-red: radial-gradient(
+    circle at 50% 35%,
+    var(--vdex-red-200),
+    var(--vdex-red-500) 70%
+  );
+}
+
+@theme inline {
+  /* Eliminamos la paleta por defecto de Tailwind: solo existen nuestros colores */
+  --color-*: initial;
+  --color-white: var(--vdex-white);
+  --color-black: var(--vdex-black);
+
+  /* ── Marca ─────────────────────────────────────────────── */
+  --color-brand-red: var(--vdex-red-500);
+  --color-brand-cyan: var(--vdex-cyan-500);
+  --color-brand-yellow: var(--vdex-yellow-400);
+
+  /* ── Dispositivo ───────────────────────────────────────── */
+  --color-device-backdrop: var(--vdex-cyan-100);
+  --color-bezel-ink: var(--vdex-maroon-900);
+
+  /* ── Superficies de pantalla ───────────────────────────── */
+  --color-screen: var(--vdex-ink-950);
+  --color-surface: color-mix(in oklab, var(--vdex-navy-950) 25%, transparent);
+  --color-surface-hover: color-mix(in oklab, var(--vdex-cyan-500) 10%, transparent); /* PROVISIONAL */
+  --color-terminal: color-mix(in oklab, var(--vdex-black) 50%, transparent);
+  --color-scanline: color-mix(in oklab, var(--vdex-cyan-500) 25%, transparent);
+
+  /* ── Texto ─────────────────────────────────────────────── */
+  --color-fg: var(--vdex-white);
+  --color-fg-muted: var(--vdex-gray-400);
+  --color-fg-accent: var(--vdex-cyan-500);
+  --color-fg-highlight: var(--vdex-yellow-400);
+  --color-fg-danger: var(--vdex-red-300);
+  --color-status-ok: var(--vdex-green-500);
+
+  /* ── Tipografía ────────────────────────────────────────── */
+  /* --font-share-tech-mono lo inyecta next/font en layout.tsx */
+  --font-tech: var(--font-share-tech-mono), ui-monospace, "SFMono-Regular", Menlo, monospace;
+
+  /* ── Geometría ─────────────────────────────────────────── */
+  --radius-control: 5px; /* Botones, chips, inputs */
+  --radius-window: 25px; /* Ventanas y contenedores grandes */
+
+  /* ── Luces (glows) ─────────────────────────────────────── */
+  --shadow-glow-sm: 0 0 8px color-mix(in oklab, var(--vdex-cyan-500) 60%, transparent);
+  --shadow-glow-md: 0 0 20px color-mix(in oklab, var(--vdex-cyan-500) 40%, transparent);
+  --inset-shadow-screen: inset 0 0 48px color-mix(in oklab, var(--vdex-cyan-500) 25%, transparent);
+  --text-shadow-glow: 0 0 10px color-mix(in oklab, var(--vdex-cyan-500) 70%, transparent);
+}
