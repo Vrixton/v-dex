@@ -1,5 +1,9 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Share_Tech_Mono } from "next/font/google";
+
+import { DeviceProvider } from "@/components/device/device-context";
+import { DeviceShell } from "@/components/device/device-shell";
+
 import "./globals.css";
 
 const shareTechMono = Share_Tech_Mono({
@@ -14,6 +18,13 @@ export const metadata: Metadata = {
   description: "Portfolio of Victor Villavicencio, Senior Frontend Developer & Tech Lead.",
 };
 
+export const viewport: Viewport = {
+  // Colorea la interfaz del navegador móvil con el rojo del bisel
+  themeColor: "#dc0a2d",
+  // Permite dibujar bajo el notch; los biseles compensan con safe-area-inset
+  viewportFit: "cover",
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -21,7 +32,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={shareTechMono.variable}>
-      <body>{children}</body>
+      <body>
+        <DeviceProvider>
+          <DeviceShell>{children}</DeviceShell>
+        </DeviceProvider>
+      </body>
     </html>
   );
 }

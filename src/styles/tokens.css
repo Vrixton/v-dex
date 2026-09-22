@@ -35,6 +35,19 @@
   --vdex-metal-100: #ffffff;
   --vdex-metal-400: #b1b1b1;
   --vdex-maroon-900: #4a1414; /* PROVISIONAL: texto y rejillas del bisel metálico (7:1) */
+  --vdex-graphite-800: #2e2e2e; /* Línea de unión entre biseles y aro del botón central */
+  --vdex-steel-300: #9aa0a6; /* Brillo de los tornillos */
+  --vdex-steel-600: #4b5054; /* Sombra de los tornillos */
+
+  /* ── Layout del dispositivo ────────────────────────────── */
+  /* Móvil primero; en pantallas medianas crecen (ver @media al final) */
+  --bezel-top-h: calc(4.5rem + env(safe-area-inset-top, 0px));
+  --bezel-bottom-h: calc(4rem + env(safe-area-inset-bottom, 0px));
+  --menu-toggle-size: 4rem; /* Nunca por debajo de 44px: zona táctil mínima */
+  --seam-w: 6px;
+  /* Espacio que el contenido deja libre para no quedar bajo los biseles */
+  --screen-inset-top: calc(var(--bezel-top-h) + var(--menu-toggle-size) / 2 + 1rem);
+  --screen-inset-bottom: calc(var(--bezel-bottom-h) + 1rem);
 
   /* ── Degradados ────────────────────────────────────────── */
   /* Oscuro arriba y claro en la unión, como en el estado cerrado del diseño */
@@ -52,6 +65,19 @@
     var(--vdex-red-200),
     var(--vdex-red-500) 70%
   );
+  --gradient-screw: radial-gradient(
+    circle at 35% 30%,
+    var(--vdex-steel-300),
+    var(--vdex-steel-600) 75%
+  );
+}
+
+@media (min-width: 48rem) {
+  :root {
+    --bezel-top-h: calc(4rem + env(safe-area-inset-top, 0px));
+    --bezel-bottom-h: calc(4rem + env(safe-area-inset-bottom, 0px));
+    --menu-toggle-size: 5.5rem;
+  }
 }
 
 @theme inline {
@@ -68,6 +94,7 @@
   /* ── Dispositivo ───────────────────────────────────────── */
   --color-device-backdrop: var(--vdex-cyan-100);
   --color-bezel-ink: var(--vdex-maroon-900);
+  --color-seam: var(--vdex-graphite-800);
 
   /* ── Superficies de pantalla ───────────────────────────── */
   --color-screen: var(--vdex-ink-950);
@@ -101,4 +128,17 @@
   --shadow-glow-md: 0 0 20px color-mix(in oklab, var(--vdex-cyan-500) 40%, transparent);
   --inset-shadow-screen: inset 0 0 48px color-mix(in oklab, var(--vdex-cyan-500) 25%, transparent);
   --text-shadow-glow: 0 0 10px color-mix(in oklab, var(--vdex-cyan-500) 70%, transparent);
+  --animate-led-pulse: led-glow 2s ease-in-out infinite;
+}
+
+@keyframes led-glow {
+  0%,
+  100% {
+    opacity: 0.3;
+    scale: 1;
+  }
+  50% {
+    opacity: 1;
+    scale: 1.05;
+  }
 }
