@@ -8,5 +8,11 @@
 
   body {
     @apply bg-device-backdrop font-tech text-fg antialiased;
+    /* Líneas horizontales del fondo claro del dispositivo */
+    background-image: repeating-linear-gradient(
+      to bottom,
+      transparent 0 3px,
+      color-mix(in oklab, var(--vdex-white) 35%, transparent) 3px 4px
+    );
   }
 }
