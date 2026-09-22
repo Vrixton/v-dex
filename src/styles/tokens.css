@@ -72,7 +72,11 @@
   /* ── Superficies de pantalla ───────────────────────────── */
   --color-screen: var(--vdex-ink-950);
   --color-surface: color-mix(in oklab, var(--vdex-navy-950) 25%, transparent);
-  --color-surface-hover: color-mix(in oklab, var(--vdex-cyan-500) 10%, transparent); /* PROVISIONAL */
+  --color-surface-hover: color-mix(
+    in oklab,
+    var(--vdex-cyan-500) 10%,
+    transparent
+  ); /* PROVISIONAL */
   --color-terminal: color-mix(in oklab, var(--vdex-black) 50%, transparent);
   --color-scanline: color-mix(in oklab, var(--vdex-cyan-500) 25%, transparent);
 
