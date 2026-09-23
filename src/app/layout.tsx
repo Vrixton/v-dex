@@ -3,6 +3,7 @@ import { Share_Tech_Mono } from "next/font/google";
 
 import { DeviceProvider } from "@/components/device/device-context";
 import { DeviceShell } from "@/components/device/device-shell";
+import { ToastProvider } from "@/components/toast/toast-context";
 
 import "./globals.css";
 
@@ -33,9 +34,11 @@ export default function RootLayout({
   return (
     <html lang="en" className={shareTechMono.variable}>
       <body>
-        <DeviceProvider>
-          <DeviceShell>{children}</DeviceShell>
-        </DeviceProvider>
+        <ToastProvider>
+          <DeviceProvider>
+            <DeviceShell>{children}</DeviceShell>
+          </DeviceProvider>
+        </ToastProvider>
       </body>
     </html>
   );
