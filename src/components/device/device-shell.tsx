@@ -1,7 +1,10 @@
 import type { ReactNode } from "react";
 
+import { DeviceSound } from "@/components/sound/device-sound";
+
 import { BezelBottom } from "./bezel-bottom";
 import { BezelTop } from "./bezel-top";
+import { Screen } from "./screen";
 
 /**
  * Carcasa persistente del V-DEX. Vive en el layout raíz, así que nunca se
@@ -14,13 +17,9 @@ import { BezelTop } from "./bezel-top";
 export function DeviceShell({ children }: { children: ReactNode }) {
   return (
     <>
+      <DeviceSound />
       <BezelTop />
-      <main
-        id="screen"
-        className="min-h-dvh px-4 pt-(--screen-inset-top) pb-(--screen-inset-bottom) md:px-8"
-      >
-        {children}
-      </main>
+      <Screen>{children}</Screen>
       <BezelBottom />
     </>
   );

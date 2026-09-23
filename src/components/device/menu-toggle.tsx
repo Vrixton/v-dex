@@ -1,7 +1,7 @@
 "use client";
 
 import { useDevice } from "./device-context";
-
+import { useSound } from "@/components/sound/use-sound";
 /**
  * Botón central del dispositivo.
  *
@@ -22,8 +22,10 @@ import { useDevice } from "./device-context";
  * El botón nunca se deshabilita, para no perder el foco del teclado a mitad
  * del ciclo. Las pulsaciones extra las descarta la máquina de estados.
  */
+
 export function MenuToggle() {
   const { isMenuOpen, isBusy, isLoading, tone, toggleMenu } = useDevice();
+  const play = useSound();
 
   return (
     <button
@@ -36,6 +38,7 @@ export function MenuToggle() {
       data-state={isMenuOpen ? "open" : "closed"}
       data-tone={tone}
       onClick={toggleMenu}
+      onMouseEnter={() => play("hover")}
       className="group absolute bottom-0 left-1/2 size-(--menu-toggle-size) -translate-x-1/2 translate-y-1/2 cursor-pointer rounded-full focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-yellow"
     >
       {/* Cuerpo de la tecla: es lo que se hunde al pulsar */}
