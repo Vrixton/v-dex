@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 
 import { DeviceSound } from "@/components/sound/device-sound";
+import { ToastViewport } from "@/components/toast/toast-viewport";
 
 import { BezelBottom } from "./bezel-bottom";
 import { BezelTop } from "./bezel-top";
@@ -21,6 +22,7 @@ export function DeviceShell({ children }: { children: ReactNode }) {
       <BezelTop />
       <Screen>{children}</Screen>
       <BezelBottom />
+      <ToastViewport />
     </>
   );
 }
