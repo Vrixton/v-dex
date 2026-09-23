@@ -40,6 +40,8 @@
   --vdex-graphite-900: #141414;
   --vdex-steel-300: #9aa0a6; /* Brillo de los tornillos */
   --vdex-steel-600: #4b5054; /* Sombra de los tornillos */
+  --vdex-silver-200: #d9d9d9; /* Brillo del interruptor */
+  --vdex-silver-500: #b0b0b0; /* Cuerpo del interruptor */
 
   /* ── Layout del dispositivo ────────────────────────────── */
   /* Móvil primero; en pantallas medianas crecen (ver @media al final) */

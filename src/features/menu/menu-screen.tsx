@@ -11,6 +11,7 @@ import {
 } from "react";
 
 import { useDevice } from "@/components/device/device-context";
+import { useSound } from "@/components/sound/use-sound";
 import { PixelChevron } from "@/components/ui/pixel-chevron";
 import { Window } from "@/components/window/window";
 
@@ -29,6 +30,7 @@ import { MenuTerminal } from "./menu-terminal";
  */
 export function MenuScreen() {
   const { navigate, toggleMenu, confirmingHref, phase } = useDevice();
+  const play = useSound();
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const itemRefs = useRef<Array<HTMLAnchorElement | null>>([]);
 
@@ -45,6 +47,13 @@ export function MenuScreen() {
     setActiveIndex(next);
     itemRefs.current[next]?.focus();
   }, []);
+
+  // Un solo sonido por cambio real de opción: el hover se dispara mucho.
+  function selectItem(index: number) {
+    if (index === activeIndex) return;
+    play("hover");
+    setActiveIndex(index);
+  }
 
   function handleKeyDown(event: KeyboardEvent<HTMLUListElement>) {
     const current = activeIndex ?? 0;
@@ -81,6 +90,7 @@ export function MenuScreen() {
     // Cmd/Ctrl/Shift+clic: que el navegador haga lo suyo
     if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
     event.preventDefault();
+    play("select");
     navigate(href);
   }
 
@@ -106,8 +116,8 @@ export function MenuScreen() {
                   data-active={activeIndex === index}
                   data-confirming={confirmingHref === item.href}
                   onClick={(event) => handleClick(event, item.href)}
-                  onMouseEnter={() => setActiveIndex(index)}
-                  onFocus={() => setActiveIndex(index)}
+                  onMouseEnter={() => selectItem(index)}
+                  onFocus={() => selectItem(index)}
                   className="group flex w-full max-w-md items-center gap-4 rounded-control px-6 py-3 text-xl tracking-wide text-fg transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-yellow data-[active=true]:bg-surface-hover data-[active=true]:text-brand-cyan data-[confirming=true]:animate-menu-confirm md:text-3xl"
                 >
                   <PixelChevron className="text-brand-yellow opacity-0 group-data-[active=true]:opacity-100 motion-safe:group-data-[active=true]:animate-cursor-blink" />
