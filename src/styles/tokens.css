@@ -148,6 +148,8 @@
   --inset-shadow-screen: inset 0 0 48px color-mix(in oklab, var(--vdex-cyan-500) 25%, transparent);
   --text-shadow-glow: 0 0 10px color-mix(in oklab, var(--vdex-cyan-500) 70%, transparent);
   --animate-led-pulse: led-glow 2s ease-in-out infinite;
+  --shadow-bezel-top: 0 10px 24px rgb(0 0 0 / 0.38);
+  --shadow-bezel-bottom: 0 -10px 24px rgb(0 0 0 / 0.38);
 
   /* Salida rápida: la ventana llega enseguida y frena, como abrir una app */
   --ease-out-window: cubic-bezier(0.16, 1, 0.3, 1);
@@ -167,6 +169,24 @@
   --animate-toast-in-up: toast-in-up 300ms cubic-bezier(0.16, 1, 0.3, 1);
   --animate-toast-out-down: toast-out-down 200ms ease-in forwards;
   --animate-toast-content: toast-content 240ms ease-out 110ms both;
+
+  /* Efecto del Parpadeo */
+  /* --animate-crt-flicker: crt-flicker 10s steps(1, end) infinite; */
+
+  /* Cuerpo de la ventana: el fondo del dispositivo se transparenta */
+  --color-window: color-mix(in oklab, var(--vdex-navy-950) 82%, transparent);
+  /* La barra de título va algo más sólida, para separarse del cuerpo */
+  --color-window-header: color-mix(in oklab, var(--vdex-navy-950) 92%, transparent);
+  /* Banda del barrido de refresco */
+  --color-sweep: color-mix(in oklab, var(--vdex-cyan-500) 22%, transparent);
+
+  /* Glow cian pegado al borde interior de la ventana */
+  --inset-shadow-window:
+    inset 0 0 24px color-mix(in oklab, var(--vdex-cyan-500) 28%, transparent),
+    inset 0 0 2px color-mix(in oklab, var(--vdex-cyan-500) 55%, transparent);
+
+  /* Barrido de refresco del tubo, recorriendo la ventana */
+  --animate-crt-sweep: crt-sweep 7s linear infinite;
 }
 
 @keyframes led-glow {
@@ -261,5 +281,38 @@
   to {
     opacity: 1;
     translate: 0 0;
+  }
+}
+
+@keyframes crt-flicker {
+  0%,
+  12%,
+  24%,
+  52%,
+  71%,
+  88% {
+    opacity: 0.02;
+  }
+  13%,
+  25%,
+  53%,
+  72% {
+    opacity: 0.04;
+  }
+  37% {
+    opacity: 0.1;
+  }
+  38%,
+  100% {
+    opacity: 0.03;
+  }
+}
+
+@keyframes crt-sweep {
+  from {
+    translate: 0 -5%;
+  }
+  to {
+    translate: 0 105%;
   }
 }
