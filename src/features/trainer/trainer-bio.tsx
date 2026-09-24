@@ -34,7 +34,11 @@ export function TrainerBio() {
 
       <div className="flex flex-col gap-2 text-sm leading-relaxed text-fg">
         {lines.map((line, index) => (
-          <p key={line} style={{ animationDelay: `${START_MS + index * LINE_MS}ms` }}>
+          <p
+            key={line}
+            style={{ animationDelay: `${START_MS + index * LINE_MS}ms` }}
+            className="group-data-[ready=true]/screen:motion-safe:animate-line-in"
+          >
             {index === 0 ? <span className="text-brand-cyan">Frontend developer </span> : null}
             {index === 0 ? line.replace("Frontend developer ", "") : line}
           </p>
@@ -43,7 +47,7 @@ export function TrainerBio() {
 
       {/* El prompt aparece cuando termina de imprimirse todo */}
       <p
-        className="flex items-center gap-2 text-sm text-status-ok"
+        className="group-data-[ready=true]/screen:motion-safe:animate-line-in flex items-center gap-2 text-sm text-status-ok"
         style={{ animationDelay: `${START_MS + lines.length * LINE_MS}ms` }}
         aria-hidden="true"
       >

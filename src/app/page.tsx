@@ -1,8 +1,7 @@
 import { Badge } from "@/components/ui/badge";
 import { Window } from "@/components/window/window";
 import { PROFILE } from "@/content/profile";
-import { GymBadges } from "@/features/trainer/gym-badges";
-import { SkillList } from "@/features/trainer/skill-list";
+import { SkillsPanel } from "@/features/trainer/skills-panel";
 import { TrainerAvatar } from "@/features/trainer/trainer-avatar";
 import { TrainerBio } from "@/features/trainer/trainer-bio";
 
@@ -11,10 +10,12 @@ export default function HomePage() {
     <Window
       title="TRAINER_INFO"
       breadcrumb="REPOSITORY"
+      fill
+      scrollable
       actions={
         <>
           <Badge tone="yellow" className="hidden sm:flex">
-            NRO. #???
+            NRO. #001
           </Badge>
           <Badge tone="green" led pulse>
             SYNC: READY
@@ -37,10 +38,7 @@ export default function HomePage() {
           <TrainerBio />
         </div>
 
-        <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.3fr)] lg:gap-6">
-          <GymBadges />
-          <SkillList />
-        </div>
+        <SkillsPanel />
       </div>
     </Window>
   );

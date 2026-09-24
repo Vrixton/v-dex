@@ -33,13 +33,13 @@ export function TrainerAvatar() {
 
       {/* Nivel y barra van superpuestos, no en el flujo: así el sprite
           dispone de todo el alto de la tarjeta y se ve a buen tamaño. */}
-      <p className="absolute top-5 left-5 z-10 w-fit rounded-panel border-2 border-level-border bg-level-bg px-3 py-1 text-sm text-level [animation-delay:600ms] group-data-[ready=true]:motion-safe:animate-hud-in">
+      <p className="absolute top-5 left-5 z-10 w-fit rounded-panel border-2 border-level-border bg-level-bg px-3 py-1 text-sm text-level [animation-delay:600ms] group-data-[ready=true]/screen:motion-safe:animate-hud-in">
         {`LVL.${level}`}
       </p>
 
       {/* El sprite ocupa la tarjeta entera; el nivel y la barra solo se
           superponen encima, sin quitarle espacio. */}
-      <div className="absolute inset-0 flex items-center justify-center p-3 [animation-delay:250ms] group-data-[ready=true]:motion-safe:animate-sprite-in">
+      <div className="absolute inset-0 flex items-center justify-center p-3 [animation-delay:250ms] group-data-[ready=true]/screen:motion-safe:animate-sprite-in">
         <span
           role="img"
           aria-label={`Pixel art avatar of ${PROFILE.name}`}
@@ -61,7 +61,7 @@ export function TrainerAvatar() {
         No ocupa todo el ancho y se sale por la derecha: es un HUD pegado a
         la esquina, no una fila más de la tarjeta.
       */}
-      <div className="absolute right-0 bottom-5 z-10 flex w-[70%] items-center gap-2 rounded-l-full bg-gradient-to-r from-transparent to-[color-mix(in_oklab,var(--vdex-yellow-400)_40%,transparent)] py-1.5 pr-3 pl-2 [animation-delay:750ms] group-data-[ready=true]:motion-safe:animate-exp-in">
+      <div className="absolute right-0 bottom-5 z-10 flex w-[70%] items-center gap-2 rounded-l-full bg-gradient-to-r from-transparent to-[color-mix(in_oklab,var(--vdex-yellow-400)_40%,transparent)] py-1.5 pr-3 pl-2 [animation-delay:750ms] group-data-[ready=true]/screen:motion-safe:animate-exp-in">
         <span className="text-sm text-fg">EXP.</span>
         <div
           className="relative h-4 flex-1 overflow-hidden rounded-full bg-brand-yellow"

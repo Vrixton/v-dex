@@ -17,6 +17,8 @@ type WindowProps = {
   actions?: ReactNode | undefined;
   /** La ventana ocupa todo el alto disponible de la pantalla. */
   fill?: boolean | undefined;
+  /** El cuerpo hace scroll y la cabecera se queda fija, como un programa. */
+  scrollable?: boolean | undefined;
   children: ReactNode;
   className?: string | undefined;
 };
@@ -36,6 +38,7 @@ export function Window({
   ledPulse = true,
   actions,
   fill = false,
+  scrollable = false,
   children,
   className,
 }: WindowProps) {
@@ -44,7 +47,9 @@ export function Window({
       id={id}
       className={cn(
         "relative isolate flex flex-col overflow-hidden rounded-window border border-white/10 bg-window inset-shadow-window",
-        fill && "min-h-[calc(100dvh-var(--screen-inset-top)-var(--screen-inset-bottom))]",
+        // Alto exacto, no mínimo: si fuera mínimo el contenido la estiraría
+        // y el scroll acabaría en la página en vez de dentro de la ventana.
+        fill && "h-[calc(97dvh-var(--screen-inset-top)-var(--screen-inset-bottom))]",
         className,
       )}
     >
@@ -56,7 +61,32 @@ export function Window({
         actions={actions}
       />
 
-      <div className="relative z-10 flex flex-1 flex-col p-5 md:p-8">{children}</div>
+      {scrollable ? (
+        /*
+          Cuerpo con scroll propio. La cabecera queda fija arriba, como el
+          título de una ventana, y solo se mueve el contenido.
+
+          tabIndex lo hace alcanzable con teclado: sin eso, quien no usa
+          ratón no podría recorrer el contenido que queda fuera de vista.
+        */
+        <div className="relative z-10 min-h-0 flex-1">
+          <div
+            tabIndex={0}
+            role="region"
+            aria-label={`${title} content`}
+            className="h-full hud-scrollbar overflow-y-auto overscroll-contain p-5 focus-visible:outline-none md:p-8"
+          >
+            {children}
+          </div>
+          {/* Desvanecido: avisa de que el contenido continúa */}
+          <span
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-x-0 bottom-0 h-10 bg-gradient-to-t from-window to-transparent"
+          />
+        </div>
+      ) : (
+        <div className="relative z-10 flex flex-1 flex-col p-5 md:p-8">{children}</div>
+      )}
 
       {/*
         Barrido de refresco del tubo.
