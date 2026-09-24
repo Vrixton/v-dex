@@ -38,10 +38,10 @@ export function WindowHeader({
         className,
       )}
     >
-      <StatusLed tone={ledTone} shape="square" pulse={ledPulse} />
+      <StatusLed tone={ledTone} shape="square" pulse={ledPulse} className="size-2 md:size-3" />
       <h2 className="ml-3 text-sm text-fg md:text-base">{title}</h2>
       {breadcrumb ? (
-        <span className="hidden text-xs tracking-[0.2em] text-fg-muted sm:inline md:text-sm">
+        <span className="hidden text-xs text-fg-muted sm:inline md:text-sm">
           {`// ${breadcrumb}`}
         </span>
       ) : null}

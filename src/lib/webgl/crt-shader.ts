@@ -64,7 +64,11 @@ export const FRAGMENT_SHADER = /* glsl */ `
     vec2 warped = uv + pull;
 
     // Curvatura del tubo: las líneas se comban hacia los bordes.
-    float bend = (warped.x - 0.5) * (warped.x - 0.5) * 0.035;
+    // abs() en lugar de elevar al cuadrado: evita los valores diminutos del
+    // centro, que algunas GPU móviles truncan a cero y dejan un escalón.
+    float fromCenterX = abs(warped.x - 0.5);
+    float bend = fromCenterX * fromCenterX * 0.035 + 0.0001;
+
     float y = (warped.y + bend) * uResolution.y / uDpr;
 
     // Solo importa la posición DENTRO de la línea, no la altura absoluta:
