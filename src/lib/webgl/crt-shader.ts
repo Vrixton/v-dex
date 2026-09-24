@@ -22,7 +22,14 @@ export const VERTEX_SHADER = /* glsl */ `
 `;
 
 export const FRAGMENT_SHADER = /* glsl */ `
+  // En escritorio da igual (las GPU usan precisión alta de todos modos), pero
+  // en móvil mediump son ~10 bits de mantisa: suficiente para que el patrón
+  // de líneas se rompa en manchas. Se pide alta cuando el móvil la soporta.
+  #ifdef GL_FRAGMENT_PRECISION_HIGH
+  precision highp float;
+  #else
   precision mediump float;
+  #endif
 
   uniform vec2 uResolution;   // tamaño del lienzo en píxeles físicos
   uniform vec2 uPointer;      // cursor en 0..1, con y hacia arriba
@@ -60,8 +67,12 @@ export const FRAGMENT_SHADER = /* glsl */ `
     float bend = (warped.x - 0.5) * (warped.x - 0.5) * 0.035;
     float y = (warped.y + bend) * uResolution.y / uDpr;
 
+    // Solo importa la posición DENTRO de la línea, no la altura absoluta:
+    // con mod los números se quedan pequeños y el coseno no pierde precisión.
+    float phase = mod(y, LINE_GAP) / LINE_GAP;
+
     // Líneas suaves, no franjas duras: evita el moiré al escalar.
-    float line = 0.5 + 0.5 * cos(y * 6.2831853 / LINE_GAP);
+    float line = 0.5 + 0.5 * cos(phase * 6.2831853);
     line = pow(line, 1.6);
 
     // Las líneas son las zonas oscuras entre barridos del haz, no franjas
@@ -74,7 +85,7 @@ export const FRAGMENT_SHADER = /* glsl */ `
     // Viñeta: el tubo pierde luz en las esquinas.
     vec2 fromCenter = vec2((uv.x - 0.5) * aspect, uv.y - 0.5);
     float vignette = smoothstep(0.95, 0.25, length(fromCenter));
-    color *= mix(0.94, 1.0, vignette);
+    color *= mix(0.88, 1.0, vignette);
 
     gl_FragColor = vec4(color, 1.0);
   }
