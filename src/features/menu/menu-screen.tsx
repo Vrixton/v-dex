@@ -98,13 +98,15 @@ export function MenuScreen() {
   const isReady = phase === "open";
 
   return (
-    <Window id="device-menu" title="MENU" ledTone="white">
-      <div className="flex min-h-[55dvh] flex-col justify-between gap-10">
+    <Window id="device-menu" title="MENU" ledTone="white" className="min-h-[70dvh]">
+      {/* La terminal queda anclada abajo; la lista se centra en el espacio
+          que sobra, así el aire de arriba y el de abajo se reparten solos. */}
+      <div className="flex flex-1 flex-col justify-between gap-6">
         <nav aria-label="Device menu" className="flex flex-1 items-center justify-center">
           <ul
             data-ready={isReady}
             onKeyDown={handleKeyDown}
-            className="flex w-full flex-col items-center gap-4 opacity-0 transition-opacity delay-100 duration-300 data-[ready=true]:opacity-100 md:gap-8"
+            className="flex w-full flex-col items-center gap-1 opacity-0 transition-opacity delay-100 duration-300 data-[ready=true]:opacity-100 md:gap-7"
           >
             {MENU_ITEMS.map((item, index) => (
               <li key={item.href} className="flex w-full justify-center">
@@ -118,10 +120,12 @@ export function MenuScreen() {
                   onClick={(event) => handleClick(event, item.href)}
                   onMouseEnter={() => selectItem(index)}
                   onFocus={() => selectItem(index)}
-                  className="group flex w-full max-w-md items-center gap-4 rounded-control px-6 py-3 text-xl tracking-wide text-fg transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-yellow data-[active=true]:bg-surface-hover data-[active=true]:text-brand-cyan data-[confirming=true]:animate-menu-confirm md:text-3xl"
+                  className="group flex w-full max-w-md items-center justify-center rounded-control px-6 py-3 text-xl leading-tight tracking-wide text-fg transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-yellow data-[active=true]:bg-surface-hover data-[active=true]:text-brand-cyan data-[confirming=true]:animate-menu-confirm md:text-xl"
                 >
-                  <PixelChevron className="text-brand-yellow opacity-0 group-data-[active=true]:opacity-100 motion-safe:group-data-[active=true]:animate-cursor-blink" />
-                  {item.label}
+                  <span className="flex w-[20ch] items-center gap-4">
+                    <PixelChevron className="text-brand-yellow opacity-0 group-data-[active=true]:opacity-100 motion-safe:group-data-[active=true]:animate-cursor-blink" />
+                    {item.label}
+                  </span>
                 </Link>
               </li>
             ))}
