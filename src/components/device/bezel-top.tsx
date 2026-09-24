@@ -31,7 +31,7 @@ export function BezelTop() {
         <div className="flex items-center gap-4 md:gap-8">
           <Screw angle={35} />
           <StatusLed tone="green" pulse />
-          <span className="text-lg tracking-[0.15em] text-white">V-DEX</span>
+          <span className="text-lg text-white">V-DEX</span>
         </div>
         <div className="flex items-center gap-6 md:gap-24 lg:gap-40">
           <SpeakerGrill className="hidden md:flex" />

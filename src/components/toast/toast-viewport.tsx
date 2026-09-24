@@ -121,7 +121,7 @@ function ToastCard({
 
       <span className="relative flex items-center gap-3 motion-safe:animate-toast-content">
         {toast.icon}
-        <p className="text-sm tracking-[0.12em] md:text-base">
+        <p className="text-sm md:text-base">
           <span className="text-fg">{`[${toast.label}]:`}</span> <span>{toast.value}</span>
         </p>
       </span>

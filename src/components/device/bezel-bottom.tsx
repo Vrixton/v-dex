@@ -15,7 +15,7 @@ export function BezelBottom() {
         <Screw angle={-10} />
         <SpeakerGrill className="hidden md:flex" />
         <SoundToggle />
-        <p className="text-sm tracking-[0.2em] text-bezel-ink md:text-lg">V-DEX V{APP_VERSION}</p>
+        <p className="text-sm text-bezel-ink md:text-lg">V-DEX V{APP_VERSION}</p>
         <span></span>
         <span></span>
         <SpeakerGrill className="hidden md:flex" />
