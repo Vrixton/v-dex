@@ -37,7 +37,7 @@ export function Screen({ children }: { children: ReactNode }) {
     >
       <div
         data-ready={isReady}
-        className="group mx-auto max-w-6xl scale-[0.92] opacity-0 transition-[scale,opacity] duration-(--window-duration) ease-out-window data-[ready=true]:scale-100 data-[ready=true]:opacity-100 motion-reduce:scale-100 motion-reduce:transition-opacity"
+        className="group/screen mx-auto max-w-6xl scale-[0.92] opacity-0 transition-[scale,opacity] duration-(--window-duration) ease-out-window data-[ready=true]:scale-100 data-[ready=true]:opacity-100 motion-reduce:scale-100 motion-reduce:transition-opacity"
       >
         {isMenuOpen ? <MenuScreen /> : children}
       </div>

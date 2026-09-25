@@ -29,27 +29,21 @@ export function TrainerBio() {
           <span aria-hidden="true">{">_ "}</span>
           TRAINER_BIO.EXE
         </h3>
-        <p className="text-xs text-fg-muted">STATUS: ACTIVE</p>
+        <p className="text-xs text-fg-muted">[STATUS]: ACTIVE</p>
       </header>
-
-      <div className="flex flex-col gap-2 text-sm leading-relaxed text-fg">
+      <div className="mt-5 flex flex-col gap-2 text-sm leading-relaxed text-fg">
         {lines.map((line, index) => (
-          <p key={line} style={{ animationDelay: `${START_MS + index * LINE_MS}ms` }}>
+          <p
+            key={line}
+            style={{ animationDelay: `${START_MS + index * LINE_MS}ms` }}
+            className="group-data-[ready=true]/screen:motion-safe:animate-line-in"
+          >
             {index === 0 ? <span className="text-brand-cyan">Frontend developer </span> : null}
             {index === 0 ? line.replace("Frontend developer ", "") : line}
+            <span className="ml-2 inline-block h-[1em] w-[0.5em] bg-status-ok motion-safe:animate-cursor-blink" />
           </p>
         ))}
       </div>
-
-      {/* El prompt aparece cuando termina de imprimirse todo */}
-      <p
-        className="flex items-center gap-2 text-sm text-status-ok"
-        style={{ animationDelay: `${START_MS + lines.length * LINE_MS}ms` }}
-        aria-hidden="true"
-      >
-        <span>{">_"}</span>
-        <span className="inline-block h-[1em] w-[0.5em] bg-status-ok motion-safe:animate-cursor-blink" />
-      </p>
     </article>
   );
 }

@@ -51,7 +51,7 @@ const ENTER = {
 export function BracketFrame({ size = "md", animated = false, className }: BracketFrameProps) {
   const corner = CORNERS[size];
   const base = cn("absolute border-current", corner.box);
-  const enter = animated ? "group-data-[ready=true]:motion-safe:animate-bracket-in" : "";
+  const enter = animated ? "group-data-[ready=true]/screen:motion-safe:animate-bracket-in" : "";
 
   return (
     <span aria-hidden="true" className={cn("pointer-events-none absolute inset-0", className)}>

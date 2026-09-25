@@ -1,3 +1,5 @@
+import type { TechIconName } from "@/components/ui/tech-icons";
+
 /**
  * Medallas de gimnasio: el stack.
  *
@@ -6,8 +8,10 @@
  *   silver intermedio
  *   bronze bajo
  *
- * Ajusta el nivel de cada una a tu criterio; es el único sitio donde vive
- * ese dato. El contador de "conquistadas" cuenta las de oro.
+ * La lista es corta a propósito. Enumerar todo lo que uno ha tocado alguna
+ * vez resta credibilidad: mejor doce que se sostienen en una entrevista que
+ * veinte donde la mitad se probó una semana. Lo demás (AngularJS, Bootstrap,
+ * Liquid, herramientas) vive en el CV, donde se puede matizar el contexto.
  */
 
 export type MedalLevel = "gold" | "silver" | "bronze" | "locked";
@@ -15,23 +19,23 @@ export type MedalLevel = "gold" | "silver" | "bronze" | "locked";
 export type Technology = {
   name: string;
   level: MedalLevel;
+  /** Icono del sprite de tecnologías. */
+  icon: TechIconName;
 };
 
 export const TECHNOLOGIES: readonly Technology[] = [
-  { name: "TypeScript", level: "gold" },
-  { name: "JavaScript", level: "gold" },
-  { name: "Angular", level: "gold" },
-  { name: "React", level: "gold" },
-  { name: "HTML5", level: "gold" },
-  { name: "CSS3", level: "gold" },
-  { name: "SCSS / Sass", level: "gold" },
-  { name: "Next.js", level: "silver" },
-  { name: "Node.js", level: "silver" },
-  { name: "AngularJS", level: "silver" },
-  { name: "Angular Material", level: "silver" },
-  { name: "Tailwind CSS", level: "silver" },
-  { name: "Bootstrap", level: "silver" },
-  { name: "Liquid", level: "bronze" },
+  { icon: "typescript", name: "TypeScript", level: "gold" },
+  { icon: "javascript", name: "JavaScript", level: "gold" },
+  { icon: "html5", name: "HTML5", level: "gold" },
+  { icon: "css3", name: "CSS3", level: "gold" },
+  { icon: "sass", name: "SCSS / Sass", level: "gold" },
+  { icon: "angular", name: "Angular", level: "gold" },
+  { icon: "react", name: "React", level: "gold" },
+  { icon: "nextjs", name: "Next.js", level: "silver" },
+  { icon: "nodejs", name: "Node.js", level: "silver" },
+  { icon: "tailwind", name: "Tailwind CSS", level: "silver" },
+  { icon: "cypress", name: "Cypress", level: "silver" },
+  { icon: "graphql", name: "GraphQL", level: "silver" },
 ];
 
 export const CONQUERED = TECHNOLOGIES.filter((tech) => tech.level === "gold").length;

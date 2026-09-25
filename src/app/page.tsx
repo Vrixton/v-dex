@@ -1,8 +1,7 @@
 import { Badge } from "@/components/ui/badge";
 import { Window } from "@/components/window/window";
 import { PROFILE } from "@/content/profile";
-import { GymBadges } from "@/features/trainer/gym-badges";
-import { SkillList } from "@/features/trainer/skill-list";
+import { SkillsPanel } from "@/features/trainer/skills-panel";
 import { TrainerAvatar } from "@/features/trainer/trainer-avatar";
 import { TrainerBio } from "@/features/trainer/trainer-bio";
 
@@ -11,6 +10,8 @@ export default function HomePage() {
     <Window
       title="TRAINER_INFO"
       breadcrumb="REPOSITORY"
+      fill
+      scrollable
       actions={
         <>
           <Badge tone="yellow" className="hidden sm:flex">
@@ -24,7 +25,7 @@ export default function HomePage() {
     >
       <div className="flex flex-col gap-6 md:gap-8">
         <header className="text-center">
-          <p className="text-xs md:text-sm">[TRAINER_NAME]</p>
+          <p className="text-xs md:text-sm">[TRAINER_NAME]:</p>
           <h1 className="text-2xl text-brand-cyan text-shadow-glow md:text-4xl">
             {PROFILE.name.toUpperCase()}
           </h1>
@@ -37,10 +38,7 @@ export default function HomePage() {
           <TrainerBio />
         </div>
 
-        <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.3fr)] lg:gap-6">
-          <GymBadges />
-          <SkillList />
-        </div>
+        <SkillsPanel />
       </div>
     </Window>
   );
