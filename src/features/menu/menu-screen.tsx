@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import {
   useCallback,
   useEffect,
@@ -25,21 +26,34 @@ import { MenuTerminal } from "./menu-terminal";
  * nueva y el navegador puede precargar las rutas. El clic normal se intercepta
  * para lanzar el ciclo de confirmación, cierre y apertura.
  *
+ * El menú abre sobre la vista actual, no sobre la primera opción, y esa vista
+ * queda marcada aunque el cursor se mueva a otra: una cosa es dónde estás y
+ * otra qué estás señalando.
+ *
  * Teclado: Tab funciona por defecto y además hay flechas ↑↓, Home/End y
  * Escape, como en el menú de una consola.
  */
 export function MenuScreen() {
   const { navigate, toggleMenu, confirmingHref, phase } = useDevice();
   const play = useSound();
-  const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const pathname = usePathname();
+
+  // Si la ruta no está en el menú (una vista de detalle, por ejemplo), se
+  // cae a la primera opción.
+  const currentIndex = Math.max(
+    MENU_ITEMS.findIndex((item) => item.href === pathname),
+    0,
+  );
+
+  const [activeIndex, setActiveIndex] = useState<number>(currentIndex);
   const itemRefs = useRef<Array<HTMLAnchorElement | null>>([]);
 
   // El foco entra cuando el dispositivo termina de abrirse: antes el
   // contenido está inert y no admite foco.
   useEffect(() => {
     if (phase !== "open") return;
-    itemRefs.current[0]?.focus();
-  }, [phase]);
+    itemRefs.current[currentIndex]?.focus();
+  }, [phase, currentIndex]);
 
   const focusItem = useCallback((index: number) => {
     const total = MENU_ITEMS.length;
@@ -56,7 +70,7 @@ export function MenuScreen() {
   }
 
   function handleKeyDown(event: KeyboardEvent<HTMLUListElement>) {
-    const current = activeIndex ?? 0;
+    const current = activeIndex;
 
     switch (event.key) {
       case "ArrowDown":
@@ -94,7 +108,7 @@ export function MenuScreen() {
     navigate(href);
   }
 
-  const activeItem = activeIndex === null ? null : MENU_ITEMS[activeIndex];
+  const activeItem = MENU_ITEMS[activeIndex];
   const isReady = phase === "open";
 
   return (
@@ -108,27 +122,33 @@ export function MenuScreen() {
             onKeyDown={handleKeyDown}
             className="flex w-full flex-col items-center gap-1 opacity-0 transition-opacity delay-100 duration-300 data-[ready=true]:opacity-100 md:gap-7"
           >
-            {MENU_ITEMS.map((item, index) => (
-              <li key={item.href} className="flex w-full justify-center">
-                <Link
-                  ref={(element) => {
-                    itemRefs.current[index] = element;
-                  }}
-                  href={item.href}
-                  data-active={activeIndex === index}
-                  data-confirming={confirmingHref === item.href}
-                  onClick={(event) => handleClick(event, item.href)}
-                  onMouseEnter={() => selectItem(index)}
-                  onFocus={() => selectItem(index)}
-                  className="group flex w-full max-w-md items-center justify-center rounded-control px-6 py-3 text-xl leading-tight text-fg transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-yellow data-[active=true]:bg-surface-hover data-[active=true]:text-brand-cyan data-[confirming=true]:animate-menu-confirm md:text-xl"
-                >
-                  <span className="flex w-[20ch] items-center gap-4">
-                    <PixelChevron className="text-brand-yellow opacity-0 group-data-[active=true]:opacity-100 motion-safe:group-data-[active=true]:animate-cursor-blink" />
-                    {item.label}
-                  </span>
-                </Link>
-              </li>
-            ))}
+            {MENU_ITEMS.map((item, index) => {
+              const isCurrent = item.href === pathname;
+
+              return (
+                <li key={item.href} className="flex w-full justify-center">
+                  <Link
+                    ref={(element) => {
+                      itemRefs.current[index] = element;
+                    }}
+                    href={item.href}
+                    data-active={activeIndex === index}
+                    data-current={isCurrent}
+                    data-confirming={confirmingHref === item.href}
+                    {...(isCurrent ? { "aria-current": "page" as const } : {})}
+                    onClick={(event) => handleClick(event, item.href)}
+                    onMouseEnter={() => selectItem(index)}
+                    onFocus={() => selectItem(index)}
+                    className="group flex w-full max-w-md items-center justify-center rounded-control px-6 py-3 text-xl leading-tight text-fg transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-yellow data-[active=true]:bg-surface-hover data-[active=true]:text-brand-cyan data-[confirming=true]:animate-menu-confirm data-[current=true]:text-brand-cyan md:text-xl"
+                  >
+                    <span className="flex w-[20ch] items-center gap-4">
+                      <PixelChevron className="text-brand-yellow opacity-0 group-data-[active=true]:opacity-100 motion-safe:group-data-[active=true]:animate-cursor-blink" />
+                      {item.label}
+                    </span>
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
         </nav>
 
