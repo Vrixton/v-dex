@@ -15,7 +15,7 @@ export default function HomePage() {
       actions={
         <>
           <Badge tone="yellow" className="hidden sm:flex">
-            NRO. #001
+            NRO. #???
           </Badge>
           <Badge tone="green" led pulse>
             SYNC: READY
@@ -25,7 +25,7 @@ export default function HomePage() {
     >
       <div className="flex flex-col gap-6 md:gap-8">
         <header className="text-center">
-          <p className="text-xs md:text-sm">[TRAINER_NAME]</p>
+          <p className="text-xs md:text-sm">[TRAINER_NAME]:</p>
           <h1 className="text-2xl text-brand-cyan text-shadow-glow md:text-4xl">
             {PROFILE.name.toUpperCase()}
           </h1>

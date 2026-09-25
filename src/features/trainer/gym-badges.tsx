@@ -41,13 +41,13 @@ export function GymBadges() {
     <section className="flex flex-col gap-4 rounded-panel bg-surface p-4 md:p-5">
       <TechIconSprite />
       <header className="flex flex-wrap items-center justify-between gap-2">
-        <h3 className="text-sm text-fg md:text-base">GYM BADGES || TECH STACK</h3>
+        <h3 className="text-sm text-fg md:text-base">GYM_BADGES || TECH_STACK</h3>
         <Badge tone="yellow">
           {`${String(CONQUERED).padStart(2, "0")}/${TECHNOLOGIES.length} CONQUERED`}
         </Badge>
       </header>
 
-      <ul className="flex flex-wrap gap-x-3 gap-y-2 md:gap-3">
+      <ul className="mt-3 flex flex-wrap gap-x-3 gap-y-2 md:gap-3">
         {TECHNOLOGIES.map((tech) => (
           /* z-index al pasar por encima: si no, la etiqueta queda por debajo
              de las medallas siguientes, que se pintan después. */
@@ -90,7 +90,7 @@ export function GymBadges() {
                   <BracketFrame size="sm" />
                   <span className="relative flex items-center gap-2">
                     <span>{">_"}</span>
-                    <span className="text-fg">{"[TECH]:"}</span>
+                    <span className="ml-1 text-fg">{"[TECH]:"}</span>
                     <span>{tech.name}</span>
                   </span>
                 </span>

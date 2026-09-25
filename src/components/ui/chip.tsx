@@ -24,21 +24,26 @@ const borderClass: Record<SkillKind, string> = {
  * Etiqueta de skill. El prefijo indica el tipo (técnica, personal o de
  * comunicación) y se lee también en el texto oculto, para que la
  * clasificación no dependa solo del color.
+ *
+ * El prefijo va posicionado a la izquierda y fuera del flujo: así el texto
+ * se centra respecto al chip entero y no respecto al hueco que le deja.
  */
 export function Chip({ kind, children, className }: ChipProps) {
   return (
     <li
       className={cn(
-        "flex items-center gap-2 rounded-control border bg-surface px-3 py-1.5 text-xs whitespace-nowrap md:text-sm",
+        // grow reparte el espacio sobrante entre los chips de cada fila, así
+        // el bloque queda alineado por los dos lados en vez de dejar huecos.
+        "relative flex grow items-center justify-center rounded-control border bg-surface px-3 py-1 text-xs whitespace-nowrap md:text-sm",
         borderClass[kind],
         className,
       )}
     >
-      <span aria-hidden="true" className={prefixClass[kind]}>
+      <span aria-hidden="true" className={cn("absolute left-3", prefixClass[kind])}>
         {SKILL_PREFIX[kind]}
       </span>
       <span className="sr-only">{`${kind}: `}</span>
-      <span className="text-fg">{children}</span>
+      <span className="px-7 text-fg">{children}</span>
     </li>
   );
 }
