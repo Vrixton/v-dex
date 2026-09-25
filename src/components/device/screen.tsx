@@ -1,10 +1,11 @@
 "use client";
 
-import type { ReactNode } from "react";
+import { useRef, type ReactNode } from "react";
 
 import { MenuScreen } from "@/features/menu/menu-screen";
 import { useHasMounted } from "@/hooks/use-has-mounted";
 
+import { Crosshair } from "./crosshair";
 import { useDevice } from "./device-context";
 
 /**
@@ -26,11 +27,13 @@ export function Screen({ children }: { children: ReactNode }) {
   // En la primera carga no hay ciclo de apertura, así que la animación la
   // dispara la hidratación.
   const hasMounted = useHasMounted();
+  const screenRef = useRef<HTMLElement>(null);
 
   const isReady = hasMounted && isContentVisible;
 
   return (
     <main
+      ref={screenRef}
       id="screen"
       inert={!isContentVisible}
       className="min-h-dvh px-4 pt-(--screen-inset-top) pb-(--screen-inset-bottom) md:px-8"
@@ -41,6 +44,10 @@ export function Screen({ children }: { children: ReactNode }) {
       >
         {isMenuOpen ? <MenuScreen /> : children}
       </div>
+
+      {/* El retículo solo existe dentro de la pantalla: los biseles son
+          hardware y no deben reaccionar al cursor. */}
+      <Crosshair containerRef={screenRef} />
     </main>
   );
 }
