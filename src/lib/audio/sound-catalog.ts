@@ -105,6 +105,14 @@ export const SOUNDS = {
     volume: 0.08,
     hold: 0.9,
   },
+  badge: {
+    source: "sine",
+    from: NOTE.C6,
+    steps: [NOTE.C6, NOTE.E6],
+    duration: 0.09,
+    volume: 0.05,
+    hold: 0.15,
+  },
 } as const satisfies Record<string, SoundSpec>;
 
 /** Tope de volumen. El dispositivo acompaña; no debe competir con nada. */

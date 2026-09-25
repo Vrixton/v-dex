@@ -35,7 +35,7 @@ export function Badge({
   return (
     <span
       className={cn(
-        "flex items-center gap-2 rounded-control border bg-current/10 px-3 py-1 text-xs tracking-[0.15em] whitespace-nowrap md:text-sm",
+        "flex items-center gap-2 rounded-control border bg-current/10 px-3 py-1 text-xs whitespace-nowrap md:text-sm",
         toneClass[tone],
         className,
       )}

@@ -43,6 +43,9 @@
   --vdex-steel-600: #4b5054; /* Sombra de los tornillos */
   --vdex-silver-200: #d9d9d9; /* Brillo del interruptor */
   --vdex-silver-500: #cacaca; /* Cuerpo del interruptor */
+  --vdex-violet-200: #e9d5ff; /* Texto del nivel */
+  --vdex-violet-500: #9b5de5; /* Marco del nivel */
+  --vdex-violet-900: #2a1b3d;
 
   /* ── Layout del dispositivo ────────────────────────────── */
   /* Móvil primero; en pantallas medianas crecen (ver @media al final) */
@@ -128,12 +131,18 @@
   --color-fg-danger: var(--vdex-red-300);
   --color-status-ok: var(--vdex-green-500);
 
+  /* ── Boton LVL ─────────────────────────────────────────────── */
+  --color-level: var(--vdex-violet-200);
+  --color-level-border: var(--vdex-violet-500);
+  --color-level-bg: var(--vdex-violet-900);
+
   /* ── Tipografía ────────────────────────────────────────── */
   /* --font-share-tech-mono lo inyecta next/font en layout.tsx */
   --font-tech: var(--font-share-tech-mono), ui-monospace, "SFMono-Regular", Menlo, monospace;
 
   /* ── Geometría ─────────────────────────────────────────── */
   --radius-control: 5px; /* Botones, chips, inputs */
+  --radius-panel: 10px;
   --radius-window: 25px; /* Ventanas y contenedores grandes */
 
   /* ── Luces (glows) ─────────────────────────────────────── */
@@ -188,6 +197,17 @@
 
   /* Barrido de refresco del tubo, recorriendo la ventana */
   --animate-crt-sweep: crt-sweep 7s linear infinite;
+
+  /* --animate-trainer-idle: trainer-idle 1.2s steps(7) infinite; */
+  --animate-trainer-idle: trainer-idle 1.2s steps(7, jump-none) infinite;
+
+  /* Entrada de la ficha: las esquinas se abren desde el centro, luego
+     aparece el sprite y por último los datos */
+  --animate-bracket-in: bracket-in 500ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  --animate-sprite-in: sprite-in 600ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  --animate-hud-in: hud-in 500ms ease-out both;
+
+  --animate-exp-in: exp-in 600ms cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 @keyframes led-glow {
@@ -298,7 +318,7 @@
   25%,
   53%,
   72% {
-    opacity: 0.04;
+    opacity: 0.07;
   }
   37% {
     opacity: 0.1;
@@ -315,5 +335,59 @@
   }
   to {
     translate: 0 105%;
+  }
+}
+
+@keyframes trainer-idle {
+  from {
+    background-position-x: 0%;
+  }
+  to {
+    background-position-x: 100%;
+  }
+}
+
+/* Cada esquina declara su punto de partida en --bracket-from */
+@keyframes bracket-in {
+  from {
+    translate: var(--bracket-from);
+    opacity: 0;
+  }
+  to {
+    translate: 0 0;
+    opacity: 1;
+  }
+}
+
+@keyframes sprite-in {
+  from {
+    opacity: 0;
+    scale: 0.85;
+  }
+  to {
+    opacity: 1;
+    scale: 1;
+  }
+}
+
+@keyframes hud-in {
+  from {
+    opacity: 0;
+    translate: 0 6px;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+@keyframes exp-in {
+  from {
+    opacity: 0;
+    translate: 100% 0;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
   }
 }

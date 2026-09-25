@@ -25,3 +25,40 @@
     color-mix(in oklab, var(--vdex-cyan-500) 12%, transparent) 2px 3px
   );
 }
+
+/*
+ * Barra de scroll del dispositivo.
+ *
+ * Siempre visible: en un aparato los indicadores no se esconden, y además
+ * en móvil no hay hover, así que una barra que solo aparece al pasar el
+ * ratón no existiría nunca justo donde más falta hace.
+ *
+ * Safari e iOS ignoran ::-webkit-scrollbar en algunos modos, por eso van
+ * también scrollbar-width y scrollbar-color: ahí se ve una versión simple
+ * con el mismo pulgar cian.
+ */
+@utility hud-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: var(--vdex-cyan-500) color-mix(in oklab, var(--vdex-black) 45%, transparent);
+
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: color-mix(in oklab, var(--vdex-black) 45%, transparent);
+    border-radius: 999px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--vdex-cyan-500);
+    border-radius: 999px;
+    box-shadow: 0 0 8px color-mix(in oklab, var(--vdex-cyan-500) 80%, transparent);
+  }
+
+  &::-webkit-scrollbar-thumb:hover,
+  &::-webkit-scrollbar-thumb:active {
+    background: color-mix(in oklab, var(--vdex-cyan-500) 80%, white);
+    box-shadow: 0 0 14px color-mix(in oklab, var(--vdex-cyan-500) 95%, transparent);
+  }
+}
