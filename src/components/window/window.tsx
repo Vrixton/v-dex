@@ -81,7 +81,7 @@ export function Window({
           </div>
           <span
             aria-hidden="true"
-            className="pointer-events-none absolute inset-x-0 bottom-0 h-10 bg-gradient-to-t from-window to-transparent"
+            className="pointer-events-none absolute inset-x-0 bottom-0 h-6 bg-gradient-to-t from-window/10 to-transparent"
           />
         </div>
       ) : (
@@ -93,21 +93,10 @@ export function Window({
         bajar hasta el final del contenido.
       */}
       {footer ? (
-        // <div className="border-brand-cyan/10 bg-window-header/60 relative z-10 border-t px-5 py-3 md:px-8">
-        <div className="relative z-10 border-t border-brand-cyan/10 bg-window-header/50 px-5 py-3 md:px-8">
+        <div className="relative z-10 border-t border-brand-cyan/10 bg-window-header/60 px-5 py-3 md:px-10">
           {footer}
         </div>
       ) : null}
-
-      {/*
-        Barrido de refresco del tubo.
-
-        Son tres capas por un motivo concreto: los porcentajes de translate se
-        calculan sobre la altura del PROPIO elemento, así que una línea de 1px
-        solo recorrería 1px. El carril mide lo mismo que la ventana, se
-        desplaza él, y la línea viaja dentro. Solo se anima transform, que va
-        en el compositor y no repinta el contenido.
-      */}
       <span
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 z-20 overflow-hidden motion-reduce:hidden"

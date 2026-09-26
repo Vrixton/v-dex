@@ -38,10 +38,16 @@ export function MenuScreen() {
   const play = useSound();
   const pathname = usePathname();
 
-  // Si la ruta no está en el menú (una vista de detalle, por ejemplo), se
-  // cae a la primera opción.
+  /**
+   * La home solo coincide exacta; el resto marca también sus rutas hijas,
+   * para que /projects/farmatodo siga señalando "Projects".
+   */
+  function matchesRoute(href: string): boolean {
+    return href === "/" ? pathname === "/" : pathname.startsWith(href);
+  }
+
   const currentIndex = Math.max(
-    MENU_ITEMS.findIndex((item) => item.href === pathname),
+    MENU_ITEMS.findIndex((item) => matchesRoute(item.href)),
     0,
   );
 
@@ -123,7 +129,7 @@ export function MenuScreen() {
             className="flex w-full flex-col items-center gap-1 opacity-0 transition-opacity delay-100 duration-300 data-[ready=true]:opacity-100 md:gap-7"
           >
             {MENU_ITEMS.map((item, index) => {
-              const isCurrent = item.href === pathname;
+              const isCurrent = matchesRoute(item.href);
 
               return (
                 <li key={item.href} className="flex w-full justify-center">

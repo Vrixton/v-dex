@@ -13,7 +13,7 @@ export default function ProjectsPage() {
       scrollable
       actions={
         <>
-          <Badge tone="yellow">
+          <Badge tone="yellow" className="hidden sm:flex">
             {`${String(PROJECTS_BY_NUMBER.length).padStart(2, "0")} RECORDS FOUND`}
           </Badge>
           <Badge tone="green" led pulse>
@@ -22,8 +22,6 @@ export default function ProjectsPage() {
         </>
       }
     >
-      {/* <ul className="grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-4 xl:grid-cols-4"> */}
-      {/* <ul className="grid grid-cols-2 gap-3 md:gap-4 lg:grid-cols-3"> */}
       <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2 md:gap-4 lg:grid-cols-3">
         {PROJECTS_BY_NUMBER.map((project) => (
           <ProjectCard key={project.slug} project={project} />
