@@ -46,7 +46,6 @@
   --vdex-violet-200: #e9d5ff; /* Texto del nivel */
   --vdex-violet-500: #9b5de5; /* Marco del nivel */
   --vdex-violet-900: #2a1b3d;
-
   /* ── Layout del dispositivo ────────────────────────────── */
   /* Móvil primero; en pantallas medianas crecen (ver @media al final) */
   --bezel-top-h: calc(4.5rem + env(safe-area-inset-top, 0px));
@@ -135,6 +134,12 @@
   --color-level: var(--vdex-violet-200);
   --color-level-border: var(--vdex-violet-500);
   --color-level-bg: var(--vdex-violet-900);
+
+  /* ── Cards ─────────────────────────────────────────────── */
+  /* Panel interior de las tarjetas: más sólido que surface */
+  --color-surface-strong: color-mix(in oklab, var(--vdex-navy-950) 50%, transparent);
+  /* Cuerpo de las tarjetas del catálogo, apenas tintado */
+  --color-surface-soft: color-mix(in oklab, var(--vdex-navy-950) 20%, transparent);
 
   /* ── Tipografía ────────────────────────────────────────── */
   /* --font-share-tech-mono lo inyecta next/font en layout.tsx */

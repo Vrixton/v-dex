@@ -1,3 +1,4 @@
+import type { LogoName } from "@/components/ui/project-logo";
 import type { TechIconName } from "@/components/ui/tech-icons";
 
 /**
@@ -21,6 +22,8 @@ export type Project = {
   /** Identificador de la URL. Estable para siempre. */
   slug: string;
   name: string;
+  /** Logo dentro de la hoja de sprites. */
+  logo: LogoName;
   company: string;
   role: string;
   period: string;
@@ -49,6 +52,7 @@ export const PROJECTS: readonly Project[] = [
     number: 1,
     slug: "farmatodo",
     name: "FARMATODO",
+    logo: "farmatodo",
     company: "Farmatodo",
     role: "Frontend Developer",
     period: "Mar 2021 — Jul 2023",
@@ -75,6 +79,7 @@ export const PROJECTS: readonly Project[] = [
     number: 2,
     slug: "uhomie",
     name: "UHOMIE",
+    logo: "uhomie",
     company: "CodersLab",
     role: "Frontend Developer",
     period: "May 2025 — Aug 2026",
@@ -94,12 +99,13 @@ export const PROJECTS: readonly Project[] = [
     ],
     stack: ["react", "typescript", "sass"],
     soft: ["Leadership", "Code Review", "Technical Communication"],
-    link: { url: "https://uhomie.net/", label: "GO_TO_UHOMIE" },
+    link: null,
   },
   {
     number: 3,
     slug: "v-dex",
     name: "V-DEX",
+    logo: "v-dex",
     company: "Personal project",
     role: "Design && Development",
     period: "2026",
@@ -125,6 +131,7 @@ export const PROJECTS: readonly Project[] = [
     number: 4,
     slug: "texastv",
     name: "TEXASTV",
+    logo: "texastv",
     company: "Arbelos Interactive",
     role: "Frontend Developer",
     period: "2023 — 2024",
@@ -150,6 +157,7 @@ export const PROJECTS: readonly Project[] = [
     number: 5,
     slug: "swe",
     name: "SWE",
+    logo: "swe",
     company: "Arbelos Interactive",
     role: "Frontend Developer",
     period: "2023 — 2024",
@@ -175,6 +183,7 @@ export const PROJECTS: readonly Project[] = [
     number: 6,
     slug: "novios-a-bordo",
     name: "NOVIOS A BORDO",
+    logo: "novios-a-bordo",
     company: "Novios a Bordo",
     role: "Sole Frontend Developer",
     period: "TODO",

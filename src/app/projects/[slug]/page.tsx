@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { Badge } from "@/components/ui/badge";
 import { BracketFrame } from "@/components/ui/bracket-frame";
+import { ProjectLogo } from "@/components/ui/project-logo";
 import { TechIconSprite } from "@/components/ui/tech-icons";
 import { Terminal, TerminalLine } from "@/components/ui/terminal";
 import { TechMedal } from "@/components/ui/tech-medal";
@@ -34,7 +35,7 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
       scrollable
       actions={
         <>
-          <Badge tone="yellow" className="hidden sm:flex">{`ENTRY #${pad(project.number)}`}</Badge>
+          <Badge tone="yellow">{`ENTRY #${pad(project.number)}`}</Badge>
           <Badge tone="green" led pulse>
             SYNC: READY
           </Badge>
@@ -63,9 +64,9 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
 
           <span
             aria-hidden="true"
-            className="grid size-20 shrink-0 place-items-center rounded-panel bg-terminal text-2xl text-fg-muted"
+            className="relative z-10 grid size-20 place-items-center rounded-panel text-xl text-fg-muted md:size-25"
           >
-            {project.name.slice(0, 2)}
+            <ProjectLogo name={project.logo} className="size-20 shrink-0 md:size-25" />
           </span>
 
           <div className="flex flex-col gap-1">

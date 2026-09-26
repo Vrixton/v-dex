@@ -1,12 +1,6 @@
 import { TeamSprites } from "@/components/ui/team-sprites";
 import type { Project } from "@/content/projects";
 
-/** El texto del equipo sale del número: así no hay dos criterios de escritura. */
-function teamLabel(size: number | undefined): string {
-  if (!size) return "—";
-  return size === 1 ? "Solo" : `${size} devs`;
-}
-
 /**
  * Datos de contexto del registro, como la hoja de especificaciones de un
  * aparato: etiqueta a la izquierda, valor a la derecha, filas separadas.

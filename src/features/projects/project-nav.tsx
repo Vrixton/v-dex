@@ -43,7 +43,7 @@ export function ProjectNav({ prev, next }: { prev: Project; next: Project }) {
         href="/projects"
         className="rounded-control border border-brand-cyan bg-brand-cyan/15 px-4 py-1.5 text-xs font-medium text-brand-cyan transition-colors hover:bg-brand-cyan/25 md:text-sm"
       >
-        BACK_TO_DB
+        ALL_RECORDS
       </Link>
 
       <Link
