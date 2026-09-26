@@ -151,7 +151,6 @@ export function MenuScreen() {
             })}
           </ul>
         </nav>
-
         <MenuTerminal message={activeItem?.terminal ?? MENU_IDLE_MESSAGE} />
       </div>
     </Window>

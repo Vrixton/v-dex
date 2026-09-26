@@ -14,10 +14,6 @@ export const PROFILE = {
   /** Primer trabajo como programador: Tsserapp, agosto de 2016. */
   careerStart: "2016-08-01",
   bio: [
-    `Frontend developer with {years}+ years building production web applications in Angular and React. 
-    Strong in TypeScript, modern CSS (Flexbox, Grid, SCSS), component architecture, and REST and GraphQL integration.
-    Led the frontend team at a national pharmacy retailer, setting priorities and mentoring developers.
-    Comfortable taking a feature from design handoff through testing, code review, and release.
-    Particular strength in web performance: profiling with Lighthouse, trimming bundle size, and fixing Core Web Vitals regressions.`,
+    `**Frontend developer** with {years}+ years building production web apps in **Angular** and **React**. I led the frontend team at a national pharmacy retailer, setting priorities and mentoring developers. I like the unglamorous part of the job: profiling with Lighthouse, trimming bundle size and fixing **Core Web Vitals** regressions until a page feels instant. This site is built the same way: no images for the UI, no animation loops running when nothing moves.`,
   ],
 } as const;

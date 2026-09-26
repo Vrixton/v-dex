@@ -25,11 +25,11 @@ export default function HomePage() {
     >
       <div className="flex flex-col gap-6 md:gap-8">
         <header className="text-center">
-          <p className="text-xs md:text-sm">[TRAINER_NAME]:</p>
+          <p className="text-xs text-fg-muted">[TRAINER_NAME]:</p>
           <h1 className="text-2xl text-brand-cyan text-shadow-glow md:text-4xl">
             {PROFILE.name.toUpperCase()}
           </h1>
-          <p className="mt-1 text-xs text-fg-muted md:text-sm">{PROFILE.role.toUpperCase()}</p>
+          <p className="mt-1 text-xs md:text-sm">{PROFILE.role.toUpperCase()}</p>
         </header>
 
         {/* Avatar y bio en paralelo desde tablet; apilados en móvil */}
