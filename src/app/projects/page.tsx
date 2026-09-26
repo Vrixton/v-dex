@@ -22,7 +22,9 @@ export default function ProjectsPage() {
         </>
       }
     >
-      <ul className="grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-4 xl:grid-cols-4">
+      {/* <ul className="grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-4 xl:grid-cols-4"> */}
+      {/* <ul className="grid grid-cols-2 gap-3 md:gap-4 lg:grid-cols-3"> */}
+      <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2 md:gap-4 lg:grid-cols-3">
         {PROJECTS_BY_NUMBER.map((project) => (
           <ProjectCard key={project.slug} project={project} />
         ))}
