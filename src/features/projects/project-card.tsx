@@ -42,31 +42,31 @@ export function ProjectCard({ project }: { project: Project }) {
         */}
         <BracketFrame className="inset-3 text-brand-cyan opacity-0 transition-all duration-200 group-hover/card:inset-0 group-hover/card:opacity-100 group-focus-visible/card:inset-0 group-focus-visible/card:opacity-100" />
 
-        <div className="relative flex aspect-[4/3] flex-col overflow-hidden rounded-panel border border-brand-cyan/30 bg-surface-soft transition-colors group-hover/card:border-brand-cyan/70 group-hover/card:bg-brand-cyan/10 group-focus-visible/card:border-brand-cyan/70 group-focus-visible/card:bg-brand-cyan/10">
-          {/* Banda inferior: de borde a borde del marco */}
-          <span
-            aria-hidden="true"
-            className="absolute inset-x-0 bottom-0 h-2/5 rounded-t-panel bg-surface-strong"
-          />
-          {/* El número, como decoración sobre la banda */}
-          <span
-            aria-hidden="true"
-            className="pointer-events-none absolute inset-x-0 right-1 bottom-0 mr-2 mb-2 text-right text-7xl leading-none text-fg/5"
-          >
-            {number}
-          </span>
-
+        <div className="relative flex aspect-[3/2] flex-col overflow-hidden rounded-panel border border-brand-cyan/30 bg-surface-soft transition-colors group-hover/card:border-brand-cyan/70 group-hover/card:bg-brand-cyan/10 group-focus-visible/card:border-brand-cyan/70 group-focus-visible/card:bg-brand-cyan/10">
           <span className="relative z-10 p-5 text-sm text-fg md:text-base">{number}</span>
 
           <span
             aria-hidden="true"
-            className="relative z-10 m-auto grid size-20 place-items-center rounded-panel text-xl text-fg-muted md:size-25"
+            className="relative z-20 m-auto mb-18 grid size-20 place-items-center rounded-panel text-xl text-fg-muted md:size-25"
           >
             <ProjectLogo name={project.logo} className="relative z-10 m-auto size-10 md:size-20" />
           </span>
 
-          <div className="relative z-10 flex flex-col gap-2 p-3">
-            <div className="flex items-end justify-between gap-2">
+          {/*
+            La banda va anclada al fondo y lleva dentro todo lo que crece:
+            así, al aparecer el resumen, se expande hacia arriba en vez de
+            empujar contenido fuera de la tarjeta, que es lo que lo cortaba.
+          */}
+          <div className="absolute inset-x-0 bottom-0 z-10 flex flex-col gap-2 rounded-t-panel bg-surface-strong p-3">
+            {/* El número, como decoración sobre la banda */}
+            <span
+              aria-hidden="true"
+              className="pointer-events-none absolute right-3 bottom-1 text-right text-7xl leading-none text-fg/5"
+            >
+              {number}
+            </span>
+
+            <div className="relative flex items-end justify-between gap-2">
               <ul className="flex flex-wrap gap-1.5">
                 {project.types.map((type) => (
                   <ProjectTypeTag key={type} type={type} />
@@ -81,9 +81,9 @@ export function ProjectCard({ project }: { project: Project }) {
 
             {/*
               El resumen solo en la tarjeta activa. Se reserva su alto con
-              grid-rows para que la tarjeta no dé un salto al aparecer.
+              grid-rows para que la banda crezca con una transición suave.
             */}
-            <div className="grid grid-rows-[0fr] transition-all duration-200 group-hover/card:grid-rows-[1fr] group-focus-visible/card:grid-rows-[1fr]">
+            <div className="relative grid grid-rows-[0fr] transition-all duration-200 group-hover/card:grid-rows-[1fr] group-focus-visible/card:grid-rows-[1fr]">
               <p className="overflow-hidden text-[11px] leading-snug text-fg-muted opacity-0 transition-opacity duration-200 group-hover/card:opacity-100 group-focus-visible/card:opacity-100 md:text-xs">
                 <span aria-hidden="true" className="text-status-ok">
                   {">_ "}
