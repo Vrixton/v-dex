@@ -43,15 +43,18 @@ export type SoundName = keyof typeof SOUNDS;
 
 /** Notas, para que los arpegios se lean como música y no como números. */
 const NOTE = {
-  E4: 330,
   A4: 440,
-  C5: 523,
-  D5: 587,
-  E5: 659,
-  G5: 784,
   A5: 880,
+  C5: 523,
   C6: 1046,
+  C7: 2093,
+  D5: 587,
+  E4: 330,
+  E5: 659,
   E6: 1318,
+  E7: 2637,
+  G5: 784,
+  G7: 3136,
 } as const;
 
 export const SOUNDS = {
@@ -107,11 +110,11 @@ export const SOUNDS = {
   },
   badge: {
     source: "sine",
-    from: NOTE.C6,
-    steps: [NOTE.C6, NOTE.E6],
-    duration: 0.09,
-    volume: 0.05,
-    hold: 0.15,
+    from: NOTE.C7,
+    steps: [NOTE.C7, NOTE.G7],
+    duration: 0.12,
+    volume: 0.03,
+    hold: 0.2,
   },
 } as const satisfies Record<string, SoundSpec>;
 

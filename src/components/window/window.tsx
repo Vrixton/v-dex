@@ -4,6 +4,7 @@ import type { LedTone } from "@/components/ui/status-led";
 import { cn } from "@/lib/cn";
 
 import { WindowHeader } from "./window-header";
+import { CrtSweep } from "./crt-sweep";
 
 // Con exactOptionalPropertyTypes, "?: string" no admite undefined explícito.
 // Como estas props viajan de un componente a otro, se declara "| undefined".
@@ -19,6 +20,8 @@ type WindowProps = {
   fill?: boolean | undefined;
   /** El cuerpo hace scroll y la cabecera se queda fija, como un programa. */
   scrollable?: boolean | undefined;
+  /** Barra fija al pie de la ventana, fuera del scroll. */
+  footer?: ReactNode | undefined;
   children: ReactNode;
   className?: string | undefined;
 };
@@ -39,6 +42,7 @@ export function Window({
   actions,
   fill = false,
   scrollable = false,
+  footer,
   children,
   className,
 }: WindowProps) {
@@ -49,7 +53,7 @@ export function Window({
         "relative isolate flex flex-col overflow-hidden rounded-window border border-white/10 bg-window inset-shadow-window",
         // Alto exacto, no mínimo: si fuera mínimo el contenido la estiraría
         // y el scroll acabaría en la página en vez de dentro de la ventana.
-        fill && "h-[calc(97dvh-var(--screen-inset-top)-var(--screen-inset-bottom))]",
+        fill && "h-[calc(98dvh-var(--screen-inset-top)-var(--screen-inset-bottom))]",
         className,
       )}
     >
@@ -63,11 +67,8 @@ export function Window({
 
       {scrollable ? (
         /*
-          Cuerpo con scroll propio. La cabecera queda fija arriba, como el
+          Cuerpo con scroll propio: la cabecera queda fija arriba, como el
           título de una ventana, y solo se mueve el contenido.
-
-          tabIndex lo hace alcanzable con teclado: sin eso, quien no usa
-          ratón no podría recorrer el contenido que queda fuera de vista.
         */
         <div className="relative z-10 min-h-0 flex-1">
           <div
@@ -78,7 +79,6 @@ export function Window({
           >
             {children}
           </div>
-          {/* Desvanecido: avisa de que el contenido continúa */}
           <span
             aria-hidden="true"
             className="pointer-events-none absolute inset-x-0 bottom-0 h-10 bg-gradient-to-t from-window to-transparent"
@@ -87,6 +87,17 @@ export function Window({
       ) : (
         <div className="relative z-10 flex flex-1 flex-col p-5 md:p-8">{children}</div>
       )}
+
+      {/*
+        Barra fija al pie: acciones que deben verse siempre, sin obligar a
+        bajar hasta el final del contenido.
+      */}
+      {footer ? (
+        // <div className="border-brand-cyan/10 bg-window-header/60 relative z-10 border-t px-5 py-3 md:px-8">
+        <div className="relative z-10 border-t border-brand-cyan/10 bg-window-header/50 px-5 py-3 md:px-8">
+          {footer}
+        </div>
+      ) : null}
 
       {/*
         Barrido de refresco del tubo.
@@ -101,12 +112,7 @@ export function Window({
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 z-20 overflow-hidden motion-reduce:hidden"
       >
-        <span className="absolute inset-0 motion-safe:animate-crt-sweep">
-          {/* Halo suave */}
-          <span className="absolute inset-x-0 top-0 h-16 -translate-y-1/2 bg-gradient-to-b from-transparent via-sweep to-transparent opacity-10" />
-          {/* Línea del haz */}
-          <span className="absolute inset-x-0 top-0 h-px bg-brand-cyan/4 shadow-glow-md" />
-        </span>
+        <CrtSweep />
       </span>
     </section>
   );

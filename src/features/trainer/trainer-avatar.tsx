@@ -33,7 +33,7 @@ export function TrainerAvatar() {
 
       {/* Nivel y barra van superpuestos, no en el flujo: así el sprite
           dispone de todo el alto de la tarjeta y se ve a buen tamaño. */}
-      <p className="absolute top-5 left-5 z-10 w-fit rounded-panel border-2 border-level-border bg-level-bg px-3 py-1 text-sm text-level [animation-delay:600ms] group-data-[ready=true]/screen:motion-safe:animate-hud-in">
+      <p className="absolute top-5 left-5 z-10 mt-1 ml-2 w-fit rounded-panel border-1 border-level-border bg-level-bg px-2 py-1 text-sm text-level [animation-delay:600ms] group-data-[ready=true]/screen:motion-safe:animate-hud-in">
         {`LVL.${level}`}
       </p>
 

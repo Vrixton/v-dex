@@ -208,6 +208,10 @@
   --animate-hud-in: hud-in 500ms ease-out both;
 
   --animate-exp-in: exp-in 600ms cubic-bezier(0.16, 1, 0.3, 1) both;
+
+  /* La flecha empuja hacia su lado: aquí indica dirección, no selección */
+  --animate-nudge-right: nudge-right 700ms ease-in-out infinite;
+  --animate-nudge-left: nudge-left 700ms ease-in-out infinite;
 }
 
 @keyframes led-glow {
@@ -389,5 +393,25 @@
   to {
     opacity: 1;
     translate: 0 0;
+  }
+}
+
+@keyframes nudge-right {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  50% {
+    translate: 3px 0;
+  }
+}
+
+@keyframes nudge-left {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  50% {
+    translate: -3px 0;
   }
 }
