@@ -34,6 +34,7 @@ export function ProjectCard({ project }: { project: Project }) {
         href={`/projects/${project.slug}`}
         onMouseEnter={() => play("hover")}
         onFocus={() => play("hover")}
+        onClick={() => play("click")}
         className="group/card relative block p-3 focus-visible:outline-none"
       >
         {/*
