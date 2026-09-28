@@ -105,6 +105,8 @@
   --color-brand-red: var(--vdex-red-500);
   --color-brand-cyan: var(--vdex-cyan-500);
   --color-brand-yellow: var(--vdex-yellow-400);
+  --color-brand-cyan-dark: color-mix(in oklab, var(--vdex-cyan-500) 55%, black);
+  --color-brand-yellow-dark: color-mix(in oklab, var(--vdex-yellow-400) 45%, black);
 
   /* ── Dispositivo ───────────────────────────────────────── */
   --color-device-backdrop: var(--vdex-cyan-100);
