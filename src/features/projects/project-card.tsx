@@ -42,8 +42,7 @@ export function ProjectCard({ project }: { project: Project }) {
           el borde del marco. Al activarse pasan a inset-0 y se despliegan.
         */}
         <BracketFrame className="inset-3 text-brand-cyan opacity-0 transition-all duration-200 group-hover/card:inset-0 group-hover/card:opacity-100 group-focus-visible/card:inset-0 group-focus-visible/card:opacity-100" />
-
-        <div className="relative flex aspect-[3/2] flex-col overflow-hidden rounded-panel border border-brand-cyan/30 bg-surface-soft transition-colors group-hover/card:border-brand-cyan/70 group-hover/card:bg-brand-cyan/10 group-focus-visible/card:border-brand-cyan/70 group-focus-visible/card:bg-brand-cyan/10">
+        <div className="relative flex aspect-[3/2] flex-col overflow-hidden rounded-panel bg-surface-soft transition-colors group-hover/card:bg-brand-cyan/10 group-focus-visible/card:bg-brand-cyan/10">
           <span className="relative z-10 p-5 text-sm text-fg md:text-base">{number}</span>
 
           <span

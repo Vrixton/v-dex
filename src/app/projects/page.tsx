@@ -13,10 +13,10 @@ export default function ProjectsPage() {
       scrollable
       actions={
         <>
-          <Badge tone="yellow" className="hidden sm:flex">
+          <Badge tone="yellow">
             {`${String(PROJECTS_BY_NUMBER.length).padStart(2, "0")} RECORDS FOUND`}
           </Badge>
-          <Badge tone="green" led pulse>
+          <Badge tone="green" className="hidden sm:flex" led pulse>
             SYNC: READY
           </Badge>
         </>

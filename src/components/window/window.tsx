@@ -87,7 +87,6 @@ export function Window({
       ) : (
         <div className="relative z-10 flex flex-1 flex-col p-5 md:p-8">{children}</div>
       )}
-
       {/*
         Barra fija al pie: acciones que deben verse siempre, sin obligar a
         bajar hasta el final del contenido.

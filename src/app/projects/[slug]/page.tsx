@@ -36,7 +36,7 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
       actions={
         <>
           <Badge tone="yellow">{`ENTRY #${pad(project.number)}`}</Badge>
-          <Badge tone="green" led pulse>
+          <Badge tone="green" led pulse className="hidden sm:flex">
             SYNC: READY
           </Badge>
         </>
