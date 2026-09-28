@@ -41,7 +41,7 @@ export function ProjectNav({ prev, next }: { prev: Project; next: Project }) {
         onFocus={() => play("hover")}
         onClick={() => play("click")}
         href="/projects"
-        className="rounded-control border border-brand-cyan bg-brand-cyan/15 px-4 py-1.5 text-xs font-medium text-brand-cyan transition-colors hover:bg-brand-cyan/25 md:text-sm"
+        className="group/back relative flex cursor-pointer items-center justify-center gap-2 rounded-none border-4 border-brand-cyan-dark bg-brand-cyan px-4 py-2 text-xs text-brand-cyan-dark shadow-[4px_4px_0_0_var(--color-brand-cyan-dark)] transition-all hover:bg-brand-cyan/80 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-yellow active:translate-x-[4px] active:translate-y-[4px] active:shadow-none md:text-sm"
       >
         ALL_RECORDS
       </Link>

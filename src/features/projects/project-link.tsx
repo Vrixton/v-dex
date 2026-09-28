@@ -3,6 +3,7 @@
 import Link from "next/link";
 
 import { useSound } from "@/components/sound/use-sound";
+import { PixelChevron } from "@/components/ui/pixel-chevron";
 
 /**
  * Enlace al sitio del proyecto.
@@ -31,9 +32,10 @@ export function ProjectLink({
         onMouseEnter={() => play("hover")}
         onFocus={() => play("hover")}
         onClick={() => play("click")}
-        className="rounded-control border border-brand-cyan bg-brand-cyan/15 px-4 py-2 text-center text-sm font-medium text-brand-cyan transition-colors hover:bg-brand-cyan/25"
+        className="group/goto relative flex cursor-pointer items-center justify-center gap-2 overflow-hidden rounded-none border-4 border-brand-cyan-dark bg-brand-cyan px-4 py-3 text-base text-brand-cyan-dark shadow-[4px_4px_0_0_var(--color-brand-cyan-dark)] transition-all hover:bg-brand-cyan/80 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-yellow active:translate-x-[4px] active:translate-y-[4px] active:shadow-none"
       >
-        {label}
+        <span className="relative">{label}</span>
+        <PixelChevron className="relative size-3 transition-colors group-hover/goto:text-brand-yellow motion-safe:group-hover/goto:animate-nudge-right" />
       </Link>
       {note ? <p className="max-w-56 text-right text-[10px] text-fg-muted">{note}</p> : null}
     </>
