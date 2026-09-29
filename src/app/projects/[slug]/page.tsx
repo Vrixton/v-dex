@@ -95,9 +95,6 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
         <div className="grid gap-5 lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)]">
           <Terminal program="MISSION_LOG">
             <p className="text-fg-muted">{project.summary}</p>
-
-            {/* El reto va dentro de la misma consola: una caja por dato
-                convertiría la ficha en un archivador. */}
             <p className="text-fg-muted">
               <span className="text-brand-yellow">{"[CHALLENGE]: "}</span>
               {project.challenge}
