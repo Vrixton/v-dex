@@ -2,17 +2,9 @@
 
 import { useSound } from "@/components/sound/use-sound";
 import { useToast } from "@/components/toast/toast-context";
-import { Badge } from "@/components/ui/badge";
 import { AtIcon, CopyIcon } from "@/components/ui/icons";
 import { CONTACT } from "@/content/contact";
 
-/**
- * Canal principal: el correo.
- *
- * Se copia al portapapeles en vez de abrir el cliente de correo, porque
- * mailto falla en cualquier ordenador sin cuenta configurada y la mayoría
- * escribe desde su propio webmail.
- */
 export function MainChannel() {
   const play = useSound();
   const toast = useToast();
@@ -43,7 +35,6 @@ export function MainChannel() {
     <section className="flex flex-col gap-3 rounded-panel bg-surface p-4 md:p-5">
       <header className="flex flex-wrap items-center justify-between gap-2">
         <h2 className="text-sm text-fg md:text-base">MAIN_CHANNEL</h2>
-        <Badge tone="yellow">{`[RESPONSE_TIME]: <24h`}</Badge>
       </header>
 
       <p className="text-[10px] text-fg-muted md:text-xs">

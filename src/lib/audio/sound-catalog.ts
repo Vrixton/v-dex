@@ -43,42 +43,40 @@ export type SoundName = keyof typeof SOUNDS;
 
 /** Notas, para que los arpegios se lean como música y no como números. */
 const NOTE = {
-  A4: 440,
-  A5: 880,
-  C5: 523,
-  C6: 1046,
-  C7: 2093,
-  D5: 587,
   E4: 330,
+  A4: 440,
+  C5: 523,
+  D5: 587,
   E5: 659,
-  E6: 1318,
-  E7: 2637,
   G5: 784,
-  G7: 3136,
+  A5: 880,
+  C6: 1046,
+  E6: 1318,
 } as const;
 
 export const SOUNDS = {
   /** Las láminas se cierran: arpegio descendente, como un menú que se cierra. */
   shutterClose: {
     source: "square",
-    from: 988,
-    steps: [988, 880, 784, 698, 622, 554, 494, 440],
+    from: NOTE.G5,
+    steps: [NOTE.G5, NOTE.D5, NOTE.A4, NOTE.E4],
     duration: 0.26,
-    volume: 0.012,
-    cutoff: 4200,
+    volume: 0.07,
+    cutoff: 2600,
     hold: 0.85,
   },
+  /** Se abren: el mismo arpegio al revés. */
   shutterOpen: {
     source: "square",
-    from: 440,
-    steps: [440, 494, 554, 622, 698, 784, 880, 988],
+    from: NOTE.E4,
+    steps: [NOTE.E4, NOTE.A4, NOTE.D5, NOTE.G5],
     duration: 0.26,
-    volume: 0.012,
-    cutoff: 4200,
+    volume: 0.07,
+    cutoff: 2600,
     hold: 0.85,
   },
   /** Mover el cursor por el menú: un blip agudo y seco. */
-  hover: { source: "square", from: NOTE.C6, duration: 0.035, volume: 0.03, cutoff: 3500 },
+  hover: { source: "square", from: NOTE.C6, duration: 0.035, volume: 0.045, cutoff: 3500 },
   /** Elegir una opción: dos notas ascendentes, el "confirmar" de toda la vida. */
   select: {
     source: "square",
@@ -100,11 +98,30 @@ export const SOUNDS = {
   click: {
     source: "square",
     from: NOTE.C5,
-    steps: [NOTE.C5, NOTE.C5, NOTE.G5],
-    duration: 0.13,
-    volume: 0.05,
+    steps: [NOTE.C5, NOTE.G5],
+    duration: 0.1,
+    volume: 0.07,
     cutoff: 3000,
     hold: 0.9,
+  },
+  /** Pasar por una medalla: tintineo corto y agudo, como un cristal. */
+  badge: {
+    source: "sine",
+    from: NOTE.C6,
+    steps: [NOTE.C6, NOTE.E6],
+    duration: 0.09,
+    volume: 0.05,
+    hold: 0.15,
+  },
+  /** Algo falló: dos notas descendentes, lo contrario de select. */
+  error: {
+    source: "square",
+    from: NOTE.E5,
+    steps: [NOTE.E5, NOTE.A4],
+    duration: 0.18,
+    volume: 0.05,
+    cutoff: 2200,
+    hold: 0.7,
   },
   /** Al activar el sonido: arpegio de encendido. */
   power: {
@@ -114,14 +131,6 @@ export const SOUNDS = {
     duration: 0.3,
     volume: 0.08,
     hold: 0.9,
-  },
-  badge: {
-    source: "sine",
-    from: NOTE.C7,
-    steps: [NOTE.C7, NOTE.G7],
-    duration: 0.12,
-    volume: 0.03,
-    hold: 0.2,
   },
 } as const satisfies Record<string, SoundSpec>;
 
