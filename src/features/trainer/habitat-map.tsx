@@ -9,7 +9,7 @@ export function HabitatMap() {
     <section className="flex flex-col gap-3 rounded-panel bg-surface p-4">
       <header className="flex flex-wrap items-center justify-between gap-2">
         <span>
-          HABITAT <span className="text-fg-muted">|| LOCATION</span>
+          HABITAT <span className="hidden text-fg-muted sm:inline">|| LOCATION</span>
         </span>
       </header>
       <div className="relative h-36 overflow-hidden rounded-panel md:h-35">

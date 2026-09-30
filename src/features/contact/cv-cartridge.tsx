@@ -11,7 +11,7 @@ export function CvCartridge({ className }: { className?: string }) {
       <div className="flex items-center gap-4">
         <span
           aria-hidden="true"
-          className="block h-16 w-10 shrink-0 bg-[url('/cv-cartridge.webp')] bg-contain bg-center bg-no-repeat md:h-20 md:w-18"
+          className="block h-18 w-18 shrink-0 bg-[url('/cv-cartridge.webp')] bg-contain bg-center bg-no-repeat md:h-20 md:w-20"
           style={{ imageRendering: "pixelated" }}
         />
 

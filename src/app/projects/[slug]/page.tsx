@@ -107,7 +107,7 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
               <header className="flex flex-wrap items-center justify-between gap-2">
                 <h2 className="text-sm text-fg md:text-base">
                   <span>
-                    GYM_BADGES <span className="text-fg-muted">|| TECH_STACK</span>
+                    GYM_BADGES <span className="hidden text-fg-muted sm:inline">|| TECH_STACK</span>
                   </span>
                 </h2>
                 <Badge tone="yellow">

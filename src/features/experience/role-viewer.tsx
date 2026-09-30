@@ -28,12 +28,12 @@ export function RoleViewer({ role }: { role: Role }) {
             </div>
           </div>
 
-          <div className="text-right">
+          <div className="text-left md:text-right">
             <p className="text-xs text-fg md:text-sm">
               {role.periodLabel ?? formatPeriod(role.start, role.end)}
               <span className="ml-2 text-fg-muted">{duration(role.start, role.end)}</span>
             </p>
-            <p className="mb-2 flex items-center justify-end gap-1.5 text-[10px] text-fg-muted md:text-xs">
+            <p className="mb-2 flex items-center gap-1.5 text-[10px] text-fg-muted md:justify-end md:text-xs">
               <PinIcon className="size-3" />
               {role.location}
             </p>

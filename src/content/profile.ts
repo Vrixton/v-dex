@@ -1,6 +1,6 @@
 export const PROFILE = {
   name: "Victor Villavicencio",
-  role: "Sr. Front End Developer && Tech Lead && Pokémon Trainer",
+  role: "Sr. Front End Developer && Pokémon Trainer",
   birthDate: "1996-02-25",
   careerStart: "2016-08-01",
   bio: [

@@ -16,7 +16,7 @@ export function GymBadges() {
 
       <header className="flex flex-wrap items-center justify-between gap-2">
         <span>
-          GYM_BADGES <span className="text-fg-muted">|| TECH_STACK</span>
+          GYM_BADGES <span className="hidden text-fg-muted sm:inline">|| TECH_STACK</span>
         </span>
         <Badge tone="yellow">
           {`${String(CONQUERED).padStart(2, "0")}/${TECHNOLOGIES.length} CONQUERED`}
