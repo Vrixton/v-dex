@@ -9,11 +9,12 @@ export function ViewerGrid() {
           backgroundSize: "44px 44px",
         }}
       />
-      {[0, 1.33, 2.66].map((delay) => (
+
+      {[0, -1.33, -2.66].map((delay) => (
         <span
           key={delay}
           style={{ animationDelay: `${delay}s` }}
-          className="absolute top-1/2 left-1/2 size-[420px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-brand-cyan motion-safe:animate-radar-ping motion-reduce:opacity-[0.07]"
+          className="absolute top-1/2 left-1/2 size-[420px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-brand-cyan opacity-0 motion-safe:animate-radar-ping motion-reduce:opacity-[0.07]"
         />
       ))}
 

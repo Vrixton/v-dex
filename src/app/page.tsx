@@ -1,6 +1,8 @@
 import { Badge } from "@/components/ui/badge";
 import { Window } from "@/components/window/window";
 import { PROFILE } from "@/content/profile";
+import { CvCartridge } from "@/features/contact/cv-cartridge";
+import { HabitatMap } from "@/features/trainer/habitat-map";
 import { SkillsPanel } from "@/features/trainer/skills-panel";
 import { TrainerAvatar } from "@/features/trainer/trainer-avatar";
 import { TrainerBio } from "@/features/trainer/trainer-bio";
@@ -31,13 +33,14 @@ export default function HomePage() {
           </h1>
           <p className="mt-1 text-xs md:text-sm">{PROFILE.role.toUpperCase()}</p>
         </header>
-
-        {/* Avatar y bio en paralelo desde tablet; apilados en móvil */}
         <div className="grid gap-4 md:grid-cols-[auto_1fr] md:gap-6">
           <TrainerAvatar />
           <TrainerBio />
         </div>
-
+        <div className="mb-4 grid gap-5 lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)]">
+          <HabitatMap />
+          <CvCartridge />
+        </div>
         <SkillsPanel />
       </div>
     </Window>
