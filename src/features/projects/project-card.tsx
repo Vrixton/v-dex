@@ -24,15 +24,15 @@ export function ProjectCard({ project }: { project: Project }) {
       >
         <BracketFrame className="inset-3 text-brand-cyan opacity-0 transition-all duration-200 group-hover/card:inset-0 group-hover/card:opacity-100 group-focus-visible/card:inset-0 group-focus-visible/card:opacity-100" />
         <div className="relative flex aspect-[3/2] flex-col overflow-hidden rounded-panel bg-surface-soft transition-colors group-hover/card:bg-brand-cyan/10 group-focus-visible/card:bg-brand-cyan/10">
-          <span className="relative z-10 p-5 text-sm text-fg md:text-base">{number}</span>
+          <span className="relative z-10 p-5 pb-0 text-sm text-fg md:text-base">{number}</span>
 
           <span
             aria-hidden="true"
-            className="relative z-20 m-auto mb-18 grid size-20 place-items-center rounded-panel text-xl text-fg-muted md:size-25"
+            className="relative z-20 m-auto mb-20 grid size-20 place-items-center rounded-panel text-xl text-fg-muted md:size-25"
           >
-            <ProjectLogo name={project.logo} className="relative z-10 m-auto size-10 md:size-20" />
+            <ProjectLogo name={project.logo} className="relative z-10 m-auto size-18 md:size-18" />
           </span>
-          <div className="absolute inset-x-0 bottom-0 z-10 flex flex-col gap-2 rounded-t-panel bg-surface-strong p-3">
+          <div className="absolute inset-x-0 bottom-0 z-10 flex flex-col gap-2 rounded-t-panel bg-surface-strong p-4 pt-8">
             <span
               aria-hidden="true"
               className="pointer-events-none absolute right-3 bottom-1 text-right text-7xl leading-none text-fg/5"

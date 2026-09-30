@@ -32,7 +32,7 @@ export function ProjectLink({
         onMouseEnter={() => play("hover")}
         onFocus={() => play("hover")}
         onClick={() => play("click")}
-        className="group/goto relative flex cursor-pointer items-center justify-center gap-2 overflow-hidden rounded-none border-4 border-brand-cyan-dark bg-brand-cyan px-4 py-3 text-base text-brand-cyan-dark shadow-[4px_4px_0_0_var(--color-brand-cyan-dark)] transition-all hover:bg-brand-cyan/80 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-yellow active:translate-x-[4px] active:translate-y-[4px] active:shadow-none"
+        className="group/goto relative mb-5 flex cursor-pointer items-center justify-center gap-2 overflow-hidden rounded-none border-4 border-brand-cyan-dark bg-brand-cyan px-4 py-3 text-base text-brand-cyan-dark shadow-[4px_4px_0_0_var(--color-brand-cyan-dark)] transition-all hover:bg-brand-cyan/80 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-yellow active:translate-x-[4px] active:translate-y-[4px] active:shadow-none md:mb-0"
       >
         <span className="relative">{label}</span>
         <PixelChevron className="relative size-3 transition-colors group-hover/goto:text-brand-yellow motion-safe:group-hover/goto:animate-nudge-right" />
