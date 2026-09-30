@@ -12,7 +12,6 @@ import { ProjectNav } from "@/features/projects/project-nav";
 import { ProjectLink } from "@/features/projects/project-link";
 import { ProjectContext } from "@/features/projects/project-context";
 
-/** Cada ficha se genera en el build: llega como HTML, sin esperar a nada. */
 export function generateStaticParams() {
   return PROJECTS.map((project) => ({ slug: project.slug }));
 }
@@ -41,17 +40,11 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
           </Badge>
         </>
       }
-      /*
-        La navegación va al pie fijo y no al final del contenido: si vive
-        dentro del scroll, hay que bajar hasta abajo para descubrir que se
-        puede volver o pasar de ficha.
-      */
       footer={around ? <ProjectNav prev={around.prev} next={around.next} /> : null}
     >
       <TechIconSprite />
 
       <div className="relative flex flex-col gap-5">
-        {/* El número, como marca de agua del registro */}
         <span
           aria-hidden="true"
           className="pointer-events-none absolute -top-6 right-0 text-[7rem] leading-none text-fg/5 md:text-[10rem]"
@@ -110,7 +103,6 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
 
           <div className="flex flex-col gap-5">
             <ProjectContext project={project} />
-
             <section className="flex flex-col gap-4 rounded-panel bg-surface p-4 md:p-5">
               <header className="flex flex-wrap items-center justify-between gap-2">
                 <h2 className="text-sm text-fg md:text-base">

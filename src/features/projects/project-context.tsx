@@ -1,17 +1,6 @@
-import { TeamSprites } from "@/components/ui/team-sprites";
+import { TeamSize } from "@/components/ui/team-size";
 import type { Project } from "@/content/projects";
 
-/**
- * Datos de contexto del registro, como la hoja de especificaciones de un
- * aparato: etiqueta a la izquierda, valor a la derecha, filas separadas.
- *
- * Solo entran datos que cambian entre proyectos. Uno que vale igual en todos
- * (todos están en producción, casi todos del mismo sector) no informa de nada
- * y solo ocupa sitio.
- *
- * Aparte de la página porque es la parte que más va a cambiar: aquí se
- * rediseña sin tocar el resto de la ficha.
- */
 export function ProjectContext({ project }: { project: Project }) {
   const rows = [
     // La empresa se omite cuando es el propio nombre del proyecto
@@ -36,19 +25,10 @@ export function ProjectContext({ project }: { project: Project }) {
           </div>
         ))}
 
-        {/* El equipo, como un indicador del aparato: un punto por persona */}
         <div className="flex items-center gap-3 py-2">
           <dt className="w-20 shrink-0 text-brand-cyan/70">[TEAM]:</dt>
           <dd className="flex items-center gap-2.5 text-fg">
-            <span className="flex items-baseline gap-1">
-              <span className="text-base text-brand-yellow md:text-lg">
-                {String(project.teamSize ?? 0).padStart(2, "0")}
-              </span>
-              <span className="text-[10px] text-fg-muted">
-                {project.teamSize === 1 ? "DEV" : "DEVS"}
-              </span>
-            </span>
-            {project.teamSize ? <TeamSprites size={project.teamSize} /> : null}
+            <TeamSize size={project.teamSize} />
           </dd>
         </div>
       </dl>
