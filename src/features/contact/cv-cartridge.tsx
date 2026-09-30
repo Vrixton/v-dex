@@ -2,15 +2,6 @@ import { readCvSize } from "@/lib/cv-meta";
 import { cn } from "@/lib/cn";
 import { CvDownloadButton } from "./cv-download-button";
 
-/**
- * El CV como cartucho.
- *
- * Es un componente aparte porque también irá en la home: la ficha de datos
- * y el botón viajan juntos, así que se monta con una línea donde haga falta.
- *
- * El tamaño sale del archivo real; el nombre visible es temático, pero al
- * descargarlo llega con un nombre que un reclutador entiende y archiva.
- */
 export function CvCartridge({ className }: { className?: string }) {
   const size = readCvSize();
 
@@ -20,7 +11,7 @@ export function CvCartridge({ className }: { className?: string }) {
       <div className="flex items-center gap-4">
         <span
           aria-hidden="true"
-          className="block h-16 w-10 shrink-0 bg-[url('/cv-cartridge.webp')] bg-contain bg-center bg-no-repeat md:h-20 md:w-12"
+          className="block h-16 w-10 shrink-0 bg-[url('/cv-cartridge.webp')] bg-contain bg-center bg-no-repeat md:h-20 md:w-18"
           style={{ imageRendering: "pixelated" }}
         />
 
