@@ -43,15 +43,17 @@ export type SoundName = keyof typeof SOUNDS;
 
 /** Notas, para que los arpegios se lean como música y no como números. */
 const NOTE = {
-  E4: 330,
   A4: 440,
-  C5: 523,
-  D5: 587,
-  E5: 659,
-  G5: 784,
   A5: 880,
+  C5: 523,
   C6: 1046,
+  C7: 2093,
+  D5: 587,
+  E4: 330,
+  E5: 659,
   E6: 1318,
+  G5: 784,
+  G7: 3136,
 } as const;
 
 export const SOUNDS = {
@@ -107,11 +109,11 @@ export const SOUNDS = {
   /** Pasar por una medalla: tintineo corto y agudo, como un cristal. */
   badge: {
     source: "sine",
-    from: NOTE.C6,
-    steps: [NOTE.C6, NOTE.E6],
-    duration: 0.09,
-    volume: 0.05,
-    hold: 0.15,
+    from: NOTE.C7,
+    steps: [NOTE.C7, NOTE.G7],
+    duration: 0.22,
+    volume: 0.035,
+    hold: 0.08,
   },
   /** Algo falló: dos notas descendentes, lo contrario de select. */
   error: {

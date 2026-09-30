@@ -39,3 +39,53 @@ export function yearProgress(isoDate: string, now: Date = new Date()): number {
   const progress = (now.getTime() - last) / (next - last);
   return Math.min(1, Math.max(0, progress));
 }
+
+/** Nombres de mes en inglés, que es el idioma de la interfaz. */
+const MONTHS = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
+] as const;
+
+/** "2021-03" → "Mar 2021". Sin fin, el periodo sigue abierto. */
+export function formatPeriod(start: string, end?: string): string {
+  const from = formatMonth(start);
+  return end ? `${from} — ${formatMonth(end)}` : `${from} — present`;
+}
+
+function formatMonth(value: string): string {
+  const [year, month] = value.split("-").map(Number);
+  return `${MONTHS[(month ?? 1) - 1]} ${year}`;
+}
+
+/**
+ * Duración entre dos fechas, en años y meses.
+ *
+ * Sin fecha de fin cuenta hasta hoy, así un puesto en curso no se queda
+ * congelado. Es el dato que el visitante suma mentalmente al leer el
+ * periodo: darlo hecho ahorra ese cálculo.
+ */
+export function duration(start: string, end?: string): string {
+  const [startYear, startMonth] = start.split("-").map(Number);
+  const now = new Date();
+  const [endYear, endMonth] = end
+    ? end.split("-").map(Number)
+    : [now.getFullYear(), now.getMonth() + 1];
+
+  const months = (endYear! - startYear!) * 12 + (endMonth! - startMonth!) + 1;
+  const years = Math.floor(months / 12);
+  const rest = months % 12;
+
+  if (years === 0) return `${rest}m`;
+  if (rest === 0) return `${years}y`;
+  return `${years}y ${rest}m`;
+}
