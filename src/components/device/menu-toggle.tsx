@@ -24,20 +24,20 @@ import { useSound } from "@/components/sound/use-sound";
  */
 
 export function MenuToggle() {
-  const { isMenuOpen, isBusy, isLoading, tone, toggleMenu } = useDevice();
+  const { isMenuOpen, isBusy, isLoading, tone, toggleMenu, isBooting, openDevice } = useDevice();
   const play = useSound();
 
   return (
     <button
       id="menu-toggle"
       type="button"
-      aria-label="Menu"
+      aria-label={isBooting ? "Open" : "Menu"}
+      onClick={isBooting ? openDevice : toggleMenu}
       aria-expanded={isMenuOpen}
       aria-busy={isBusy}
       {...(isMenuOpen ? { "aria-controls": "device-menu" } : {})}
       data-state={isMenuOpen ? "open" : "closed"}
       data-tone={tone}
-      onClick={toggleMenu}
       onMouseEnter={() => play("hover")}
       className="group absolute bottom-0 left-1/2 size-(--menu-toggle-size) -translate-x-1/2 translate-y-1/2 cursor-pointer rounded-full focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-yellow"
     >
@@ -56,7 +56,19 @@ export function MenuToggle() {
             />
             {/* Reflejo del cristal */}
             <span className="absolute top-[8%] left-1/2 h-[22%] w-[45%] -translate-x-1/2 rounded-full bg-white/50" />
-            {isLoading ? <LoaderIcon /> : isMenuOpen ? <CloseIcon /> : <MenuIcon />}
+            {/* {isLoading ? <LoaderIcon /> : isMenuOpen ? <CloseIcon /> : <MenuIcon />} */}
+
+            {isBooting ? (
+              <span className="text-[length:calc(var(--menu-toggle-size)*0.2)] tracking-widest text-white">
+                OPEN
+              </span>
+            ) : isLoading ? (
+              <LoaderIcon />
+            ) : isMenuOpen ? (
+              <CloseIcon />
+            ) : (
+              <MenuIcon />
+            )}
           </span>
         </span>
       </span>

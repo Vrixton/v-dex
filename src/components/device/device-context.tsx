@@ -16,10 +16,10 @@ import {
 import { useReducedMotion } from "@/hooks/use-reduced-motion";
 
 import {
+  bootDeviceState,
   buttonTone,
   confirmingHref,
   deviceReducer,
-  initialDeviceState,
   isBusy,
   isContentVisible,
   isLoading,
@@ -48,6 +48,11 @@ type DeviceContextValue = {
   isContentVisible: boolean;
   /** El botón central debe mostrar el loader. */
   isLoading: boolean;
+  /**
+   * Arranque: el dispositivo está cerrado y nadie ha pedido navegar. Es el
+   * estado en el que espera a que lo abran desde la portada de encendido.
+   */
+  isBooting: boolean;
   /** Color del botón central: cian, ámbar (esperando) o rojo (menú abierto). */
   tone: "cyan" | "amber" | "red";
   shutterPosition: "open" | "closed";
@@ -55,12 +60,15 @@ type DeviceContextValue = {
   confirmingHref: string | null;
   toggleMenu: () => void;
   navigate: (href: string) => void;
+  /** Abre el dispositivo por primera vez, desde la portada. */
+  openDevice: () => void;
 };
 
 const DeviceContext = createContext<DeviceContextValue | null>(null);
 
 export function DeviceProvider({ children }: { children: ReactNode }) {
-  const [state, dispatch] = useReducer(deviceReducer, initialDeviceState);
+  // Arranca cerrado: la portada de encendido lo abre con el botón
+  const [state, dispatch] = useReducer(deviceReducer, bootDeviceState);
   const prefersReducedMotion = useReducedMotion();
   const router = useRouter();
   // isPending sigue activo hasta que la vista nueva está renderizada:
@@ -107,11 +115,14 @@ export function DeviceProvider({ children }: { children: ReactNode }) {
 
   // Y solo se abre cuando esa navegación terminó. Si la red va lenta, el
   // dispositivo se queda cerrado con el loader girando.
+  //
+  // Sin intención no hay nada que esperar: es el arranque, y ahí el
+  // dispositivo se queda cerrado hasta que lo abren desde la portada.
   useEffect(() => {
-    if (state.phase !== "closed" || isPending) return;
+    if (state.phase !== "closed" || isPending || !state.intent) return;
     const timer = window.setTimeout(() => dispatch({ type: "CONTENT_READY" }), dwell);
     return () => window.clearTimeout(timer);
-  }, [state.phase, isPending, dwell]);
+  }, [state.phase, state.intent, isPending, dwell]);
 
   useEffect(() => {
     if (state.phase === "open") pushedHref.current = null;
@@ -119,16 +130,17 @@ export function DeviceProvider({ children }: { children: ReactNode }) {
 
   // Si el contenido llega antes, el efecto se limpia y el aviso no ocurre.
   useEffect(() => {
-    if (state.phase !== "closed") return;
+    if (state.phase !== "closed" || !state.intent) return;
     const timer = window.setTimeout(() => dispatch({ type: "SLOW_THRESHOLD_REACHED" }), SLOW_MS);
     return () => window.clearTimeout(timer);
-  }, [state.phase]);
+  }, [state.phase, state.intent]);
 
   const toggleMenu = useCallback(() => dispatch({ type: "REQUEST_MENU_TOGGLE" }), []);
   const navigate = useCallback(
     (href: string) => dispatch({ type: "REQUEST_NAVIGATION", href }),
     [],
   );
+  const openDevice = useCallback(() => dispatch({ type: "CONTENT_READY" }), []);
 
   const value = useMemo(
     () => ({
@@ -137,13 +149,16 @@ export function DeviceProvider({ children }: { children: ReactNode }) {
       isBusy: isBusy(state.phase),
       isContentVisible: isContentVisible(state.phase),
       isLoading: isLoading(state.phase),
+      // Cerrado y sin intención: nadie ha pedido navegar, así que es el arranque
+      isBooting: state.phase === "closed" && state.intent === null,
       tone: buttonTone(state),
       shutterPosition: shutterPosition(state.phase),
       confirmingHref: confirmingHref(state),
       toggleMenu,
       navigate,
+      openDevice,
     }),
-    [state, toggleMenu, navigate],
+    [state, toggleMenu, navigate, openDevice],
   );
 
   return <DeviceContext value={value}>{children}</DeviceContext>;
