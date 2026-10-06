@@ -51,6 +51,10 @@ export const initialDeviceState: DeviceState = {
   isMenuOpen: false,
   isSlow: false,
 };
+export const bootDeviceState: DeviceState = {
+  ...initialDeviceState,
+  phase: "closed",
+};
 
 export function deviceReducer(state: DeviceState, event: DeviceEvent): DeviceState {
   switch (event.type) {
@@ -141,8 +145,11 @@ export function isLoading(phase: ShutterPhase): boolean {
  */
 
 export function buttonTone(state: DeviceState): "cyan" | "amber" | "red" {
+  if (state.isMenuOpen) return "red";
+  // En el arranque no hay nada cargando: el ámbar solo avisa de esperas reales
+  if (state.phase === "closed" && state.intent === null) return "cyan";
   if (isLoading(state.phase) || state.isSlow) return "amber";
-  return state.isMenuOpen ? "red" : "cyan";
+  return "cyan";
 }
 
 /** Ruta del ítem que está parpadeando, si lo hay. */
