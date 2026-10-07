@@ -4,7 +4,8 @@ import Link from "next/link";
 
 import { useSound } from "@/components/sound/use-sound";
 import { PixelChevron } from "@/components/ui/pixel-chevron";
-
+import { LockIcon } from "@/components/ui/icons";
+import { BracketFrame } from "@/components/ui/bracket-frame";
 /**
  * Enlace al sitio del proyecto.
  *
@@ -28,8 +29,11 @@ export function ProjectLink({
 
   if (!url) {
     return (
-      <p className="rounded-control border border-white/15 bg-black/30 px-4 py-2 text-xs text-fg-muted md:text-sm">
-        [ACCESS]: PRIVATE
+      <p className="relative flex items-center gap-2 rounded-control border border-current/40 bg-screen/80 px-4 py-2 text-xs text-fg-muted md:text-sm">
+        <span aria-hidden="true" className="absolute inset-0 bg-current opacity-30" />
+        <BracketFrame size="sm" />
+        <LockIcon className="size-3.5 shrink-0" />
+        <span className="text-white">[ACCESS]:</span>PRIVATE
       </p>
     );
   }
