@@ -11,17 +11,28 @@ import { PixelChevron } from "@/components/ui/pixel-chevron";
  * Vive aparte porque necesita sonido, y el sonido necesita cliente: la
  * página es un componente de servidor que se genera en el build, y ponerle
  * "use client" le quitaría esa ventaja por un detalle de un botón.
+ *
+ * Sin enlace el proyecto es privado o ya no está en línea: se dice, en vez
+ * de dejar un botón que lleva a una página caída.
  */
 export function ProjectLink({
   url,
   label,
   note,
 }: {
-  url: string;
+  url?: string | undefined;
   label: string;
   note?: string | undefined;
 }) {
   const play = useSound();
+
+  if (!url) {
+    return (
+      <p className="rounded-control border border-white/15 bg-black/30 px-4 py-2 text-xs text-fg-muted md:text-sm">
+        [ACCESS]: PRIVATE
+      </p>
+    );
+  }
 
   return (
     <>
