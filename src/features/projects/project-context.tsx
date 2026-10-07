@@ -14,10 +14,6 @@ export function ProjectContext({ project }: { project: Project }) {
       <h2 className="text-sm text-fg md:text-base">CONTEXT</h2>
 
       <dl className="flex flex-col text-xs md:text-sm">
-        <div className="flex gap-3 border-b border-white/5 py-2">
-          <dt className="w-20 shrink-0 text-brand-cyan/70">[SCOPE]:</dt>
-          <dd className="text-brand-yellow">{project.kind}</dd>
-        </div>
         {rows.map(([label, value]) => (
           <div key={label} className="flex gap-3 border-b border-white/5 py-2 last:border-none">
             <dt className="w-20 shrink-0 text-brand-cyan/70">{`[${label}]:`}</dt>

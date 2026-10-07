@@ -8,10 +8,8 @@ import type { TechIconName } from "@/components/ui/tech-icons";
  * reordenar cuando quieras sin romper nada, porque las URLs usan `slug`,
  * que no cambia nunca.
  *
- * Los textos marcados con TODO son marcadores realistas: tienen el largo y
- * el tono de los definitivos para que la maqueta sea fiel, pero hay que
- * sustituirlos antes de publicar. El contenido va en inglés, como el resto
- * de la interfaz.
+ * Aquí va lo construido; cómo se trabajaba en cada empresa vive en los
+ * registros de experiencia, para que las dos vistas no se repitan.
  */
 
 export type ProjectType = "E-COMMERCE" | "WEB APP" | "DASHBOARD" | "PORTFOLIO";
@@ -27,12 +25,8 @@ export type Project = {
   company: string;
   role: string;
   period: string;
-  /** Tamaño del equipo en ese proyecto. */
-  team: string;
   /** Cuántas personas había en el equipo, para el indicador del contexto. */
   teamSize?: number;
-  /** Producto propio, trabajo para cliente o proyecto personal. */
-  kind: "PRODUCT" | "CLIENT" | "PERSONAL";
   types: readonly ProjectType[];
   summary: string;
   /**
@@ -44,7 +38,8 @@ export type Project = {
   work: readonly string[];
   stack: readonly TechIconName[];
   soft: readonly string[];
-  link: { url: string; label: string; note?: string } | null;
+  /** Sin enlace, el proyecto es privado o ya no está en línea. */
+  link?: { url: string; label: string; note?: string } | null;
 };
 
 export const PROJECTS: readonly Project[] = [
@@ -55,24 +50,24 @@ export const PROJECTS: readonly Project[] = [
     logo: "farmatodo",
     company: "Farmatodo",
     role: "Frontend Developer",
-    period: "Mar 2021 — Jul 2023",
-    team: "6 devs",
+    period: "2021 — 2023",
     teamSize: 6,
-    kind: "PRODUCT",
     types: ["E-COMMERCE"],
-    summary: "Multi-country pharmacy e-commerce platform.",
+    summary:
+      "The digital storefront of a pharmacy chain with hundreds of stores across Colombia and Venezuela.",
     challenge:
-      "High-traffic pharmacy checkout across countries: a broken flow means lost orders, so every change had to ship behind tests.",
+      "Keeping the sprint moving while production kept interrupting it. Incidents arrive without warning on a high-traffic store, and every new priority threatens to bury a bug someone reported last week. Half the work was technical; the other half was making sure nothing fell through the cracks.",
     work: [
-      // TODO: confirmar detalles
-      "Led the **product reviews** feature end to end, integrating the **BazaarVoice API** across the catalog.",
-      "Built the **medication scheduler**: recurring prescription reminders and repeat orders.",
-      "Worked on **checkout**: payment methods, validations and the delivery flow.",
-      "Shipped product pages and catalog widgets, plus responsive work on the main views.",
-      "Covered critical flows with **unit tests** to keep releases stable on a high-traffic site.",
+      "Integrated **PSE payments**, the bank transfer method most used in Colombia, into the checkout flow.",
+      "Built the **medication information module**: dosage, warnings and whether a drug is safe during pregnancy or breastfeeding.",
+      "Built a **personalised product search** on top of BazaarVoice that recommends items from each customer's preferences.",
+      "Shipped the **Farmatodo Prime** landing page: subscription plans, benefits and a tag showing how much the customer would have saved.",
+      "Ran the upgrade **from Angular 11 to 16**, one major version at a time, on a storefront that could not go down.",
+      "Ran production deployments for the Colombian and Venezuelan storefronts, and took weekend on-call shifts.",
+      "Ran internal sessions on **Git and nvm** for the team, slides included.",
     ],
-    stack: ["angular", "typescript", "sass", "javascript"],
-    soft: ["Ownership", "Code Review", "Technical Communication"],
+    stack: ["angular", "typescript", "sass", "html5", "css3"],
+    soft: ["Ownership", "Technical Communication", "Task Prioritization"],
     link: { url: "https://www.farmatodo.com.co", label: "GO_TO_FARMATODO" },
   },
   {
@@ -82,24 +77,25 @@ export const PROJECTS: readonly Project[] = [
     logo: "uhomie",
     company: "CodersLab",
     role: "Frontend Developer",
-    period: "May 2025 — Aug 2026",
-    team: "TODO",
+    period: "2025 — 2026",
     teamSize: 5,
-    kind: "PRODUCT",
-    types: ["WEB APP"],
-    summary: "Web app built on top of a shared component library.",
+    types: ["WEB APP", "DASHBOARD"],
+    summary:
+      "A property marketplace for buying and renting homes across Chile, Colombia and Venezuela.",
     challenge:
-      "Every screen had its own one-off components, so the UI drifted; the fix had to work for the whole team, not just my tickets.",
+      "The frontend ran ahead of the backend for most of the project, so large parts of the product had to be built, demoed and kept moving against APIs that did not exist yet. Keeping a six-month plan realistic while the team changed around it was as much of the job as the code.",
     work: [
-      // TODO: confirmar detalles
-      "Built a reusable **component library** in **React** and **TypeScript**, replacing one-off implementations across the team.",
-      "Wired up REST APIs for authentication and role-based access.",
-      "Wrote unit tests on the flows that regressed most often.",
-      "Stepped up to **coordinate the team** and run planning sessions until a project lead was hired.",
+      "Built the public site: home, **property search**, listing cards, popular districts and the content pages.",
+      "Put the listings **on a map**, with the price shown on each pin so you can compare without opening a single one.",
+      "Built the property detail page, a **cost estimator** for utilities and running expenses, and the **tour booking** flow.",
+      "Built the admin panel with **four roles** — owner, agent, manager and admin — each with its own permissions, listings and workflows.",
+      "Implemented authentication and role-based access across both apps.",
+      "Planned the roadmap up to six months out, set priorities and assigned work.",
+      "Reviewed pull requests and walked new developers through the codebase.",
     ],
     stack: ["react", "typescript", "sass"],
-    soft: ["Leadership", "Code Review", "Technical Communication"],
-    link: null,
+    soft: ["Task Prioritization", "Technical Communication", "Problem Solving"],
+    link: { url: "https://uhomie.cl", label: "GO_TO_UHOMIE" },
   },
   {
     number: 3,
@@ -109,22 +105,21 @@ export const PROJECTS: readonly Project[] = [
     company: "Personal project",
     role: "Design && Development",
     period: "2026",
-    team: "Solo",
     teamSize: 1,
-    kind: "PERSONAL",
     types: ["PORTFOLIO"],
-    summary: "This portfolio: a device with its own software.",
+    summary: "This portfolio: a handheld device you are holding right now.",
     challenge:
-      "A device full of motion that still had to feel instant: no UI images, no animation loops running when nothing moves.",
+      "Knowing when to stop. Every idea opened three more, and a portfolio that never ships is worth nothing. Most of the work was deciding what stayed out: no screenshot galleries, no filters for six records.",
     work: [
-      // TODO: confirmar detalles
-      "**State machine** driving the device open and close cycle, covered with unit tests.",
-      "**WebGL** CRT background with magnetic distortion, rendered on demand only.",
-      "Chiptune sound design synthesized with **Web Audio**: no audio files shipped.",
-      "Custom **design system** on Tailwind v4, with tokens split into primitives and semantics.",
+      "Built the device shell: **two bezels driven by a state machine** that close over the screen on every navigation and open again when the view is ready.",
+      "Synthesised every sound **in the browser with the Web Audio API** — no audio files, no library, under a kilobyte of code.",
+      "Drew all the pixel art from scratch: badges, logos, sprites and maps, as **sprite sheets** that weigh a few hundred bytes each.",
+      "Wired the contact form to Resend through a route handler, with validation on both sides and **rate limiting** against abuse.",
+      "Kept it **accessible**: every animation honours reduced motion, the device is operable by keyboard, and the shutters never trap focus.",
+      "Built it **with AI as a working tool**, which made the real work the one that cannot be delegated: deciding what to build and what to leave out.",
     ],
     stack: ["nextjs", "react", "typescript", "tailwind"],
-    soft: ["Ownership", "UX & Accessibility Focus", "Core Web Vitals"],
+    soft: ["Ownership", "Attention to Detail", "UX & Accessibility Focus"],
     link: { url: "https://github.com/Vrixton/v-dex", label: "GO_TO_REPOSITORY" },
   },
   {
@@ -135,23 +130,21 @@ export const PROJECTS: readonly Project[] = [
     company: "Arbelos Interactive",
     role: "Frontend Developer",
     period: "2023 — 2024",
-    team: "TODO",
     teamSize: 4,
-    kind: "CLIENT",
     types: ["WEB APP"],
-    summary: "Video platform with profiles, watch history and recommendations.",
+    summary:
+      "A video streaming platform with multi-profile accounts, plans and a recommendation feed.",
     challenge:
-      "Video playback with multiple profiles and watch history, where session handling and protected routes had to hold up.",
+      "Getting a working demo in front of the client as early as possible. That meant deciding, release after release, what was essential and what could wait, and building the parts that had to be shown first.",
     work: [
-      // TODO: confirmar detalles
-      "Built the **video player** and catalog screens, in the style of mainstream streaming apps.",
-      "**Multi-profile login**, watch history and a **recommendation feed**.",
-      "Integrated the CMS and authentication APIs, including session handling and protected routes.",
-      "End-to-end coverage of the main flows with **Cypress**.",
+      "Built authentication and **multi-profile accounts**: one subscription, several viewers, each with their own history.",
+      "Built the catalog: categories, filters and a **recommendation feed** on the home screen.",
+      "Integrated the video player with its controls and made the whole experience work on any screen.",
+      "Wired up **Firebase** for data and session handling.",
+      "Built the subscription plans and the account screens.",
     ],
-    stack: ["nextjs", "react", "typescript", "cypress"],
-    soft: ["Cross-Functional Collaboration", "Ownership"],
-    link: null,
+    stack: ["react", "nextjs", "typescript", "cypress"],
+    soft: ["Task Prioritization", "Problem Solving", "Adaptability"],
   },
   {
     number: 5,
@@ -160,54 +153,45 @@ export const PROJECTS: readonly Project[] = [
     logo: "swe",
     company: "Arbelos Interactive",
     role: "Frontend Developer",
-    period: "2023 — 2024",
-    team: "TODO",
+    period: "2024",
     teamSize: 4,
-    kind: "CLIENT",
-    types: ["WEB APP", "DASHBOARD"],
-    summary: "Public site and content administration dashboard.",
+    types: ["E-COMMERCE", "DASHBOARD"],
+    summary:
+      "Online store and site for a Canadian wrestling promotion: merchandise, upcoming shows and news.",
     challenge:
-      "A public site and an admin dashboard sharing one data layer, without the two drifting apart.",
+      "Nothing here was new: by then I had built this kind of storefront several times for the same client. The job was to deliver it cleanly and on time without letting familiarity turn into carelessness.",
     work: [
-      // TODO: confirmar detalles
-      "Built the public site and the **admin dashboard**, sharing a single data layer.",
-      "Content, catalog and user management from the dashboard.",
-      "Integrated REST APIs with session handling and permissions.",
-      "Unit tests over the dashboard business logic.",
+      "Built the storefront: product listing with **pagination and search**, product detail pages and the **shopping cart**.",
+      "Built the content side: upcoming shows and the news section.",
+      "Built the admin panel that manages the catalog and everything published on the site.",
+      "Wired up **Firebase** for data and user authentication.",
     ],
-    stack: ["angular", "typescript", "sass"],
-    soft: ["Technical Communication", "Code Review"],
-    link: null,
+    stack: ["react", "typescript", "sass"],
+    soft: ["Ownership", "Time Management", "Attention to Detail"],
   },
   {
     number: 6,
     slug: "novios-a-bordo",
     name: "NOVIOS A BORDO",
     logo: "novios-a-bordo",
-    company: "Novios a Bordo",
+    company: "Freelance",
     role: "Sole Frontend Developer",
-    period: "TODO",
-    team: "Solo frontend",
-    teamSize: 1,
-    kind: "CLIENT",
-    types: ["DASHBOARD"],
-    summary: "Internal admin dashboard for the client's day-to-day operations.",
+    period: "2023",
+    teamSize: 2,
+    types: ["WEB APP", "DASHBOARD"],
+    summary:
+      "A Peruvian wedding registry where guests chip in for a gift: each one pays a share until it is covered.",
     challenge:
-      "Only frontend on the project: every architecture and interface decision was mine to make and to defend.",
+      "The client had a working product in PHP and wanted it rebuilt in Angular, starting from a purchased template. Half the work was removing what the template brought and did not belong, updating outdated dependencies and making the rest behave like a real product instead of a demo.",
     work: [
-      // TODO: confirmar detalles
-      "**Only frontend** on the project: owned the **architecture** and the interface decisions.",
-      "Built the admin dashboard in Angular, from layout to data views.",
-      "Forms with validation, and list views with filtering and sorting.",
-      "Integrated the client API with **role-based access control**.",
+      "Rebuilt the public site from PHP to Angular: registry pages, gift shares and the couple's landing page.",
+      "Built the admin panel where couples configure their wedding, payment methods, images and colours.",
+      "Built the **shared gift flow**: a guest contributes part of a gift and leaves a message for the couple.",
+      "Took the **design decisions** myself, adapting the template to what the product actually needed.",
     ],
-    stack: ["angular", "typescript"],
-    soft: ["Ownership", "UX & Accessibility Focus", "Stakeholder Management"],
-    link: {
-      url: "https://noviosabordo.com",
-      label: "GO_TO_CLIENT_SITE",
-      note: "Client's public site. My work was the internal dashboard, not public.",
-    },
+    stack: ["angular", "typescript", "sass"],
+    soft: ["Ownership", "Adaptability", "UX & Accessibility Focus"],
+    link: { url: "https://noviosabordo.com", label: "GO_TO_NOVIOS_A_BORDO" },
   },
 ];
 

@@ -63,7 +63,7 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
           </span>
 
           <div className="flex flex-col gap-1">
-            <p className="text-xs text-fg-muted">[PROJECT_NAME]</p>
+            <p className="text-xs text-fg-muted">[PROJECT_NAME]:</p>
             <h1 className="text-2xl text-brand-cyan text-shadow-glow md:text-3xl">
               {project.name}
             </h1>
@@ -75,13 +75,11 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
           </div>
 
           <div className="flex flex-col gap-2 md:ml-auto md:items-end">
-            {project.link ? (
-              <ProjectLink
-                url={project.link.url}
-                label={project.link.label}
-                note={project.link.note}
-              />
-            ) : null}
+            <ProjectLink
+              url={project.link?.url}
+              label={project.link?.label ?? ""}
+              note={project.link?.note}
+            />
           </div>
         </header>
 
