@@ -72,7 +72,7 @@ export function TrainerAvatar() {
           aria-label={`${years} years of experience, progress toward the next one`}
         >
           <div
-            className="flex h-full items-center rounded-full bg-gradient-to-r from-white/80 to-white/20 px-2"
+            className="flex h-full items-center rounded-full bg-gradient-to-r from-white/20 to-white/80 px-2"
             style={{ width: `${Math.max(progress, 70)}%` }}
           >
             <span className="text-[10px] whitespace-nowrap text-screen md:text-xs">
