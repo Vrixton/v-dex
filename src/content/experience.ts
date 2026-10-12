@@ -87,7 +87,7 @@ export const ROLES: readonly Role[] = [
     status: "CLOSED",
     log: [
       "Four years across **Tsserapp, S9 Consulting and Tita Media**, moving between agencies and studios.",
-      "**Tsserapp** is where the foundations came from: HTML, CSS and vanilla JavaScript across a lot of projects, before any framework made them easy.",
+      "**Tsserapp** is where the foundations came from: HTML, CSS and vanilla JavaScript across many projects, before any framework made them easy.",
       "**S9 Consulting**: dashboards and internal tools, and where I started **mentoring juniors and reviewing code** — the part of the job I have liked most ever since.",
       "**Tita Media**: storefronts on **VTEX** for Colombian brands like Mario Hernández and Fiotti.",
     ],
