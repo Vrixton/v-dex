@@ -1,25 +1,14 @@
 "use client";
+
 import Link from "next/link";
+
 import { useSound } from "@/components/sound/use-sound";
+import { Button } from "@/components/ui/button";
 import { PixelChevron } from "@/components/ui/pixel-chevron";
 import type { Project } from "@/content/projects";
 
 const pad = (value: number) => String(value).padStart(3, "0");
 
-/**
- * Navegación entre fichas: se pasa de registro sin volver al índice, como en
- * una Pokédex.
- *
- * Vive aparte de la página porque va en el pie fijo de la ventana y porque
- * es lo que más se retoca: aquí se ajusta sin tocar el contenido de la ficha.
- *
- * Los grupos llevan nombre (group/prev, group/next) porque hay dos en la
- * misma barra: sin nombrarlos, pasar por uno animaría también el otro.
- *
- * La flecha se desplaza hacia su lado en vez de parpadear como la del menú:
- * allí el chevron es un cursor que señala la selección, aquí indica
- * dirección, y el movimiento lo dice sin necesidad de explicarlo.
- */
 export function ProjectNav({ prev, next }: { prev: Project; next: Project }) {
   const play = useSound();
   return (
@@ -36,15 +25,7 @@ export function ProjectNav({ prev, next }: { prev: Project; next: Project }) {
         <span className="sm:hidden">{`#${pad(prev.number)}`}</span>
       </Link>
 
-      <Link
-        onMouseEnter={() => play("hover")}
-        onFocus={() => play("hover")}
-        onClick={() => play("click")}
-        href="/projects"
-        className="group/back relative flex cursor-pointer items-center justify-center gap-2 rounded-none border-4 border-brand-cyan-dark bg-brand-cyan px-4 py-2 text-xs text-brand-cyan-dark shadow-[4px_4px_0_0_var(--color-brand-cyan-dark)] transition-all hover:bg-brand-cyan/80 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-yellow active:translate-x-[4px] active:translate-y-[4px] active:shadow-none md:text-sm"
-      >
-        ALL_RECORDS
-      </Link>
+      <Button href="/projects">ALL_RECORDS</Button>
 
       <Link
         onMouseEnter={() => play("hover")}

@@ -5,6 +5,7 @@ import { useEffect, useRef, useState, type FormEvent } from "react";
 import { useSound } from "@/components/sound/use-sound";
 import { useToast } from "@/components/toast/toast-context";
 import { BracketFrame } from "@/components/ui/bracket-frame";
+import { Button } from "@/components/ui/button";
 import { hasErrors, validateContact, type ContactErrors } from "@/lib/contact-schema";
 
 import type { TransmissionStatus } from "./transmission-status";
@@ -135,7 +136,7 @@ export function ContactForm({
           <form onSubmit={handleSubmit} noValidate className="mt-4 flex flex-col gap-4">
             <input
               type="text"
-              name="website"
+              name="ref_token"
               tabIndex={-1}
               autoComplete="off"
               aria-hidden="true"
@@ -205,14 +206,9 @@ export function ContactForm({
               </span>
             </label>
 
-            <button
-              type="submit"
-              disabled={sending}
-              onMouseEnter={() => play("hover")}
-              className="group/send relative flex cursor-pointer items-center justify-center gap-2 overflow-hidden rounded-none border-4 border-brand-cyan-dark bg-brand-cyan px-4 py-3 text-base text-brand-cyan-dark shadow-[4px_4px_0_0_var(--color-brand-cyan-dark)] transition-all hover:bg-brand-cyan/80 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-yellow active:translate-x-[4px] active:translate-y-[4px] active:shadow-none disabled:opacity-60 disabled:shadow-none"
-            >
+            <Button type="submit" size="lg" disabled={sending} sound={false}>
               <span className="relative">{sending ? "TRANSMITTING..." : "TRANSMIT"}</span>
-            </button>
+            </Button>
           </form>
         </>
       )}
