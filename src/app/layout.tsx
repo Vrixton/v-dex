@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Share_Tech_Mono } from "next/font/google";
-
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { DeviceProvider } from "@/components/device/device-context";
 import { DeviceShell } from "@/components/device/device-shell";
 import { ToastProvider } from "@/components/toast/toast-context";
@@ -83,6 +83,7 @@ export default function RootLayout({
             <DeviceShell>{children}</DeviceShell>
           </DeviceProvider>
         </ToastProvider>
+        <SpeedInsights />
       </body>
     </html>
   );
