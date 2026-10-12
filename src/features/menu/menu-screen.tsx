@@ -16,32 +16,15 @@ import { useSound } from "@/components/sound/use-sound";
 import { PixelChevron } from "@/components/ui/pixel-chevron";
 import { Window } from "@/components/window/window";
 
+import { LocaleSwitch } from "./locale-switch";
 import { MENU_IDLE_MESSAGE, MENU_ITEMS } from "./menu-items";
 import { MenuTerminal } from "./menu-terminal";
 
-/**
- * Menú del dispositivo.
- *
- * Los ítems son enlaces reales (con href), así que Cmd/Ctrl+clic abre pestaña
- * nueva y el navegador puede precargar las rutas. El clic normal se intercepta
- * para lanzar el ciclo de confirmación, cierre y apertura.
- *
- * El menú abre sobre la vista actual, no sobre la primera opción, y esa vista
- * queda marcada aunque el cursor se mueva a otra: una cosa es dónde estás y
- * otra qué estás señalando.
- *
- * Teclado: Tab funciona por defecto y además hay flechas ↑↓, Home/End y
- * Escape, como en el menú de una consola.
- */
 export function MenuScreen() {
   const { navigate, toggleMenu, confirmingHref, phase } = useDevice();
   const play = useSound();
   const pathname = usePathname();
 
-  /**
-   * La home solo coincide exacta; el resto marca también sus rutas hijas,
-   * para que /projects/farmatodo siga señalando "Projects".
-   */
   function matchesRoute(href: string): boolean {
     return href === "/" ? pathname === "/" : pathname.startsWith(href);
   }
@@ -54,8 +37,6 @@ export function MenuScreen() {
   const [activeIndex, setActiveIndex] = useState<number>(currentIndex);
   const itemRefs = useRef<Array<HTMLAnchorElement | null>>([]);
 
-  // El foco entra cuando el dispositivo termina de abrirse: antes el
-  // contenido está inert y no admite foco.
   useEffect(() => {
     if (phase !== "open") return;
     itemRefs.current[currentIndex]?.focus();
@@ -68,7 +49,6 @@ export function MenuScreen() {
     itemRefs.current[next]?.focus();
   }, []);
 
-  // Un solo sonido por cambio real de opción: el hover se dispara mucho.
   function selectItem(index: number) {
     if (index === activeIndex) return;
     play("hover");
@@ -98,7 +78,6 @@ export function MenuScreen() {
       case "Escape":
         event.preventDefault();
         toggleMenu();
-        // El foco vuelve al botón que abrió el menú
         document.getElementById("menu-toggle")?.focus();
         break;
       default:
@@ -107,7 +86,6 @@ export function MenuScreen() {
   }
 
   function handleClick(event: MouseEvent<HTMLAnchorElement>, href: string) {
-    // Cmd/Ctrl/Shift+clic: que el navegador haga lo suyo
     if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
     event.preventDefault();
     play("select");
@@ -119,8 +97,6 @@ export function MenuScreen() {
 
   return (
     <Window id="device-menu" title="MENU" ledTone="white" className="min-h-[70dvh]">
-      {/* La terminal queda anclada abajo; la lista se centra en el espacio
-          que sobra, así el aire de arriba y el de abajo se reparten solos. */}
       <div className="flex flex-1 flex-col justify-between gap-6">
         <nav aria-label="Device menu" className="flex flex-1 items-center justify-center">
           <ul
@@ -157,6 +133,7 @@ export function MenuScreen() {
             })}
           </ul>
         </nav>
+        <LocaleSwitch />
         <MenuTerminal message={activeItem?.terminal ?? MENU_IDLE_MESSAGE} />
       </div>
     </Window>

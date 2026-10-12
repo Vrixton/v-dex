@@ -21,7 +21,7 @@ const SIZES: Record<Size, string> = {
 };
 
 const BASE =
-  "group/btn relative flex cursor-pointer items-center justify-center gap-2 overflow-hidden rounded-none border-4 transition-all focus-visible:outline-2 focus-visible:outline-offset-2 active:translate-x-[4px] active:translate-y-[4px] active:shadow-none disabled:cursor-default disabled:opacity-60 disabled:shadow-none";
+  "group/btn flex cursor-pointer items-center justify-center gap-2 overflow-hidden rounded-none border-4 transition-all focus-visible:outline-2 focus-visible:outline-offset-2 active:translate-x-[4px] active:translate-y-[4px] active:shadow-none disabled:cursor-default disabled:opacity-60 disabled:shadow-none";
 
 export function Button({
   children,

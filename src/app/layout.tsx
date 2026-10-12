@@ -4,6 +4,8 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { DeviceProvider } from "@/components/device/device-context";
 import { DeviceShell } from "@/components/device/device-shell";
 import { ToastProvider } from "@/components/toast/toast-context";
+import { LocaleProvider } from "@/i18n/locale-provider";
+import { getLocale } from "@/i18n/server";
 
 import "./globals.css";
 
@@ -64,25 +66,27 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  // Colorea la interfaz del navegador móvil con el rojo del bisel
   themeColor: "#dc0a2d",
-  // Permite dibujar bajo el notch; los biseles compensan con safe-area-inset
   viewportFit: "cover",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const locale = await getLocale();
+
   return (
-    <html lang="en" className={shareTechMono.variable}>
+    <html lang={locale} className={shareTechMono.variable}>
       <body>
-        <ToastProvider>
-          <DeviceProvider>
-            <DeviceShell>{children}</DeviceShell>
-          </DeviceProvider>
-        </ToastProvider>
+        <LocaleProvider locale={locale}>
+          <ToastProvider>
+            <DeviceProvider>
+              <DeviceShell>{children}</DeviceShell>
+            </DeviceProvider>
+          </ToastProvider>
+        </LocaleProvider>
         <SpeedInsights />
       </body>
     </html>
