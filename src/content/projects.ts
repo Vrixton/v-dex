@@ -58,9 +58,9 @@ export const PROJECTS: readonly Project[] = [
     challenge:
       "Keeping the sprint moving while production kept interrupting it. Incidents arrive without warning on a high-traffic store, and every new priority threatens to bury a bug someone reported last week. Half the work was technical; the other half was making sure nothing fell through the cracks.",
     work: [
-      "Integrated **PSE payments**, the bank transfer method most used in Colombia, into the checkout flow.",
+      "Integrated **PSE payments**, the most widely used bank transfer method in Colombia, into the checkout flow.",
       "Built the **medication information module**: dosage, warnings and whether a drug is safe during pregnancy or breastfeeding.",
-      "Built a **personalised product search** on top of BazaarVoice that recommends items from each customer's preferences.",
+      "Built a **personalized product search** on top of BazaarVoice that recommends items from each customer's preferences.",
       "Shipped the **Farmatodo Prime** landing page: subscription plans, benefits and a tag showing how much the customer would have saved.",
       "Ran the upgrade **from Angular 11 to 16**, one major version at a time, on a storefront that could not go down.",
       "Ran production deployments for the Colombian and Venezuelan storefronts, and took weekend on-call shifts.",
@@ -86,7 +86,7 @@ export const PROJECTS: readonly Project[] = [
       "The frontend ran ahead of the backend for most of the project, so large parts of the product had to be built, demoed and kept moving against APIs that did not exist yet. Keeping a six-month plan realistic while the team changed around it was as much of the job as the code.",
     work: [
       "Built the public site: home, **property search**, listing cards, popular districts and the content pages.",
-      "Put the listings **on a map**, with the price shown on each pin so you can compare without opening a single one.",
+      "Put the listings **on a map**, with the price shown on each pin so you can compare without opening a single listing.",
       "Built the property detail page, a **cost estimator** for utilities and running expenses, and the **tour booking** flow.",
       "Built the admin panel with **four roles** — owner, agent, manager and admin — each with its own permissions, listings and workflows.",
       "Implemented authentication and role-based access across both apps.",
@@ -112,10 +112,10 @@ export const PROJECTS: readonly Project[] = [
       "Knowing when to stop. Every idea opened three more, and a portfolio that never ships is worth nothing. Most of the work was deciding what stayed out: no screenshot galleries, no filters for six records.",
     work: [
       "Built the device shell: **two bezels driven by a state machine** that close over the screen on every navigation and open again when the view is ready.",
-      "Synthesised every sound **in the browser with the Web Audio API** — no audio files, no library, under a kilobyte of code.",
+      "Synthesized every sound **in the browser with the Web Audio API** — no audio files, no library, under a kilobyte of code.",
       "Drew all the pixel art from scratch: badges, logos, sprites and maps, as **sprite sheets** that weigh a few hundred bytes each.",
       "Wired the contact form to Resend through a route handler, with validation on both sides and **rate limiting** against abuse.",
-      "Kept it **accessible**: every animation honours reduced motion, the device is operable by keyboard, and the shutters never trap focus.",
+      "Kept it **accessible**: every animation honors reduced motion, the device is operable by keyboard, and the shutters never trap focus.",
       "Built it **with AI as a working tool**, which made the real work the one that cannot be delegated: deciding what to build and what to leave out.",
     ],
     stack: ["nextjs", "react", "typescript", "tailwind"],
@@ -185,7 +185,7 @@ export const PROJECTS: readonly Project[] = [
       "The client had a working product in PHP and wanted it rebuilt in Angular, starting from a purchased template. Half the work was removing what the template brought and did not belong, updating outdated dependencies and making the rest behave like a real product instead of a demo.",
     work: [
       "Rebuilt the public site from PHP to Angular: registry pages, gift shares and the couple's landing page.",
-      "Built the admin panel where couples configure their wedding, payment methods, images and colours.",
+      "Built the admin panel where couples configure their wedding, payment methods, images and colors.",
       "Built the **shared gift flow**: a guest contributes part of a gift and leaves a message for the couple.",
       "Took the **design decisions** myself, adapting the template to what the product actually needed.",
     ],

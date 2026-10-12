@@ -7,7 +7,7 @@
  */
 
 export const CONTACT = {
-  intro: "If you want to get in touch",
+  intro: "Want to get in touch",
   email: "victor.villavicencio.10@gmail.com",
   networks: [
     { name: "GitHub", href: "https://github.com/Vrixton", icon: "github" },
