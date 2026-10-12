@@ -37,9 +37,9 @@ export function validateContact(input: ContactInput): ContactErrors {
   const message = input.message?.trim() ?? "";
 
   if (name.length < LIMITS.name.min) {
-    errors.name = "TOO SHORT";
+    errors.name = `MIN ${LIMITS.name.min} CHARS`;
   } else if (name.length > LIMITS.name.max) {
-    errors.name = "TOO LONG";
+    errors.name = `MAX ${LIMITS.name.max} CHARS`;
   }
 
   if (!EMAIL.test(email)) {
@@ -47,9 +47,9 @@ export function validateContact(input: ContactInput): ContactErrors {
   }
 
   if (message.length < LIMITS.message.min) {
-    errors.message = "TOO SHORT";
+    errors.message = `MIN ${LIMITS.message.min} CHARS`;
   } else if (message.length > LIMITS.message.max) {
-    errors.message = "TOO LONG";
+    errors.message = `MAX ${LIMITS.message.max} CHARS`;
   }
 
   return errors;

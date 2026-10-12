@@ -18,14 +18,12 @@ const FIELDS = [
 export function ContactForm({
   onStatusChange,
 }: {
-  /** Avisa a la consola de estado en qué punto va la transmisión. */
   onStatusChange?: (status: TransmissionStatus) => void;
 }) {
   const play = useSound();
   const toast = useToast();
   const [status, setLocalStatus] = useState<TransmissionStatus>("idle");
 
-  /** Un solo sitio donde cambiar el estado: así la consola nunca se queda atrás. */
   function setStatus(next: TransmissionStatus) {
     setLocalStatus(next);
     onStatusChange?.(next);
@@ -41,12 +39,13 @@ export function ContactForm({
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    const data = new FormData(event.currentTarget);
+    const form = event.currentTarget;
+    const data = new FormData(form);
     const input = {
       name: String(data.get("name") ?? ""),
       email: String(data.get("email") ?? ""),
       message: String(data.get("message") ?? ""),
-      website: String(data.get("website") ?? ""),
+      website: String(data.get("ref_token") ?? ""),
       startedAt: startedAt.current,
     };
 
@@ -56,6 +55,10 @@ export function ContactForm({
     if (hasErrors(found)) {
       play("error");
       toast({ label: "SIGNAL", value: "CHECK THE FIELDS", tone: "warning", key: "contact" });
+      const firstInvalid = (["name", "email", "message"] as const).find((key) => found[key]);
+      if (firstInvalid) {
+        form.querySelector<HTMLElement>(`[name="${firstInvalid}"]`)?.focus();
+      }
       return;
     }
 
@@ -85,7 +88,7 @@ export function ContactForm({
       setStatus("sent");
       play("select");
       toast({ label: "SIGNAL", value: "MESSAGE TRANSMITTED", tone: "success", key: "contact" });
-      event.currentTarget.reset();
+      form.reset();
       startedAt.current = Date.now();
     } catch {
       setStatus("failed");
@@ -144,7 +147,10 @@ export function ContactForm({
                 <span className="flex items-baseline justify-between gap-2">
                   <span className="text-xs text-brand-cyan/70 md:text-sm">[{field.label}]:</span>
                   {errors[field.name] ? (
-                    <span className="text-[10px] text-fg-danger md:text-xs">
+                    <span
+                      id={`${field.name}-error`}
+                      className="text-[10px] text-fg-danger md:text-xs"
+                    >
                       {errors[field.name]}
                     </span>
                   ) : null}
@@ -163,6 +169,7 @@ export function ContactForm({
                       resetStatus();
                     }}
                     aria-invalid={Boolean(errors[field.name])}
+                    aria-describedby={errors[field.name] ? `${field.name}-error` : undefined}
                     className="w-full bg-transparent text-xs text-fg outline-none placeholder:text-fg-muted/60 md:text-sm"
                   />
                 </span>
@@ -173,7 +180,9 @@ export function ContactForm({
               <span className="flex items-baseline justify-between gap-2">
                 <span className="text-xs text-brand-cyan/70 md:text-sm">[MESSAGE]:</span>
                 {errors.message ? (
-                  <span className="text-[10px] text-fg-danger md:text-xs">{errors.message}</span>
+                  <span id="message-error" className="text-[10px] text-fg-danger md:text-xs">
+                    {errors.message}
+                  </span>
                 ) : null}
               </span>
 
@@ -190,6 +199,7 @@ export function ContactForm({
                     resetStatus();
                   }}
                   aria-invalid={Boolean(errors.message)}
+                  aria-describedby={errors.message ? "message-error" : undefined}
                   className="w-full resize-none bg-transparent text-xs text-fg outline-none placeholder:text-fg-muted/60 md:text-sm"
                 />
               </span>

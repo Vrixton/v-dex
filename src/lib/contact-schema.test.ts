@@ -1,6 +1,5 @@
 import { describe, expect, it } from "vitest";
-
-import { hasErrors, looksLikeSpam, validateContact } from "./contact-schema";
+import { hasErrors, LIMITS, looksLikeSpam, validateContact } from "./contact-schema";
 
 const valid = {
   name: "Ash Ketchum",
@@ -14,7 +13,7 @@ describe("validateContact", () => {
   });
 
   it("rechaza nombres demasiado cortos", () => {
-    expect(validateContact({ ...valid, name: "A" }).name).toBe("TOO SHORT");
+    expect(validateContact({ ...valid, name: "A" }).name).toBe(`MIN ${LIMITS.name.min} CHARS`);
   });
 
   it("rechaza correos mal formados", () => {
@@ -23,7 +22,9 @@ describe("validateContact", () => {
   });
 
   it("rechaza mensajes demasiado cortos", () => {
-    expect(validateContact({ ...valid, message: "hola" }).message).toBe("TOO SHORT");
+    expect(validateContact({ ...valid, message: "hola" }).message).toBe(
+      `MIN ${LIMITS.message.min} CHARS`,
+    );
   });
 
   it("ignora los espacios de alrededor", () => {
