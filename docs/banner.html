@@ -1,0 +1,107 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>
+@font-face { font-family:"STM"; src:url("stm.woff2") format("woff2"); }
+:root{
+  --red-500:#dc0a2d; --red-700:#a2000e;
+  --cyan-500:#00f0ff; --cyan-200:#a5fbff;
+  --ink:#031016; --graphite:#2e2e2e;
+  --metal-100:#ffffff; --metal-400:#b1b1b1;
+  --green:#22c55e; --yellow:#facc15; --gray:#7a8a91;
+  --steel-300:#9aa0a6; --steel-600:#4b5054;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{width:1280px;height:360px;font-family:"STM",monospace;overflow:hidden}
+.device{position:relative;width:1280px;height:360px;display:flex;flex-direction:column}
+
+/* Bisel superior */
+.bezel-top{height:70px;background:linear-gradient(180deg,var(--red-700),var(--red-500));
+  box-shadow:0 10px 24px rgb(0 0 0/.38);display:flex;align-items:center;
+  justify-content:space-between;padding:0 34px;position:relative;z-index:3}
+.seam{height:6px;background:var(--graphite);position:relative;z-index:3}
+
+/* Pantalla */
+.screen{flex:1;background:var(--ink);position:relative;overflow:hidden;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding-top:26px}
+.scan{position:absolute;inset:0;background:repeating-linear-gradient(
+  180deg,transparent 0 2px,color-mix(in oklab,var(--cyan-500) 9%,transparent) 2px 3px)}
+.glow{position:absolute;inset:0;box-shadow:inset 0 0 70px color-mix(in oklab,var(--cyan-500) 22%,transparent)}
+
+/* Bisel inferior */
+.bezel-bottom{height:70px;background:linear-gradient(180deg,var(--metal-100),var(--metal-400));
+  box-shadow:0 -10px 24px rgb(0 0 0/.38);display:flex;align-items:center;
+  justify-content:space-between;padding:0 34px;position:relative;z-index:3}
+
+/* Piezas */
+.screw{width:22px;height:22px;border-radius:50%;
+  background:radial-gradient(circle at 35% 30%,var(--steel-300),var(--steel-600) 75%);position:relative}
+.screw::after{content:"";position:absolute;inset:0;margin:auto;width:13px;height:2px;
+  background:rgb(0 0 0/.45);border-radius:1px;transform:rotate(var(--a,35deg))}
+.led{width:17px;height:17px;border-radius:50%;background:var(--green);
+  box-shadow:0 0 10px var(--green),inset 0 2px 3px rgb(255 255 255/.5)}
+.grill{display:flex;gap:5px}
+.grill span{width:4px;height:22px;border-radius:2px;background:rgb(0 0 0/.3)}
+.bezel-bottom .grill span{background:rgb(0 0 0/.22)}
+.wordmark{color:#fff;font-size:26px;letter-spacing:.3em}
+.left{display:flex;align-items:center;gap:22px}
+.right{display:flex;align-items:center;gap:40px}
+
+/* Botón central, sobre la unión superior */
+.btn{position:absolute;left:50%;top:70px;transform:translate(-50%,-50%);
+  width:76px;height:76px;border-radius:50%;background:var(--graphite);padding:5px;z-index:5;
+  box-shadow:0 3px 8px rgb(0 0 0/.45),inset 0 2px 3px rgb(255 255 255/.12)}
+.btn i{display:block;width:100%;height:100%;border-radius:50%;background:#fff;padding:3px}
+.btn b{display:block;width:100%;height:100%;border-radius:50%;position:relative;
+  background:radial-gradient(circle at 50% 35%,var(--cyan-200),var(--cyan-500) 70%)}
+.btn b::after{content:"";position:absolute;top:9%;left:50%;transform:translateX(-50%);
+  width:44%;height:21%;border-radius:999px;background:rgb(255 255 255/.5)}
+
+/* Texto de la pantalla */
+.title{position:relative;color:var(--cyan-500);font-size:84px;letter-spacing:.22em;
+  text-shadow:0 0 22px color-mix(in oklab,var(--cyan-500) 70%,transparent);
+  padding-left:.22em;line-height:1}
+.sub{position:relative;color:#fff;font-size:21px;letter-spacing:.17em}
+.meta{position:relative;color:var(--gray);font-size:16px;letter-spacing:.1em;margin-top:4px}
+.meta em{color:var(--yellow);font-style:normal}
+
+/* Esquinas en corchete */
+.br{position:absolute;width:34px;height:34px;border:3px solid var(--cyan-500);opacity:.85}
+.tl{top:22px;left:30px;border-right:0;border-bottom:0}
+.tr{top:22px;right:30px;border-left:0;border-bottom:0}
+.bl{bottom:22px;left:30px;border-right:0;border-top:0}
+.brr{bottom:22px;right:30px;border-left:0;border-top:0}
+</style></head>
+<body>
+<div class="device">
+  <div class="bezel-top">
+    <div class="left">
+      <span class="screw" style="--a:35deg"></span>
+      <span class="led"></span>
+      <span class="wordmark">V-DEX</span>
+    </div>
+    <div class="right">
+      <span class="grill"><span></span><span></span><span></span><span></span></span>
+      <span class="screw" style="--a:-40deg"></span>
+    </div>
+  </div>
+  <div class="seam"></div>
+
+  <div class="screen">
+    <div class="scan"></div><div class="glow"></div>
+    <span class="br tl"></span><span class="br tr"></span>
+    <span class="br bl"></span><span class="br brr"></span>
+    <div class="title">V-DEX</div>
+    <div class="sub">A PORTFOLIO BUILT AS A HANDHELD DEVICE</div>
+    <div class="meta">&gt;_ VICTOR VILLAVICENCIO <em>//</em> SENIOR FRONTEND DEVELOPER</div>
+  </div>
+
+  <div class="seam"></div>
+  <div class="bezel-bottom">
+    <span class="screw" style="--a:-25deg"></span>
+    <span class="grill"><span></span><span></span><span></span><span></span></span>
+    <span class="screw" style="--a:50deg"></span>
+  </div>
+
+  <div class="btn"><i><b></b></i></div>
+</div>
+</body></html>
