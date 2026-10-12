@@ -28,8 +28,12 @@ export async function POST(request: Request) {
 
   // A un bot se le responde que todo fue bien: si sabe que ha fallado,
   // vuelve a intentarlo cambiando de táctica.
-  if (looksLikeSpam(input)) {
-    return NextResponse.json({ ok: true });
+  const flagged = looksLikeSpam(input);
+  if (flagged) {
+    console.warn("[contact] marcado como sospechoso:", {
+      ref: input.website,
+      elapsed: Date.now() - (input.startedAt ?? 0),
+    });
   }
 
   const errors = validateContact(input);
@@ -55,7 +59,6 @@ export async function POST(request: Request) {
   const name = String(input.name).trim();
   const email = String(input.email).trim();
   const message = String(input.message).trim();
-
   try {
     const response = await fetch("https://api.resend.com/emails", {
       method: "POST",
@@ -67,7 +70,8 @@ export async function POST(request: Request) {
         from: FROM,
         to: [TO],
         // El prefijo permite filtrar estos mensajes en el gestor de correo
-        subject: `[V-DEX]: New message from ${name}`,
+        // subject: `[V-DEX]: New message from ${name}`,
+        subject: `[V-DEX]${flagged ? "[FLAGGED]" : ""}: New message from ${name}`,
         // reply_to para poder responder directamente a quien escribe
         reply_to: email,
         text: contactEmailText({ name, email, message }),
