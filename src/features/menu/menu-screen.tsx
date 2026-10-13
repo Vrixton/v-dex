@@ -15,6 +15,8 @@ import { useDevice } from "@/components/device/device-context";
 import { useSound } from "@/components/sound/use-sound";
 import { PixelChevron } from "@/components/ui/pixel-chevron";
 import { Window } from "@/components/window/window";
+import { useLocale } from "@/i18n/locale-provider";
+import { localePath, stripLocale } from "@/i18n/paths";
 
 import { LocaleSwitch } from "./locale-switch";
 import { MENU_IDLE_MESSAGE, MENU_ITEMS } from "./menu-items";
@@ -23,10 +25,13 @@ import { MenuTerminal } from "./menu-terminal";
 export function MenuScreen() {
   const { navigate, toggleMenu, confirmingHref, phase } = useDevice();
   const play = useSound();
+  const locale = useLocale();
   const pathname = usePathname();
 
+  const currentPath = stripLocale(pathname);
+
   function matchesRoute(href: string): boolean {
-    return href === "/" ? pathname === "/" : pathname.startsWith(href);
+    return href === "/" ? currentPath === "/" : currentPath.startsWith(href);
   }
 
   const currentIndex = Math.max(
@@ -106,6 +111,7 @@ export function MenuScreen() {
           >
             {MENU_ITEMS.map((item, index) => {
               const isCurrent = matchesRoute(item.href);
+              const href = localePath(item.href, locale);
 
               return (
                 <li key={item.href} className="flex w-full justify-center">
@@ -113,12 +119,12 @@ export function MenuScreen() {
                     ref={(element) => {
                       itemRefs.current[index] = element;
                     }}
-                    href={item.href}
+                    href={href}
                     data-active={activeIndex === index}
                     data-current={isCurrent}
                     data-confirming={confirmingHref === item.href}
                     {...(isCurrent ? { "aria-current": "page" as const } : {})}
-                    onClick={(event) => handleClick(event, item.href)}
+                    onClick={(event) => handleClick(event, href)}
                     onMouseEnter={() => selectItem(index)}
                     onFocus={() => selectItem(index)}
                     className="group flex w-full max-w-md items-center justify-center rounded-control px-6 py-3 text-xl leading-tight text-fg transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-yellow data-[active=true]:bg-surface-hover data-[active=true]:text-brand-cyan data-[confirming=true]:animate-menu-confirm data-[current=true]:text-brand-cyan md:text-xl"
@@ -134,6 +140,7 @@ export function MenuScreen() {
           </ul>
         </nav>
         <LocaleSwitch />
+
         <MenuTerminal message={activeItem?.terminal ?? MENU_IDLE_MESSAGE} />
       </div>
     </Window>

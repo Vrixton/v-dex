@@ -27,6 +27,7 @@
   --vdex-yellow-400: #facc15;
   --vdex-green-200: #86efac;
   --vdex-green-500: #22c55e; /* PROVISIONAL: estado "SYNC: READY" */
+  --vdex-crt-off: #324447;
 
   /* ── Neutros ───────────────────────────────────────────── */
   --vdex-ink-950: #031016; /* Fondo de la pantalla CRT */
@@ -85,6 +86,15 @@
     var(--vdex-steel-300),
     var(--vdex-steel-600) 75%
   );
+  --gradient-crt-mask:
+    radial-gradient(ellipse 120% 90% at 50% 42%, rgb(255 255 255 / 0.04), transparent 62%),
+    repeating-linear-gradient(
+      90deg,
+      rgb(255 0 0 / 0.07) 0 1px,
+      rgb(0 255 0 / 0.07) 1px 2px,
+      rgb(0 0 255 / 0.07) 2px 3px
+    ),
+    repeating-linear-gradient(0deg, transparent 0 2px, rgb(0 0 0 / 0.38) 2px 3px);
 }
 
 @media (min-width: 48rem) {
@@ -227,6 +237,11 @@
   --animate-bracket-focus: bracket-focus 320ms cubic-bezier(0.16, 1, 0.3, 1) both;
   /* Respiración del marcador: sube y baja un píxel, sin fotogramas nuevos */
   --animate-marker-breathe: marker-breathe 1s ease infinite;
+
+  --animate-crt-collapse: crt-collapse 680ms cubic-bezier(0.4, 0, 0.2, 1) both;
+  --animate-crt-blackout: crt-blackout 90ms linear both;
+
+  --color-screen-off: var(--vdex-crt-off);
 }
 
 @keyframes led-glow {
@@ -461,6 +476,7 @@
     opacity: 1;
   }
 }
+
 @keyframes marker-breathe {
   0%,
   100% {
@@ -470,5 +486,45 @@
   50% {
     translate: 0 -2px;
     /* scale: 1 1.04; */
+  }
+}
+
+@keyframes crt-blackout {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes crt-collapse {
+  0% {
+    scale: 1 1;
+    opacity: 0.9;
+    border-radius: 0;
+  }
+  16% {
+    scale: 1 0.014;
+    opacity: 1;
+  }
+  48% {
+    scale: 1 0.01;
+    opacity: 1;
+    border-radius: 0;
+  }
+  72% {
+    scale: 0.16 0.012;
+    opacity: 1;
+  }
+  84% {
+    scale: 0.02 0.016;
+    opacity: 1;
+    border-radius: 50%;
+  }
+  100% {
+    scale: 0.014 0.012;
+    opacity: 0;
+    border-radius: 50%;
   }
 }

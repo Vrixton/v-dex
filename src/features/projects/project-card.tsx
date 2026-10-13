@@ -7,16 +7,20 @@ import { BracketFrame } from "@/components/ui/bracket-frame";
 import { PixelChevron } from "@/components/ui/pixel-chevron";
 import { ProjectLogo } from "@/components/ui/project-logo";
 import type { Project } from "@/content/projects";
+import { useLocale } from "@/i18n/locale-provider";
+import { localePath } from "@/i18n/paths";
+
 import { ProjectTypeTag } from "./project-type";
 
 export function ProjectCard({ project }: { project: Project }) {
   const play = useSound();
+  const locale = useLocale();
   const number = `#${String(project.number).padStart(3, "0")}`;
 
   return (
     <li>
       <Link
-        href={`/projects/${project.slug}`}
+        href={localePath(`/projects/${project.slug}`, locale)}
         onMouseEnter={() => play("hover")}
         onFocus={() => play("hover")}
         onClick={() => play("click")}

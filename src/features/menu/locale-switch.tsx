@@ -1,70 +1,85 @@
 "use client";
 
-import { useTransition } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useRef, useState, type MouseEvent } from "react";
 
+import { PowerOff, POWER_OFF_MS } from "@/components/device/power-off";
 import { useSound } from "@/components/sound/use-sound";
+import { useToast } from "@/components/toast/toast-context";
 import { PixelChevron } from "@/components/ui/pixel-chevron";
-import { setLocale } from "@/i18n/actions";
+import { useReducedMotion } from "@/hooks/use-reduced-motion";
 import { LOCALES, type Locale } from "@/i18n/locale";
+import { LOCALE_NOTICE_KEY } from "@/i18n/locale-notice";
 import { useLocale } from "@/i18n/locale-provider";
+import { localePath } from "@/i18n/paths";
 
-/**
- * Selector de idioma.
- *
- * Vive en el menú y no en el bisel, junto al interruptor de sonido, porque
- * ningún aparato real ha tenido nunca un interruptor físico de idioma: el
- * volumen es del aparato, el idioma es del sistema.
- *
- * Usa el mismo lenguaje que las opciones del menú (chevron amarillo sobre la
- * activa) para que se lea como parte de la misma pantalla y no como un
- * control añadido.
- *
- * Mientras el servidor responde, los dos botones quedan deshabilitados: el
- * cambio es un viaje de ida y vuelta, y pulsar dos veces mandaría dos.
- */
-
-/** Lo que se ve. El nombre completo va en el nombre accesible. */
 const LABELS: Record<Locale, string> = { en: "EN", es: "ES" };
 
-/** Cada idioma se anuncia en su propia lengua, como es costumbre. */
 const NAMES: Record<Locale, string> = { en: "English", es: "Español" };
+
+const RESET_MS = 800;
 
 export function LocaleSwitch() {
   const current = useLocale();
+  const pathname = usePathname();
   const play = useSound();
-  const [pending, startTransition] = useTransition();
+  const toast = useToast();
+  const prefersReducedMotion = useReducedMotion();
+  const [poweringOff, setPoweringOff] = useState(false);
+  const leaving = useRef(false);
 
-  function choose(next: Locale) {
-    if (next === current || pending) return;
-    play("select");
-    startTransition(() => {
-      void setLocale(next);
-    });
+  function handleClick(event: MouseEvent<HTMLAnchorElement>, href: string, code: Locale) {
+    if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    event.preventDefault();
+    if (code === current || leaving.current) return;
+
+    leaving.current = true;
+    try {
+      window.sessionStorage.setItem(LOCALE_NOTICE_KEY, code);
+    } catch {}
+
+    if (prefersReducedMotion) {
+      window.location.assign(href);
+      return;
+    }
+
+    play("power");
+    toast({ label: "SYSTEM", value: "RESET", tone: "muted", key: "locale" });
+
+    window.setTimeout(() => setPoweringOff(true), RESET_MS);
+    window.setTimeout(() => {
+      window.location.assign(href);
+    }, RESET_MS + POWER_OFF_MS);
   }
 
   return (
     <div className="flex items-center justify-center gap-3 text-xs md:text-sm">
+      {poweringOff ? <PowerOff /> : null}
+
       <span className="text-fg-muted">[LANG]:</span>
 
       <div role="group" aria-label="Language" className="flex items-center gap-2">
         {LOCALES.map((code) => {
           const active = code === current;
+          const href = localePath(pathname, code);
+
           return (
-            <button
+            <Link
               key={code}
-              type="button"
+              href={href}
+              hrefLang={code}
               aria-label={NAMES[code]}
-              aria-pressed={active}
-              disabled={pending}
+              {...(active ? { "aria-current": "true" as const } : {})}
               onMouseEnter={() => play("hover")}
               onFocus={() => play("hover")}
-              onClick={() => choose(code)}
+              onClick={(event) => handleClick(event, href, code)}
               data-active={active}
-              className="group/lang flex cursor-pointer items-center gap-1.5 rounded-control px-2 py-1 text-fg-muted transition-colors hover:text-brand-cyan focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-yellow disabled:cursor-default data-[active=true]:text-brand-cyan"
+              className="group/lang flex cursor-pointer items-center gap-1.5 rounded-control px-2 py-1 text-fg-muted transition-colors hover:text-brand-cyan focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-yellow data-[active=true]:text-brand-cyan"
             >
               <PixelChevron className="size-2.5 text-brand-yellow opacity-0 group-data-[active=true]/lang:opacity-100 motion-safe:group-data-[active=true]/lang:animate-cursor-blink" />
               {LABELS[code]}
-            </button>
+            </Link>
           );
         })}
       </div>
