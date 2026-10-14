@@ -102,7 +102,13 @@ export function MenuScreen() {
   const isReady = phase === "open";
 
   return (
-    <Window id="device-menu" title={m.title} ledTone="white" className="min-h-[70dvh]">
+    <Window
+      id="device-menu"
+      title={m.title}
+      ledTone="white"
+      actions={<LocaleSwitch />}
+      className="min-h-[70dvh]"
+    >
       <div className="flex flex-1 flex-col justify-between gap-6">
         <nav aria-label={m.nav} className="flex flex-1 items-center justify-center">
           <ul
@@ -140,8 +146,6 @@ export function MenuScreen() {
             })}
           </ul>
         </nav>
-        <LocaleSwitch />
-
         <MenuTerminal message={activeItem ? m.items[activeItem.id].terminal : m.idle} />
       </div>
     </Window>

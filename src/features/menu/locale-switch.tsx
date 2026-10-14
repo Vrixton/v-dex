@@ -7,7 +7,6 @@ import { useRef, useState, type MouseEvent } from "react";
 import { PowerOff, POWER_OFF_MS } from "@/components/device/power-off";
 import { useSound } from "@/components/sound/use-sound";
 import { useToast } from "@/components/toast/toast-context";
-import { PixelChevron } from "@/components/ui/pixel-chevron";
 import { useReducedMotion } from "@/hooks/use-reduced-motion";
 import { LOCALES, LOCALE_NAMES, type Locale } from "@/i18n/locale";
 import { LOCALE_NOTICE_KEY } from "@/i18n/locale-notice";
@@ -56,32 +55,35 @@ export function LocaleSwitch() {
   }
 
   return (
-    <div className="flex items-center justify-center gap-3 text-xs md:text-sm">
+    <div className="flex items-center gap-1.5 text-[11px] md:text-xs">
       {poweringOff ? <PowerOff /> : null}
 
-      <span className="text-fg-muted">{`[${m.locale.label}]:`}</span>
-
-      <div role="group" aria-label={m.locale.group} className="flex items-center gap-2">
-        {LOCALES.map((code) => {
+      <div role="group" aria-label={m.locale.group} className="flex items-center gap-1.5">
+        {LOCALES.map((code, index) => {
           const active = code === current;
           const href = localePath(pathname, code);
 
           return (
-            <Link
-              key={code}
-              href={href}
-              hrefLang={code}
-              aria-label={LOCALE_NAMES[code]}
-              {...(active ? { "aria-current": "true" as const } : {})}
-              onMouseEnter={() => play("hover")}
-              onFocus={() => play("hover")}
-              onClick={(event) => handleClick(event, href, code)}
-              data-active={active}
-              className="group/lang flex cursor-pointer items-center gap-1.5 rounded-control px-2 py-1 text-fg-muted transition-colors hover:text-brand-cyan focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-yellow data-[active=true]:text-brand-cyan"
-            >
-              <PixelChevron className="size-2.5 text-brand-yellow opacity-0 group-data-[active=true]/lang:opacity-100 motion-safe:group-data-[active=true]/lang:animate-cursor-blink" />
-              {code.toUpperCase()}
-            </Link>
+            <span key={code} className="flex items-center gap-1.5">
+              {index > 0 ? (
+                <span aria-hidden="true" className="text-fg-muted/50">
+                  ·
+                </span>
+              ) : null}
+              <Link
+                href={href}
+                hrefLang={code}
+                aria-label={LOCALE_NAMES[code]}
+                {...(active ? { "aria-current": "true" as const } : {})}
+                onMouseEnter={() => play("hover")}
+                onFocus={() => play("hover")}
+                onClick={(event) => handleClick(event, href, code)}
+                data-active={active}
+                className="cursor-pointer border-b-2 border-transparent px-0.5 pb-0.5 text-fg-muted transition-colors hover:text-brand-cyan focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-yellow data-[active=true]:border-brand-cyan data-[active=true]:text-brand-cyan"
+              >
+                {code.toUpperCase()}
+              </Link>
+            </span>
           );
         })}
       </div>

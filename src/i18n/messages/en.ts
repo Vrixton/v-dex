@@ -24,7 +24,6 @@ export const en = {
       languageSet: "LANG_SET",
     },
     locale: {
-      label: "LANG",
       /** Accessible name of the group of language links. */
       group: "Language",
     },
