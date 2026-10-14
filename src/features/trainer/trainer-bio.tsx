@@ -1,23 +1,22 @@
 import { Terminal, TerminalCursor } from "@/components/ui/terminal";
 import { PROFILE } from "@/content/profile";
+import { format } from "@/i18n/format";
+import type { Locale } from "@/i18n/locale";
+import { getMessages } from "@/i18n/messages";
 import { completedYears } from "@/lib/date";
 import { highlight } from "@/lib/rich-text";
 
-/**
- * Bio del trainer, como la salida de una consola.
- *
- * Reutiliza el componente Terminal en vez de recrearlo: así la cabecera, el
- * estado y el cursor son idénticos a los de las fichas de proyecto.
- *
- * Los años no están escritos en el texto: se interpolan desde la fecha de
- * inicio de carrera, así la bio nunca se queda desactualizada.
- */
-export function TrainerBio() {
+type TrainerBioProps = {
+  locale: Locale;
+};
+
+export function TrainerBio({ locale }: TrainerBioProps) {
+  const m = getMessages(locale).about;
   const years = completedYears(PROFILE.careerStart);
-  const lines = PROFILE.bio.map((line) => line.replace("{years}", String(years)));
+  const lines = m.bio.map((line) => format(line, { years }));
 
   return (
-    <Terminal program="TRAINER_BIO">
+    <Terminal program={m.bioProgram} locale={locale}>
       {lines.map((line, index) => (
         <p key={line}>
           {highlight(line)}

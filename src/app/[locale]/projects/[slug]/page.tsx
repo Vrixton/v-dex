@@ -1,42 +1,55 @@
 import { notFound } from "next/navigation";
+
 import { Badge } from "@/components/ui/badge";
 import { BracketFrame } from "@/components/ui/bracket-frame";
 import { ProjectLogo } from "@/components/ui/project-logo";
 import { TechIconSprite } from "@/components/ui/tech-icons";
-import { Terminal, TerminalLine } from "@/components/ui/terminal";
 import { TechMedal } from "@/components/ui/tech-medal";
+import { Terminal, TerminalLine } from "@/components/ui/terminal";
 import { Window } from "@/components/window/window";
 import { PROJECTS, findProject, neighbours } from "@/content/projects";
-import { ProjectTypeTag } from "@/features/projects/project-type";
-import { ProjectNav } from "@/features/projects/project-nav";
-import { ProjectLink } from "@/features/projects/project-link";
 import { ProjectContext } from "@/features/projects/project-context";
+import { ProjectLink } from "@/features/projects/project-link";
+import { ProjectNav } from "@/features/projects/project-nav";
+import { ProjectTypeTag } from "@/features/projects/project-type";
+import { format } from "@/i18n/format";
+import { LOCALES } from "@/i18n/locale";
+import { getMessages } from "@/i18n/messages";
+import { routeLocale } from "@/i18n/route-locale";
 
 export function generateStaticParams() {
-  return PROJECTS.map((project) => ({ slug: project.slug }));
+  return LOCALES.flatMap((locale) => PROJECTS.map((project) => ({ locale, slug: project.slug })));
 }
 
 const pad = (value: number) => String(value).padStart(3, "0");
 
-export default async function ProjectDetailPage({ params }: { params: Promise<{ slug: string }> }) {
+type ProjectDetailProps = {
+  params: Promise<{ locale: string; slug: string }>;
+};
+
+export default async function ProjectDetailPage({ params }: ProjectDetailProps) {
+  const locale = await routeLocale(params);
   const { slug } = await params;
   const project = findProject(slug);
   if (!project) notFound();
 
+  const messages = getMessages(locale);
+  const m = messages.projects;
+  const entry = m.items[project.slug];
   const around = neighbours(slug);
 
   return (
     <Window
-      title="TARGET_LOG_INSPECTOR"
-      breadcrumb="PROJECTS_REPOSITORY"
+      title={m.detail.title}
+      breadcrumb={m.window.breadcrumb}
       ledTone="red"
       fill
       scrollable
       actions={
         <>
-          <Badge tone="yellow">{`ENTRY #${pad(project.number)}`}</Badge>
+          <Badge tone="yellow">{format(m.detail.entry, { number: pad(project.number) })}</Badge>
           <Badge tone="green" led pulse className="hidden sm:flex">
-            SYNC: READY
+            {messages.device.sync}
           </Badge>
         </>
       }
@@ -63,36 +76,32 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
           </span>
 
           <div className="flex flex-col gap-1">
-            <p className="text-xs text-fg-muted">[PROJECT_NAME]:</p>
+            <p className="text-xs text-fg-muted">{`[${m.detail.nameLabel}]:`}</p>
             <h1 className="text-2xl text-brand-cyan text-shadow-glow md:text-3xl">
               {project.name}
             </h1>
             <ul className="mt-1 flex flex-wrap gap-2">
               {project.types.map((type) => (
-                <ProjectTypeTag key={type} type={type} />
+                <ProjectTypeTag key={type} type={type} label={m.types[type]} />
               ))}
             </ul>
           </div>
 
           <div className="flex flex-col gap-2 md:ml-auto md:items-end">
-            <ProjectLink
-              url={project.link?.url}
-              label={project.link?.label ?? ""}
-              note={project.link?.note}
-            />
+            <ProjectLink url={project.link?.url} target={project.link?.target} />
           </div>
         </header>
 
         <div className="grid gap-5 lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)]">
-          <Terminal program="MISSION_LOG">
-            <p className="text-fg-muted">{project.summary}</p>
+          <Terminal program={m.detail.program} locale={locale}>
+            <p className="text-fg-muted">{entry.summary}</p>
             <p className="text-fg-muted">
-              <span className="text-brand-yellow">{"[CHALLENGE]: "}</span>
-              {project.challenge}
+              <span className="text-brand-yellow">{`[${m.detail.challengeLabel}]: `}</span>
+              {entry.challenge}
             </p>
             <ul className="flex flex-col gap-2">
-              {project.work.map((line, index) => (
-                <TerminalLine key={line} cursor={index === project.work.length - 1}>
+              {entry.work.map((line, index) => (
+                <TerminalLine key={line} cursor={index === entry.work.length - 1}>
                   {line}
                 </TerminalLine>
               ))}
@@ -105,11 +114,16 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
               <header className="flex flex-wrap items-center justify-between gap-2">
                 <h2 className="text-sm text-fg md:text-base">
                   <span>
-                    GYM_BADGES <span className="hidden text-fg-muted sm:inline">|| TECH_STACK</span>
+                    {messages.stack.title}{" "}
+                    <span className="hidden text-fg-muted sm:inline">
+                      || {messages.stack.subtitle}
+                    </span>
                   </span>
                 </h2>
                 <Badge tone="yellow">
-                  {`${String(project.stack.length).padStart(2, "0")} EQUIPPED`}
+                  {format(messages.stack.equipped, {
+                    count: String(project.stack.length).padStart(2, "0"),
+                  })}
                 </Badge>
               </header>
               <ul className="mt-3 flex flex-wrap gap-2 md:gap-3">

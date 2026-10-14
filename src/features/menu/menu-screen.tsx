@@ -15,35 +15,24 @@ import { useDevice } from "@/components/device/device-context";
 import { useSound } from "@/components/sound/use-sound";
 import { PixelChevron } from "@/components/ui/pixel-chevron";
 import { Window } from "@/components/window/window";
+import { useLocale, useMessages } from "@/i18n/locale-provider";
+import { localePath, stripLocale } from "@/i18n/paths";
 
-import { MENU_IDLE_MESSAGE, MENU_ITEMS } from "./menu-items";
+import { LocaleSwitch } from "./locale-switch";
+import { MENU_ITEMS } from "./menu-items";
 import { MenuTerminal } from "./menu-terminal";
 
-/**
- * Menú del dispositivo.
- *
- * Los ítems son enlaces reales (con href), así que Cmd/Ctrl+clic abre pestaña
- * nueva y el navegador puede precargar las rutas. El clic normal se intercepta
- * para lanzar el ciclo de confirmación, cierre y apertura.
- *
- * El menú abre sobre la vista actual, no sobre la primera opción, y esa vista
- * queda marcada aunque el cursor se mueva a otra: una cosa es dónde estás y
- * otra qué estás señalando.
- *
- * Teclado: Tab funciona por defecto y además hay flechas ↑↓, Home/End y
- * Escape, como en el menú de una consola.
- */
 export function MenuScreen() {
   const { navigate, toggleMenu, confirmingHref, phase } = useDevice();
   const play = useSound();
+  const locale = useLocale();
+  const m = useMessages().device.menu;
   const pathname = usePathname();
 
-  /**
-   * La home solo coincide exacta; el resto marca también sus rutas hijas,
-   * para que /projects/farmatodo siga señalando "Projects".
-   */
+  const currentPath = stripLocale(pathname);
+
   function matchesRoute(href: string): boolean {
-    return href === "/" ? pathname === "/" : pathname.startsWith(href);
+    return href === "/" ? currentPath === "/" : currentPath.startsWith(href);
   }
 
   const currentIndex = Math.max(
@@ -54,8 +43,6 @@ export function MenuScreen() {
   const [activeIndex, setActiveIndex] = useState<number>(currentIndex);
   const itemRefs = useRef<Array<HTMLAnchorElement | null>>([]);
 
-  // El foco entra cuando el dispositivo termina de abrirse: antes el
-  // contenido está inert y no admite foco.
   useEffect(() => {
     if (phase !== "open") return;
     itemRefs.current[currentIndex]?.focus();
@@ -68,7 +55,6 @@ export function MenuScreen() {
     itemRefs.current[next]?.focus();
   }, []);
 
-  // Un solo sonido por cambio real de opción: el hover se dispara mucho.
   function selectItem(index: number) {
     if (index === activeIndex) return;
     play("hover");
@@ -98,7 +84,6 @@ export function MenuScreen() {
       case "Escape":
         event.preventDefault();
         toggleMenu();
-        // El foco vuelve al botón que abrió el menú
         document.getElementById("menu-toggle")?.focus();
         break;
       default:
@@ -107,7 +92,6 @@ export function MenuScreen() {
   }
 
   function handleClick(event: MouseEvent<HTMLAnchorElement>, href: string) {
-    // Cmd/Ctrl/Shift+clic: que el navegador haga lo suyo
     if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
     event.preventDefault();
     play("select");
@@ -118,11 +102,15 @@ export function MenuScreen() {
   const isReady = phase === "open";
 
   return (
-    <Window id="device-menu" title="MENU" ledTone="white" className="min-h-[70dvh]">
-      {/* La terminal queda anclada abajo; la lista se centra en el espacio
-          que sobra, así el aire de arriba y el de abajo se reparten solos. */}
+    <Window
+      id="device-menu"
+      title={m.title}
+      ledTone="white"
+      actions={<LocaleSwitch />}
+      className="min-h-[70dvh]"
+    >
       <div className="flex flex-1 flex-col justify-between gap-6">
-        <nav aria-label="Device menu" className="flex flex-1 items-center justify-center">
+        <nav aria-label={m.nav} className="flex flex-1 items-center justify-center">
           <ul
             data-ready={isReady}
             onKeyDown={handleKeyDown}
@@ -130,26 +118,27 @@ export function MenuScreen() {
           >
             {MENU_ITEMS.map((item, index) => {
               const isCurrent = matchesRoute(item.href);
+              const href = localePath(item.href, locale);
 
               return (
-                <li key={item.href} className="flex w-full justify-center">
+                <li key={item.id} className="flex w-full justify-center">
                   <Link
                     ref={(element) => {
                       itemRefs.current[index] = element;
                     }}
-                    href={item.href}
+                    href={href}
                     data-active={activeIndex === index}
                     data-current={isCurrent}
                     data-confirming={confirmingHref === item.href}
                     {...(isCurrent ? { "aria-current": "page" as const } : {})}
-                    onClick={(event) => handleClick(event, item.href)}
+                    onClick={(event) => handleClick(event, href)}
                     onMouseEnter={() => selectItem(index)}
                     onFocus={() => selectItem(index)}
                     className="group flex w-full max-w-md items-center justify-center rounded-control px-6 py-3 text-xl leading-tight text-fg transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-yellow data-[active=true]:bg-surface-hover data-[active=true]:text-brand-cyan data-[confirming=true]:animate-menu-confirm data-[current=true]:text-brand-cyan md:text-xl"
                   >
                     <span className="flex w-[20ch] items-center gap-4">
                       <PixelChevron className="text-brand-yellow opacity-0 group-data-[active=true]:opacity-100 motion-safe:group-data-[active=true]:animate-cursor-blink" />
-                      {item.label}
+                      {m.items[item.id].label}
                     </span>
                   </Link>
                 </li>
@@ -157,7 +146,7 @@ export function MenuScreen() {
             })}
           </ul>
         </nav>
-        <MenuTerminal message={activeItem?.terminal ?? MENU_IDLE_MESSAGE} />
+        <MenuTerminal message={activeItem ? m.items[activeItem.id].terminal : m.idle} />
       </div>
     </Window>
   );

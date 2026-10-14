@@ -5,7 +5,6 @@ import { Shutter } from "./shutter";
 import { SpeakerGrill } from "./speaker-grill";
 import { SoundToggle } from "@/components/sound/sound-toggle";
 
-/** Mitad inferior del dispositivo. Misma técnica de dos capas que BezelTop. */
 export function BezelBottom() {
   return (
     <>

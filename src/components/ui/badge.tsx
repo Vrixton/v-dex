@@ -5,9 +5,7 @@ import { cn } from "@/lib/cn";
 
 type BadgeProps = {
   tone?: LedTone;
-  /** Muestra un LED a la izquierda, como en "SYNC: READY". */
   led?: boolean;
-  /** El LED late, para estados vivos. */
   pulse?: boolean;
   children: ReactNode;
   className?: string;
@@ -21,10 +19,6 @@ const toneClass: Record<LedTone, string> = {
   white: "text-fg border-white/40",
 };
 
-/**
- * Etiqueta de estado de la cabecera: SYNC: READY, 15 RECORDS FOUND,
- * NRO. #???… Misma forma para todas; solo cambia el tono y si lleva LED.
- */
 export function Badge({
   tone = "cyan",
   led = false,

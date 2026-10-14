@@ -1,16 +1,11 @@
-/**
- * Skills del trainer.
- *
- * El prefijo no es decorativo: indica de qué tipo es cada una.
- *   </>  técnica
- *   <*>  cualidad personal
- *   <=>  comunicación
- */
+import type { Messages } from "@/i18n/messages";
 
 export type SkillKind = "technical" | "personal" | "communication";
 
+export type SkillId = keyof Messages["about"]["skills"];
+
 export type Skill = {
-  label: string;
+  id: SkillId;
   kind: SkillKind;
 };
 
@@ -21,19 +16,19 @@ export const SKILL_PREFIX: Record<SkillKind, string> = {
 };
 
 export const SKILLS: readonly Skill[] = [
-  { label: "Core Web Vitals", kind: "technical" },
-  { label: "Performance Profiling", kind: "technical" },
-  { label: "Code Splitting", kind: "technical" },
-  { label: "Component Architecture", kind: "technical" },
-  { label: "Code Review", kind: "technical" },
-  { label: "AI-Assisted Development", kind: "technical" },
-  { label: "SCRUM & Agile", kind: "technical" },
-  { label: "UX & Accessibility Focus", kind: "personal" },
-  { label: "Leadership", kind: "personal" },
-  { label: "Mentoring & Onboarding", kind: "personal" },
-  { label: "Ownership", kind: "personal" },
-  { label: "Technical Communication", kind: "communication" },
-  { label: "Cross-Functional Collaboration", kind: "communication" },
-  { label: "Stakeholder Management", kind: "communication" },
-  { label: "Design Handoff", kind: "communication" },
+  { id: "coreWebVitals", kind: "technical" },
+  { id: "performanceProfiling", kind: "technical" },
+  { id: "codeSplitting", kind: "technical" },
+  { id: "componentArchitecture", kind: "technical" },
+  { id: "codeReview", kind: "technical" },
+  { id: "aiAssistedDevelopment", kind: "technical" },
+  { id: "scrumAgile", kind: "technical" },
+  { id: "uxAccessibility", kind: "personal" },
+  { id: "leadership", kind: "personal" },
+  { id: "mentoring", kind: "personal" },
+  { id: "ownership", kind: "personal" },
+  { id: "technicalCommunication", kind: "communication" },
+  { id: "crossFunctional", kind: "communication" },
+  { id: "stakeholderManagement", kind: "communication" },
+  { id: "designHandoff", kind: "communication" },
 ];

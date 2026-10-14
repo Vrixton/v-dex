@@ -4,26 +4,28 @@ import { useSound } from "@/components/sound/use-sound";
 import { useToast } from "@/components/toast/toast-context";
 import { AtIcon, CopyIcon } from "@/components/ui/icons";
 import { CONTACT } from "@/content/contact";
+import { useMessages } from "@/i18n/locale-provider";
 
 export function MainChannel() {
   const play = useSound();
   const toast = useToast();
+  const m = useMessages().contact.mainChannel;
 
   async function copy() {
     play("copy");
     try {
       await navigator.clipboard.writeText(CONTACT.email);
       toast({
-        label: "EMAIL",
-        value: "COPIED TO CLIPBOARD",
+        label: m.toastLabel,
+        value: m.copied,
         tone: "success",
         key: "email",
         icon: <AtIcon className="size-4" />,
       });
     } catch {
       toast({
-        label: "EMAIL",
-        value: "COPY FAILED",
+        label: m.toastLabel,
+        value: m.copyFailed,
         tone: "warning",
         key: "email",
         icon: <AtIcon className="size-4" />,
@@ -34,12 +36,12 @@ export function MainChannel() {
   return (
     <section className="flex flex-col gap-3 rounded-panel bg-surface p-4 md:p-5">
       <header className="flex flex-wrap items-center justify-between gap-2">
-        <h2 className="text-sm text-fg md:text-base">MAIN_CHANNEL</h2>
+        <h2 className="text-sm text-fg md:text-base">{m.title}</h2>
       </header>
 
       <p className="text-[10px] text-fg-muted md:text-xs">
-        <span className="text-fg-muted">[Trainer Notice]: </span>
-        Click to copy. Let&apos;s talk about your next campaign.
+        <span className="text-fg-muted">{`[${m.noticeLabel}]: `}</span>
+        {m.notice}
       </p>
 
       <button

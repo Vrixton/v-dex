@@ -1,11 +1,13 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+
 import { useSound } from "@/components/sound/use-sound";
+import { CompanyLogo } from "@/components/ui/company-logo";
 import { PixelChevron } from "@/components/ui/pixel-chevron";
 import type { Role } from "@/content/experience";
+import { useMessages } from "@/i18n/locale-provider";
 import { formatPeriod } from "@/lib/date";
-import { CompanyLogo } from "@/components/ui/company-logo";
 
 export function RoleCard({
   role,
@@ -17,6 +19,7 @@ export function RoleCard({
   onSelect: () => void;
 }) {
   const play = useSound();
+  const m = useMessages().experience;
   const ref = useRef<HTMLLIElement>(null);
 
   useEffect(() => {
@@ -66,7 +69,7 @@ export function RoleCard({
               active ? "translate-y-0 opacity-100" : "translate-y-full opacity-0"
             }`}
           >
-            SCANNING
+            {m.scanning}
             <PixelChevron className="size-3 text-brand-yellow motion-safe:animate-nudge-right" />
           </p>
         </div>

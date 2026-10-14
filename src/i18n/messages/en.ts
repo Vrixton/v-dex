@@ -1,0 +1,420 @@
+export const en = {
+  device: {
+    /** Shown on every screen's title bar. */
+    sync: "SYNC: READY",
+    terminal: {
+      statusLabel: "STATUS",
+      statusActive: "ACTIVE",
+      statusClosed: "CLOSED",
+    },
+    /** Accessible name of the device's centre button. */
+    toggle: "Menu",
+    sound: {
+      /** Accessible name of the switch. */
+      name: "Sound effects",
+      /** Toast shown when the switch is flipped. */
+      label: "SOUND",
+      on: "ON",
+      off: "OFF",
+    },
+    system: {
+      label: "SYSTEM",
+      reset: "RESET",
+      /** Reads as `LANG_SET - ENGLISH`; the language name is its own. */
+      languageSet: "LANG_SET",
+    },
+    locale: {
+      /** Accessible name of the group of language links. */
+      group: "Language",
+    },
+    menu: {
+      title: "MENU",
+      /** Accessible name of the navigation. */
+      nav: "Device menu",
+      idle: "Select an option to proceed",
+      items: {
+        about: {
+          label: "About me",
+          terminal: "Trainer data and skill set",
+        },
+        experience: {
+          label: "Work experience",
+          terminal: "Expedition log",
+        },
+        projects: {
+          label: "Projects",
+          terminal: "Challenge log database",
+        },
+        contact: {
+          label: "Contact me",
+          terminal: "Open a comm channel",
+        },
+      },
+    },
+  },
+
+  about: {
+    window: {
+      title: "TRAINER_INFO",
+      breadcrumb: "REPOSITORY",
+      number: "NO. #???",
+    },
+    nameLabel: "TRAINER_NAME",
+    role: "Sr. Frontend Developer && Pokémon Trainer",
+
+    bioProgram: "TRAINER_BIO",
+    bio: [
+      "Front-end Developer with {years}+ years of experience building scalable, optimized, and accessible web applications. I specialize in **Angular**, **React**, and **Next.js**, with an emphasis on performance: measuring with **Lighthouse**, reducing bundle size, and fixing **Core Web Vitals** regressions. I also have a strong focus on user experience and development best practices. I've led teams, running sprint planning, setting priorities, assigning tasks, and onboarding junior developers onto projects, as well as driving UX/UI improvements and delivering clean, efficient solutions aligned with business goals.",
+    ],
+
+    avatar: {
+      alt: "Pixel art avatar of {name}",
+      level: "LVL.{level}",
+      exp: "EXP.",
+      years: "+{years} years",
+      progress: "{years} years of experience, progress toward the next one",
+    },
+
+    habitat: {
+      title: "HABITAT",
+      subtitle: "LOCATION",
+      region: "REGION",
+      timezone: "TIMEZONE",
+      maps: "VIEW_ON_MAPS",
+      mapsHint: "(opens in a new tab)",
+    },
+
+    cv: {
+      title: "TRAINER_CARD",
+      subtitle: "CV",
+      file: "FILE",
+      type: "FILE_TYPE",
+      size: "FILE_SIZE",
+      download: "EJECT / DOWNLOAD",
+    },
+
+    skillsTitle: "SKILLS",
+    legend: {
+      technical: "technical",
+      personal: "personal",
+      communication: "communication",
+    },
+    skills: {
+      coreWebVitals: "Core Web Vitals",
+      performanceProfiling: "Performance Profiling",
+      codeSplitting: "Code Splitting",
+      componentArchitecture: "Component Architecture",
+      codeReview: "Code Review",
+      aiAssistedDevelopment: "AI-Assisted Development",
+      scrumAgile: "SCRUM & Agile",
+      uxAccessibility: "UX & Accessibility Focus",
+      leadership: "Leadership",
+      mentoring: "Mentoring & Onboarding",
+      ownership: "Ownership",
+      technicalCommunication: "Technical Communication",
+      crossFunctional: "Cross-Functional Collaboration",
+      stakeholderManagement: "Stakeholder Management",
+      designHandoff: "Design Handoff",
+    },
+  },
+  experience: {
+    window: {
+      title: "EXPEDITION_LOG",
+      breadcrumb: "SELECTED_ROLES",
+      logsFound: "{count} LOGS FOUND",
+    },
+    /** Terminal program name, without the extension. */
+    program: "EXPEDITION_LOG",
+    companyLabel: "COMPANY",
+    selectLabel: "SELECT_LOG",
+    /** Badge on the card that is currently open. */
+    scanning: "SCANNING",
+    nav: {
+      previous: "Previous roles",
+      next: "Next roles",
+    },
+    roles: {
+      coderslab: {
+        role: "Frontend Developer",
+        location: "Santiago, Chile \u00b7 Remote",
+        log: [
+          "When the project lost its lead, I stepped in to **coordinate the team** and took over sprint planning, priorities, and splitting the work.",
+          "Reviewed pull requests and walked new developers through the codebase.",
+          "We followed **Scrum**, with daily standups, sprint planning, and grooming on two-week cycles.",
+          "Worked day to day with QA, backend, and design.",
+        ],
+      },
+      arbelos: {
+        role: "Frontend Developer \u00b7 Recurring contractor",
+        location: "Ontario, Canada \u00b7 Remote",
+        log: [
+          "**Recurring collaboration over four years**: they brought me in whenever a new project opened.",
+          "Worked **in written English** day to day: tickets, documentation and standups with a distributed team.",
+          "Picked work from a shared board and ran daily standups focused on blockers and missing specs.",
+          "**Learned to work inside someone else\u2019s codebase**: following the design system and the conventions already in place instead of my own.",
+          "Covered my work with unit tests before handing it over.",
+        ],
+      },
+      farmatodo: {
+        role: "Frontend Developer",
+        location: "Bogot\u00e1, Colombia",
+        log: [
+          "Turned requests from the **product department** and **the backend team** into **tasks the team could assign, plan, and prioritize**.",
+          "Defined with the **designer** what was feasible to build and maintain.",
+          "Rotated through **sprint planning and estimation** with the frontend team.",
+          "Covered my code with **unit tests**.",
+          "On my **on-call weeks** I fixed production incidents and deployed the fix when needed.",
+          "Ran internal **Git and NVM** training to unify the team's workflow.",
+          "Joined through an agency, and **the company hired me directly** a year later.",
+        ],
+      },
+      earlyYears: {
+        role: "Frontend Developer",
+        location: "Agencies and studios · Remote and on-site",
+        log: [
+          "Worked **four years** in agencies and studios, across **Tsserapp, S9 Consulting, and Tita Media**.",
+          "Developed with **Angular** from version 2 and with **Ionic** on hybrid apps.",
+          "Built storefronts on **VTEX** for Colombian brands like **Mario Hernández** and **Fiotti**.",
+          "Reviewed code and supported the junior developers on the team.",
+        ],
+      },
+    },
+  },
+
+  /**
+   * The medals panel. Top level because it shows up on two screens: the
+   * about page's full stack and each project's own stack.
+   */
+  stack: {
+    title: "GYM_BADGES",
+    subtitle: "TECH_STACK",
+    /** Counter on the about page: how many are mastered. */
+    conquered: "CONQUERED",
+    /** Counter on a project: how many it uses. */
+    equipped: "{count} EQUIPPED",
+    techLabel: "TECH",
+    /** Text for screen readers on each medal. */
+    medal: "{tech}: {level}",
+    levels: {
+      gold: "gold",
+      silver: "silver",
+      bronze: "bronze",
+      locked: "locked",
+    },
+  },
+
+  projects: {
+    window: {
+      title: "CHALLENGE_LOGS_DB",
+      breadcrumb: "PROJECTS_REPOSITORY",
+      recordsFound: "{count} RECORDS FOUND",
+    },
+    detail: {
+      title: "TARGET_LOG_INSPECTOR",
+      entry: "ENTRY #{number}",
+      nameLabel: "PROJECT_NAME",
+      program: "MISSION_LOG",
+      challengeLabel: "CHALLENGE",
+    },
+    context: {
+      title: "CONTEXT",
+      company: "COMPANY",
+      role: "ROLE",
+      period: "PERIOD",
+      team: "TEAM",
+    },
+    access: {
+      label: "ACCESS",
+      private: "PRIVATE",
+    },
+    nav: {
+      all: "ALL_RECORDS",
+    },
+    /** `target` is a proper noun from projects.ts, so it survives translation. */
+    linkLabel: "GO_TO_{target}",
+    types: {
+      ecommerce: "E-COMMERCE",
+      webApp: "WEB APP",
+      dashboard: "DASHBOARD",
+      portfolio: "PORTFOLIO",
+    },
+    items: {
+      farmatodo: {
+        company: "Farmatodo",
+        role: "Frontend Developer",
+        summary:
+          "The digital storefront of a pharmacy chain with hundreds of stores across Colombia and Venezuela.",
+        challenge:
+          "Keeping the sprint moving while production kept interrupting it. Incidents arrive without warning on a high-traffic store, and every new priority threatens to bury a bug someone reported last week. Half the work was technical; the other half was making sure nothing fell through the cracks.",
+        work: [
+          "Integrated **PSE payments**, the most widely used bank transfer method in Colombia, into the checkout flow.",
+          "Built the **medication information module**: dosage, warnings and whether a drug is safe during pregnancy or breastfeeding.",
+          "Built a **personalized product search** on top of BazaarVoice that recommends items from each customer’s preferences.",
+          "Shipped the **Farmatodo Prime** landing page: subscription plans, benefits and a tag showing how much the customer would have saved.",
+          "Ran the upgrade **from Angular 11 to 16**, one major version at a time, on a storefront that could not go down.",
+          "Ran production deployments for the Colombian and Venezuelan storefronts, and took weekend on-call shifts.",
+          "Ran internal sessions on **Git and NVM** for the team, slides included.",
+        ],
+      },
+      uhomie: {
+        company: "CodersLab",
+        role: "Frontend Developer",
+        summary:
+          "A property marketplace for buying and renting homes across Chile, Colombia and Venezuela.",
+        challenge:
+          "The frontend ran ahead of the backend for most of the project, so large parts of the product had to be built, demoed and kept moving against APIs that did not exist yet. Keeping a six-month plan realistic while the team changed around it was as much of the job as the code.",
+        work: [
+          "Built the public site: home, **property search**, listing cards, popular districts and the content pages.",
+          "Put the listings **on a map**, with the price shown on each pin so you can compare without opening a single listing.",
+          "Built the property detail page, a **cost estimator** for utilities and running expenses, and the **tour booking** flow.",
+          "Built the admin panel with **four roles** — owner, agent, manager and admin — each with its own permissions, listings and workflows.",
+          "Implemented authentication and role-based access across both apps.",
+          "Planned the roadmap up to six months out, set priorities and assigned work.",
+          "Reviewed pull requests and walked new developers through the codebase.",
+        ],
+      },
+      "v-dex": {
+        company: "Personal project",
+        role: "Design && Development",
+        summary: "This portfolio: a handheld device you are holding right now.",
+        challenge:
+          "Knowing when to stop. Every idea opened three more, and a portfolio that never ships is worth nothing. Most of the work was deciding what stayed out: no screenshot galleries, no filters for six records.",
+        work: [
+          "Built the device shell: **two bezels driven by a state machine** that close over the screen on every navigation and open again when the view is ready.",
+          "Synthesized every sound **in the browser with the Web Audio API** — no audio files, no library, under a kilobyte of code.",
+          "Drew all the pixel art from scratch: badges, logos, sprites and maps, as **sprite sheets** that weigh a few hundred bytes each.",
+          "Wired the contact form to Resend through a route handler, with validation on both sides and **rate limiting** against abuse.",
+          "Kept it **accessible**: every animation honors reduced motion, the device is operable by keyboard, and the shutters never trap focus.",
+          "Built it **with AI as a working tool**, which made the real work the one that cannot be delegated: deciding what to build and what to leave out.",
+        ],
+      },
+      texastv: {
+        company: "Arbelos Interactive",
+        role: "Frontend Developer",
+        summary:
+          "A video streaming platform with multi-profile accounts, plans and a recommendation feed.",
+        challenge:
+          "Getting a working demo in front of the client as early as possible. That meant deciding, release after release, what was essential and what could wait, and building the parts that had to be shown first.",
+        work: [
+          "Built authentication and **multi-profile accounts**: one subscription, several viewers, each with their own history.",
+          "Built the catalog: categories, filters and a **recommendation feed** on the home screen.",
+          "Integrated the video player with its controls and made the whole experience work on any screen.",
+          "Wired up **Firebase** for data and session handling.",
+          "Built the subscription plans and the account screens.",
+        ],
+      },
+      swe: {
+        company: "Arbelos Interactive",
+        role: "Frontend Developer",
+        summary:
+          "Online store and site for a Canadian wrestling promotion: merchandise, upcoming shows and news.",
+        challenge:
+          "Nothing here was new: by then I had built this kind of storefront several times for the same client. The job was to deliver it cleanly and on time without letting familiarity turn into carelessness.",
+        work: [
+          "Built the storefront: product listing with **pagination and search**, product detail pages and the **shopping cart**.",
+          "Built the content side: upcoming shows and the news section.",
+          "Built the admin panel that manages the catalog and everything published on the site.",
+          "Wired up **Firebase** for data and user authentication.",
+        ],
+      },
+      "novios-a-bordo": {
+        company: "Freelance",
+        role: "Sole Frontend Developer",
+        summary:
+          "A Peruvian wedding registry where guests chip in for a gift: each one pays a share until it is covered.",
+        challenge:
+          "The client had a working product in PHP and wanted it rebuilt in Angular, starting from a purchased template. Half the work was removing what the template brought and did not belong, updating outdated dependencies and making the rest behave like a real product instead of a demo.",
+        work: [
+          "Rebuilt the public site from PHP to Angular: registry pages, gift shares and the couple’s landing page.",
+          "Built the admin panel where couples configure their wedding, payment methods, images and colors.",
+          "Built the **shared gift flow**: a guest contributes part of a gift and leaves a message for the couple.",
+          "Took the **design decisions** myself, adapting the template to what the product actually needed.",
+        ],
+      },
+    },
+  },
+
+  contact: {
+    window: {
+      title: "CONTACT_ME",
+      breadcrumb: "COMM_LINK",
+      connection: "CONNECTION: READY",
+    },
+    mainChannel: {
+      title: "MAIN_CHANNEL",
+      noticeLabel: "Trainer Notice",
+      notice: "Click to copy. Let's talk about your next campaign.",
+      toastLabel: "EMAIL",
+      copied: "COPIED TO CLIPBOARD",
+      copyFailed: "COPY FAILED",
+    },
+    signal: {
+      title: "SIGNAL_STATUS",
+      program: "COMMUNICATION_LINK",
+      labels: {
+        online: "ONLINE",
+        error: "ERROR",
+        unavailable: "UNAVAILABLE",
+      },
+      messages: {
+        idle: "Awaiting your message...",
+        sending: "Transmitting...",
+        sent: "Message received. I'll get back to you soon.",
+        failed: "Transmission failed. Try the main channel.",
+        limited: "Channel saturated. Try again tomorrow.",
+      },
+    },
+    links: {
+      title: "DIRECT_LINKS",
+    },
+    form: {
+      title: "CABLE_LINK",
+      subtitle: "SEND_MESSAGE",
+      responseLabel: "RESPONSE_TIME",
+      intro: "Want to get in touch? Leave me a message below.",
+      saturated: {
+        label: "CHANNEL",
+        value: "SATURATED",
+        body: "You've reached today's transmission limit. Use the main channel or try again tomorrow.",
+      },
+      fields: {
+        name: { label: "NAME", placeholder: "Red" },
+        email: { label: "EMAIL", placeholder: "example@example.com" },
+        message: {
+          label: "MESSAGE",
+          placeholder: "Hey! I have a challenge for you. Interested in joining?",
+        },
+      },
+      submit: "TRANSMIT",
+      submitting: "TRANSMITTING...",
+      toastLabel: "SIGNAL",
+      toasts: {
+        invalid: "CHECK THE FIELDS",
+        limited: "DAILY TRANSMISSION LIMIT REACHED",
+        sent: "MESSAGE TRANSMITTED",
+        failed: "TRANSMISSION FAILED",
+      },
+      errors: {
+        tooShort: "MIN {min} CHARS",
+        tooLong: "MAX {max} CHARS",
+        invalidEmail: "INVALID ADDRESS",
+      },
+    },
+  },
+
+  meta: {
+    title: "Victor Villavicencio — Senior Frontend Developer | Portfolio",
+    description:
+      "Frontend developer with 10+ years in Angular and React. Portfolio built as a handheld device.",
+    ogImageAlt: "V-DEX — Victor Villavicencio, Senior Frontend Developer",
+    keywords: [
+      "frontend developer",
+      "senior frontend developer",
+      "web performance",
+      "accessibility",
+      "remote",
+    ],
+  },
+};
+
+export type Messages = typeof en;

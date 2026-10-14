@@ -4,24 +4,9 @@ import { useEffect, useRef } from "react";
 
 import { useReducedMotion } from "@/hooks/use-reduced-motion";
 
-/** Suavizado del seguimiento: cuanto más bajo, más inercia. */
 const FOLLOW = 0.22;
-/** Por debajo de este margen ya no se aprecia movimiento y el bucle para. */
 const SETTLED = 0.4;
 
-/**
- * Retículo de enfoque que sigue al cursor dentro de la pantalla.
- *
- * No reemplaza al cursor del sistema, lo acompaña: cambiarlo por una imagen
- * desalinea el punto de clic y se ve borroso en pantallas de alta densidad.
- * Así se gana el detalle del HUD sin perder precisión.
- *
- * Vive solo dentro del área de pantalla, nunca sobre los biseles: esos son
- * hardware, y el retículo es software.
- *
- * Se dibuja moviendo transform y el bucle se detiene en cuanto alcanza al
- * cursor, así que quieto no consume nada. En táctil no se monta.
- */
 export function Crosshair({ containerRef }: { containerRef: React.RefObject<HTMLElement | null> }) {
   const frameRef = useRef<HTMLDivElement>(null);
   const prefersReducedMotion = useReducedMotion();
@@ -62,8 +47,6 @@ export function Crosshair({ containerRef }: { containerRef: React.RefObject<HTML
       target.x = event.clientX;
       target.y = event.clientY;
       frame!.dataset.visible = "true";
-      // Sobre algo interactivo el retículo se cierra: deja de ser adorno y
-      // pasa a decir "esto se puede usar".
       frame!.dataset.locked = String(
         Boolean((event.target as HTMLElement | null)?.closest("a, button, [role='button']")),
       );
@@ -91,7 +74,6 @@ export function Crosshair({ containerRef }: { containerRef: React.RefObject<HTML
       data-visible="false"
       className="pointer-events-none fixed top-0 left-0 z-[5] hidden opacity-0 transition-opacity duration-200 data-[visible=true]:opacity-100 md:block"
     >
-      {/* Cuatro esquinas alrededor del cursor; se cierran sobre lo interactivo */}
       <div className="relative size-9 -translate-x-1/2 -translate-y-1/2 text-brand-cyan transition-transform duration-150 [&[data-locked]]:scale-90">
         <span className="absolute top-0 left-0 size-2 border-t border-l border-current" />
         <span className="absolute top-0 right-0 size-2 border-t border-r border-current" />

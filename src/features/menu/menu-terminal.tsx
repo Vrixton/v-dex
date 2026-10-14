@@ -2,11 +2,6 @@
 
 import { useTypewriter } from "@/hooks/use-typewriter";
 
-/**
- * Línea inferior del menú. El texto se escribe solo; aria-live="polite" hace
- * que el lector de pantalla anuncie el mensaje final una vez, sin leer cada
- * carácter según aparece.
- */
 export function MenuTerminal({ message }: { message: string }) {
   const typed = useTypewriter(message);
 

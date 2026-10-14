@@ -4,17 +4,28 @@ import { useEffect, useRef, useState, type FormEvent } from "react";
 
 import { useSound } from "@/components/sound/use-sound";
 import { useToast } from "@/components/toast/toast-context";
+import { Badge } from "@/components/ui/badge";
 import { BracketFrame } from "@/components/ui/bracket-frame";
 import { Button } from "@/components/ui/button";
-import { hasErrors, validateContact, type ContactErrors } from "@/lib/contact-schema";
+import { format } from "@/i18n/format";
+import { useMessages } from "@/i18n/locale-provider";
+import {
+  hasErrors,
+  validateContact,
+  LIMITS,
+  type ContactErrorCode,
+  type ContactErrors,
+  type ContactField,
+} from "@/lib/contact-schema";
 
 import type { TransmissionStatus } from "./transmission-status";
-import { Badge } from "@/components/ui/badge";
 
-const FIELDS = [
-  { name: "name", label: "NAME", placeholder: "Red", type: "text" },
-  { name: "email", label: "EMAIL", placeholder: "example@example.com", type: "email" },
+const TEXT_FIELDS = [
+  { name: "name", type: "text" },
+  { name: "email", type: "email" },
 ] as const;
+
+const FIELD_ORDER: readonly ContactField[] = ["name", "email", "message"];
 
 export function ContactForm({
   onStatusChange,
@@ -23,15 +34,20 @@ export function ContactForm({
 }) {
   const play = useSound();
   const toast = useToast();
+  const m = useMessages().contact.form;
   const [status, setLocalStatus] = useState<TransmissionStatus>("idle");
+  const [errors, setErrors] = useState<ContactErrors>({});
+  const startedAt = useRef(0);
 
   function setStatus(next: TransmissionStatus) {
     setLocalStatus(next);
     onStatusChange?.(next);
   }
-  const [errors, setErrors] = useState<ContactErrors>({});
 
-  const startedAt = useRef(0);
+  function errorText(field: ContactField, code: ContactErrorCode): string {
+    const limits = field === "email" ? { min: 0, max: 0 } : LIMITS[field];
+    return format(m.errors[code], limits);
+  }
 
   useEffect(() => {
     startedAt.current = Date.now();
@@ -55,8 +71,8 @@ export function ContactForm({
 
     if (hasErrors(found)) {
       play("error");
-      toast({ label: "SIGNAL", value: "CHECK THE FIELDS", tone: "warning", key: "contact" });
-      const firstInvalid = (["name", "email", "message"] as const).find((key) => found[key]);
+      toast({ label: m.toastLabel, value: m.toasts.invalid, tone: "warning", key: "contact" });
+      const firstInvalid = FIELD_ORDER.find((key) => found[key]);
       if (firstInvalid) {
         form.querySelector<HTMLElement>(`[name="${firstInvalid}"]`)?.focus();
       }
@@ -75,12 +91,7 @@ export function ContactForm({
       if (response.status === 429) {
         setStatus("limited");
         play("error");
-        toast({
-          label: "SIGNAL",
-          value: "DAILY TRANSMISSION LIMIT REACHED",
-          tone: "warning",
-          key: "contact",
-        });
+        toast({ label: m.toastLabel, value: m.toasts.limited, tone: "warning", key: "contact" });
         return;
       }
 
@@ -88,13 +99,13 @@ export function ContactForm({
 
       setStatus("sent");
       play("select");
-      toast({ label: "SIGNAL", value: "MESSAGE TRANSMITTED", tone: "success", key: "contact" });
+      toast({ label: m.toastLabel, value: m.toasts.sent, tone: "success", key: "contact" });
       form.reset();
       startedAt.current = Date.now();
     } catch {
       setStatus("failed");
       play("error");
-      toast({ label: "SIGNAL", value: "TRANSMISSION FAILED", tone: "error", key: "contact" });
+      toast({ label: m.toastLabel, value: m.toasts.failed, tone: "error", key: "contact" });
     }
   }
 
@@ -110,29 +121,26 @@ export function ContactForm({
 
       <header className="flex items-center justify-between gap-3">
         <h2 className="text-sm text-fg md:text-base">
-          CABLE_LINK{" "}
-          <span className="hidden text-xs text-fg-muted sm:inline md:text-sm">|| SEND_MESSAGE</span>
+          {m.title}{" "}
+          <span className="hidden text-xs text-fg-muted sm:inline md:text-sm">|| {m.subtitle}</span>
         </h2>
-        <Badge tone="yellow">{`[RESPONSE_TIME]: <24h`}</Badge>
+        <Badge tone="yellow">{`[${m.responseLabel}]: <24h`}</Badge>
       </header>
       {status === "limited" ? (
         <div className="mt-4 flex flex-col items-center gap-3 rounded-control bg-terminal p-5 text-center">
-          <p className="text-sm text-fg-muted">[CHANNEL]: SATURATED</p>
+          <p className="text-sm text-fg-muted">{`[${m.saturated.label}]: ${m.saturated.value}`}</p>
           <span
             aria-hidden="true"
             className="mt-5 block h-16 w-32 bg-[url('/link-unplugged.webp')] bg-contain bg-no-repeat"
             style={{ imageRendering: "pixelated" }}
           />
           <p className="mt-3 text-xs leading-relaxed text-fg-muted md:text-sm">
-            You&apos;ve reached today&apos;s transmission limit. Use the main channel or try again
-            tomorrow.
+            {m.saturated.body}
           </p>
         </div>
       ) : (
         <>
-          <p className="text-[10px] text-fg-muted md:text-xs">
-            Want to get in touch? Leave me a message below.
-          </p>
+          <p className="text-[10px] text-fg-muted md:text-xs">{m.intro}</p>
           <form onSubmit={handleSubmit} noValidate className="mt-4 flex flex-col gap-4">
             <input
               type="text"
@@ -143,16 +151,18 @@ export function ContactForm({
               className="absolute size-0 opacity-0"
             />
 
-            {FIELDS.map((field) => (
+            {TEXT_FIELDS.map((field) => (
               <label key={field.name} className="flex flex-col gap-1.5">
                 <span className="flex items-baseline justify-between gap-2">
-                  <span className="text-xs text-brand-cyan/70 md:text-sm">[{field.label}]:</span>
+                  <span className="text-xs text-brand-cyan/70 md:text-sm">
+                    {`[${m.fields[field.name].label}]:`}
+                  </span>
                   {errors[field.name] ? (
                     <span
                       id={`${field.name}-error`}
                       className="text-[10px] text-fg-danger md:text-xs"
                     >
-                      {errors[field.name]}
+                      {errorText(field.name, errors[field.name]!)}
                     </span>
                   ) : null}
                 </span>
@@ -164,7 +174,7 @@ export function ContactForm({
                   <input
                     name={field.name}
                     type={field.type}
-                    placeholder={field.placeholder}
+                    placeholder={m.fields[field.name].placeholder}
                     onFocus={() => {
                       play("hover");
                       resetStatus();
@@ -179,10 +189,12 @@ export function ContactForm({
 
             <label className="flex flex-col gap-1.5">
               <span className="flex items-baseline justify-between gap-2">
-                <span className="text-xs text-brand-cyan/70 md:text-sm">[MESSAGE]:</span>
+                <span className="text-xs text-brand-cyan/70 md:text-sm">
+                  {`[${m.fields.message.label}]:`}
+                </span>
                 {errors.message ? (
                   <span id="message-error" className="text-[10px] text-fg-danger md:text-xs">
-                    {errors.message}
+                    {errorText("message", errors.message)}
                   </span>
                 ) : null}
               </span>
@@ -194,7 +206,7 @@ export function ContactForm({
                 <textarea
                   name="message"
                   rows={5}
-                  placeholder="Hey! I have a challenge for you. Interested in joining?"
+                  placeholder={m.fields.message.placeholder}
                   onFocus={() => {
                     play("hover");
                     resetStatus();
@@ -207,7 +219,7 @@ export function ContactForm({
             </label>
 
             <Button type="submit" size="lg" disabled={sending} sound={false}>
-              <span className="relative">{sending ? "TRANSMITTING..." : "TRANSMIT"}</span>
+              <span className="relative">{sending ? m.submitting : m.submit}</span>
             </Button>
           </form>
         </>

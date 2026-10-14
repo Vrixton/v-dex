@@ -1,17 +1,22 @@
+"use client";
+
 import { TeamSize } from "@/components/ui/team-size";
 import type { Project } from "@/content/projects";
+import { useMessages } from "@/i18n/locale-provider";
 
 export function ProjectContext({ project }: { project: Project }) {
+  const m = useMessages().projects;
+  const entry = m.items[project.slug];
+
   const rows = [
-    // La empresa se omite cuando es el propio nombre del proyecto
-    ...(project.company.toUpperCase() === project.name ? [] : [["COMPANY", project.company]]),
-    ["ROLE", project.role],
-    ["PERIOD", project.period],
+    ...(entry.company.toUpperCase() === project.name ? [] : [[m.context.company, entry.company]]),
+    [m.context.role, entry.role],
+    [m.context.period, project.period],
   ] as const;
 
   return (
     <section className="flex flex-col gap-3 rounded-panel bg-surface p-4 md:p-5">
-      <h2 className="text-sm text-fg md:text-base">CONTEXT</h2>
+      <h2 className="text-sm text-fg md:text-base">{m.context.title}</h2>
 
       <dl className="flex flex-col text-xs md:text-sm">
         {rows.map(([label, value]) => (
@@ -22,7 +27,7 @@ export function ProjectContext({ project }: { project: Project }) {
         ))}
 
         <div className="flex items-center gap-3 py-2">
-          <dt className="w-20 shrink-0 text-brand-cyan/70">[TEAM]:</dt>
+          <dt className="w-20 shrink-0 text-brand-cyan/70">{`[${m.context.team}]:`}</dt>
           <dd className="flex items-center gap-2.5 text-fg">
             <TeamSize size={project.teamSize} />
           </dd>

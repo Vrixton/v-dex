@@ -13,7 +13,6 @@ import {
   type DeviceState,
 } from "./device-machine";
 
-/** Aplica una secuencia de eventos partiendo de un estado. */
 function run(events: DeviceEvent[], from: DeviceState = initialDeviceState): DeviceState {
   return events.reduce(deviceReducer, from);
 }
@@ -42,7 +41,6 @@ describe("deviceReducer", () => {
 
     const closed = run([{ type: "CLOSE_FINISHED" }], closing);
     expect(closed.phase).toBe("closed");
-    // El menú aparece con el dispositivo cerrado, nunca a la vista
     expect(closed.isMenuOpen).toBe(true);
 
     const opening = run([{ type: "CONTENT_READY" }], closed);
@@ -60,7 +58,6 @@ describe("deviceReducer", () => {
     const confirming = run([{ type: "REQUEST_NAVIGATION", href: "/projects" }], menuOpen);
     expect(confirming.phase).toBe("confirming");
     expect(confirmingHref(confirming)).toBe("/projects");
-    // Durante el parpadeo el dispositivo sigue abierto
     expect(shutterPosition(confirming.phase)).toBe("open");
 
     const closing = run([{ type: "CONFIRM_FINISHED" }], confirming);
@@ -102,7 +99,6 @@ describe("deviceReducer", () => {
   it("no se abre hasta que el contenido está listo", () => {
     const closed = run([{ type: "REQUEST_MENU_TOGGLE" }, { type: "CLOSE_FINISHED" }]);
 
-    // Si la vista tarda, el dispositivo se queda cerrado mostrando el loader
     expect(run([{ type: "OPEN_FINISHED" }], closed)).toEqual(closed);
     expect(run([{ type: "CONTENT_READY" }], closed).phase).toBe("opening");
   });
@@ -116,7 +112,6 @@ describe("deviceReducer", () => {
 
   it("avisa de la espera solo con el dispositivo cerrado, y lo limpia al abrirse", () => {
     const closing = run([{ type: "REQUEST_MENU_TOGGLE" }]);
-    // Cerrando todavía no: esa parte del ciclo dura lo que dura
     expect(run([{ type: "SLOW_THRESHOLD_REACHED" }], closing)).toEqual(closing);
 
     const closed = run([{ type: "CLOSE_FINISHED" }], closing);
@@ -159,7 +154,6 @@ describe("selectores", () => {
 
   it("mantiene el contenido visible hasta que las láminas lo tapan", () => {
     expect(isContentVisible("open")).toBe(true);
-    // Si se ocultara aquí, el parpadeo del ítem no se vería
     expect(isContentVisible("confirming")).toBe(true);
     expect(isContentVisible("closing")).toBe(true);
     expect(isContentVisible("closed")).toBe(false);
@@ -177,7 +171,6 @@ describe("selectores", () => {
   it("elige el color del botón según el estado", () => {
     expect(buttonTone(initialDeviceState)).toBe("cyan");
     expect(buttonTone({ ...initialDeviceState, isMenuOpen: true })).toBe("red");
-    // Ámbar mientras el dispositivo trabaja
     expect(buttonTone({ ...initialDeviceState, phase: "closed" })).toBe("amber");
     expect(buttonTone({ ...initialDeviceState, isMenuOpen: true, isSlow: true })).toBe("amber");
   });
