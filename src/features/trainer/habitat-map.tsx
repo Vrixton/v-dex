@@ -1,15 +1,24 @@
 import { BracketFrame } from "@/components/ui/bracket-frame";
 import { PROFILE } from "@/content/profile";
+import type { Locale } from "@/i18n/locale";
+import { getMessages } from "@/i18n/messages";
+
 import { MapsLink } from "./maps-link";
 
-export function HabitatMap() {
+type HabitatMapProps = {
+  locale: Locale;
+};
+
+export function HabitatMap({ locale }: HabitatMapProps) {
   const { city, country, timezone, mapsUrl } = PROFILE.habitat;
+  const m = getMessages(locale).about.habitat;
+  const place = `${city}, ${country}`;
 
   return (
     <section className="flex flex-col gap-3 rounded-panel bg-surface p-4">
       <header className="flex flex-wrap items-center justify-between gap-2">
         <span>
-          HABITAT <span className="hidden text-fg-muted sm:inline">|| LOCATION</span>
+          {m.title} <span className="hidden text-fg-muted sm:inline">|| {m.subtitle}</span>
         </span>
       </header>
       <div className="relative h-36 overflow-hidden rounded-panel md:h-35">
@@ -33,8 +42,8 @@ export function HabitatMap() {
               <span aria-hidden="true" className="absolute inset-0 bg-current opacity-30" />
               <BracketFrame size="sm" />
               <span className="relative flex items-center gap-2">
-                <span className="text-fg">[HABITAT]:</span>
-                <span>{`${city}, ${country}`}</span>
+                <span className="text-fg">{`[${m.title}]:`}</span>
+                <span>{place}</span>
               </span>
             </span>
           </span>
@@ -44,11 +53,11 @@ export function HabitatMap() {
 
       <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-[10px] md:text-xs">
         <p>
-          <span className="text-brand-cyan/70">[REGION]: </span>
-          <span className="text-fg">{`${city}, ${country}`}</span>
+          <span className="text-brand-cyan/70">{`[${m.region}]: `}</span>
+          <span className="text-fg">{place}</span>
         </p>
         <p>
-          <span className="text-brand-cyan/70">[TIMEZONE]: </span>
+          <span className="text-brand-cyan/70">{`[${m.timezone}]: `}</span>
           <span className="text-fg">{timezone}</span>
         </p>
       </div>

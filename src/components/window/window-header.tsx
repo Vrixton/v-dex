@@ -5,24 +5,13 @@ import { cn } from "@/lib/cn";
 
 type WindowHeaderProps = {
   title: string;
-  /** Texto tras el separador "//". El separador lo pone el componente. */
   breadcrumb?: string | undefined;
-  /** Color del LED. Cada vista usa el suyo. */
   ledTone?: LedTone | undefined;
-  /** El LED late como un bombillo. Activado por defecto. */
   ledPulse?: boolean | undefined;
-  /** Zona libre a la derecha: badges, contadores, estados… */
   actions?: ReactNode | undefined;
   className?: string | undefined;
 };
 
-/**
- * Barra de título de la ventana.
- *
- * Es la misma en todas las vistas y solo cambian tres cosas: el título, el
- * color del LED y lo que se ponga a la derecha. Por eso `actions` es un
- * hueco abierto en vez de una lista cerrada de opciones.
- */
 export function WindowHeader({
   title,
   breadcrumb,

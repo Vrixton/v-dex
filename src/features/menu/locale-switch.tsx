@@ -9,19 +9,16 @@ import { useSound } from "@/components/sound/use-sound";
 import { useToast } from "@/components/toast/toast-context";
 import { PixelChevron } from "@/components/ui/pixel-chevron";
 import { useReducedMotion } from "@/hooks/use-reduced-motion";
-import { LOCALES, type Locale } from "@/i18n/locale";
+import { LOCALES, LOCALE_NAMES, type Locale } from "@/i18n/locale";
 import { LOCALE_NOTICE_KEY } from "@/i18n/locale-notice";
-import { useLocale } from "@/i18n/locale-provider";
+import { useLocale, useMessages } from "@/i18n/locale-provider";
 import { localePath } from "@/i18n/paths";
-
-const LABELS: Record<Locale, string> = { en: "EN", es: "ES" };
-
-const NAMES: Record<Locale, string> = { en: "English", es: "Español" };
 
 const RESET_MS = 800;
 
 export function LocaleSwitch() {
   const current = useLocale();
+  const m = useMessages().device;
   const pathname = usePathname();
   const play = useSound();
   const toast = useToast();
@@ -45,7 +42,12 @@ export function LocaleSwitch() {
     }
 
     play("power");
-    toast({ label: "SYSTEM", value: "RESET", tone: "muted", key: "locale" });
+    toast({
+      label: m.system.label,
+      value: m.system.reset,
+      tone: "muted",
+      key: "locale",
+    });
 
     window.setTimeout(() => setPoweringOff(true), RESET_MS);
     window.setTimeout(() => {
@@ -57,9 +59,9 @@ export function LocaleSwitch() {
     <div className="flex items-center justify-center gap-3 text-xs md:text-sm">
       {poweringOff ? <PowerOff /> : null}
 
-      <span className="text-fg-muted">[LANG]:</span>
+      <span className="text-fg-muted">{`[${m.locale.label}]:`}</span>
 
-      <div role="group" aria-label="Language" className="flex items-center gap-2">
+      <div role="group" aria-label={m.locale.group} className="flex items-center gap-2">
         {LOCALES.map((code) => {
           const active = code === current;
           const href = localePath(pathname, code);
@@ -69,7 +71,7 @@ export function LocaleSwitch() {
               key={code}
               href={href}
               hrefLang={code}
-              aria-label={NAMES[code]}
+              aria-label={LOCALE_NAMES[code]}
               {...(active ? { "aria-current": "true" as const } : {})}
               onMouseEnter={() => play("hover")}
               onFocus={() => play("hover")}
@@ -78,7 +80,7 @@ export function LocaleSwitch() {
               className="group/lang flex cursor-pointer items-center gap-1.5 rounded-control px-2 py-1 text-fg-muted transition-colors hover:text-brand-cyan focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-yellow data-[active=true]:text-brand-cyan"
             >
               <PixelChevron className="size-2.5 text-brand-yellow opacity-0 group-data-[active=true]/lang:opacity-100 motion-safe:group-data-[active=true]/lang:animate-cursor-blink" />
-              {LABELS[code]}
+              {code.toUpperCase()}
             </Link>
           );
         })}

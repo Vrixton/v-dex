@@ -14,7 +14,7 @@
 A portfolio built as a handheld device. Two bezels close over the screen on
 every navigation and open again when the view is ready, the sounds are
 synthesized in the browser, and every sprite is pixel art drawn for this
-project.
+project. It reads in English and Spanish.
 
 ![The device on the home view](docs/screenshots/home.png)
 
@@ -100,6 +100,36 @@ mobile and with reduced motion: one frame for the whole session. If the
 context fails to create, the CSS background underneath is the same color
 with the same scanlines, so nothing breaks.
 
+### 6. Text lives in locale catalogs, and the validator never sees a word of it
+
+The first version kept both languages next to the component that used them,
+as `{ en, es }` objects. It worked, and it was wrong twice: a client
+component holding both strings means the English visitor downloads the
+Spanish copy too, and the site's text ended up spread across twenty files,
+impossible to proofread in one pass.
+
+Now `messages/en.ts` defines the shape and `es.ts` is typed against it, so a
+missing key is a compile error. The server reads the active catalog and
+hands the client only that one. Ids are derived from the catalog —
+`SkillId`, `RoleId`, `ProjectId` — so a record without text cannot exist.
+
+Written by hand rather than with `next-intl`. The locale segment, the
+rewrite, the path helpers and the provider are about sixty lines, and the
+library is the right answer on a product with translation vendors and
+plural rules; this is two languages and one author. Knowing how it works
+was worth more here than the dependency.
+
+Validation returns error codes, not messages. `validateContact` runs in the
+browser and in the route handler, and neither should know what language the
+page is in: the form turns `tooShort` into text using the field's own
+limit.
+
+Four guards run in CI — a missing key, an empty string, a Spanish entry
+identical to its English source (with a hand-written list of the few that
+legitimately match), and a dropped `{placeholder}`. The last one is the
+quiet bug: a translation that loses `{years}` still reads like a sentence,
+just without the number.
+
 ---
 
 ## Accessibility
@@ -114,6 +144,8 @@ with the same scanlines, so nothing breaks.
 - Floating labels are decorative; the accessible name lives in visually
   hidden text
 - On touch, anything that depends on hover has a visible fallback
+- Links that open a new tab say so in hidden text, added to the visible
+  label rather than replacing it
 
 ---
 
@@ -123,24 +155,28 @@ with the same scanlines, so nothing breaks.
 src/
   app/          Routes. Pages are server components; the device is the shell
   components/   Device chrome, window frame, sound, shared UI
-  content/      All copy and data as typed objects
+  content/      Structured data: projects, roles, stack, skills. No prose
   features/     One folder per view
+  i18n/         Locale routing, path helpers and the message catalogs
   lib/          Dates, validation, email, rate limiting
   hooks/        Reduced motion and other small hooks
   styles/       Tokens and keyframes
 ```
 
-Content is kept out of components on purpose: editing a project means
-touching one file, and the shape is typed, so a missing field is a build
-error rather than an empty box in production.
+Data is kept out of components, and text is kept out of both. Adding a
+project means one entry in `content/projects.ts` and its copy in each
+catalog; both are typed, and the entry's id comes from the catalog, so a
+project without text is a build error rather than an empty box in
+production.
 
 ---
 
 ## The contact form
 
 A route handler sends through Resend. The validation schema is shared
-between client and server, so the rules cannot drift; the client copy just
-saves a round trip.
+between client and server, so the rules cannot drift, and it returns error
+codes rather than sentences, so neither side depends on the page's
+language. The client check just saves a round trip.
 
 Against bots: a hidden honeypot field and a minimum fill time. Against
 abuse: a per-IP daily limit. The limit is in memory, which is not reliable

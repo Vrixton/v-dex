@@ -1,25 +1,29 @@
 "use client";
 
 import { useState } from "react";
+
 import { useSound } from "@/components/sound/use-sound";
 import { PixelChevron } from "@/components/ui/pixel-chevron";
-import { ROLES_BY_RECENCY } from "@/content/experience";
+import { ROLES_BY_RECENCY, type RoleId } from "@/content/experience";
+import { useMessages } from "@/i18n/locale-provider";
+
 import { RoleCard } from "./role-card";
 import { RoleSelect } from "./role-select";
 import { RoleViewer } from "./role-viewer";
 
 export function ExpeditionLog() {
   const play = useSound();
-  const [selected, setSelected] = useState(ROLES_BY_RECENCY[0]!.slug);
+  const m = useMessages().experience;
+  const [selected, setSelected] = useState<RoleId>(ROLES_BY_RECENCY[0]!.id);
 
-  const index = ROLES_BY_RECENCY.findIndex((item) => item.slug === selected);
+  const index = ROLES_BY_RECENCY.findIndex((item) => item.id === selected);
   const role = ROLES_BY_RECENCY[index] ?? ROLES_BY_RECENCY[0]!;
 
   function step(direction: -1 | 1) {
     const next = ROLES_BY_RECENCY[index + direction];
     if (!next) return;
     play("select");
-    setSelected(next.slug);
+    setSelected(next.id);
   }
 
   return (
@@ -33,6 +37,7 @@ export function ExpeditionLog() {
       </div>
       <div className="hidden items-center gap-3 lg:flex">
         <CarouselButton
+          label={m.nav.previous}
           direction="prev"
           disabled={index === 0}
           onClick={() => step(-1)}
@@ -43,16 +48,17 @@ export function ExpeditionLog() {
           <ul className="flex snap-x snap-mandatory scrollbar-none gap-3 overflow-x-auto pb-2">
             {ROLES_BY_RECENCY.map((item) => (
               <RoleCard
-                key={item.slug}
+                key={item.id}
                 role={item}
-                active={item.slug === selected}
-                onSelect={() => setSelected(item.slug)}
+                active={item.id === selected}
+                onSelect={() => setSelected(item.id)}
               />
             ))}
           </ul>
         </div>
 
         <CarouselButton
+          label={m.nav.next}
           direction="next"
           disabled={index === ROLES_BY_RECENCY.length - 1}
           onClick={() => step(1)}
@@ -64,11 +70,13 @@ export function ExpeditionLog() {
 }
 
 function CarouselButton({
+  label,
   direction,
   disabled,
   onClick,
   play,
 }: {
+  label: string;
   direction: "prev" | "next";
   disabled: boolean;
   onClick: () => void;
@@ -80,7 +88,7 @@ function CarouselButton({
       onClick={onClick}
       disabled={disabled}
       onMouseEnter={() => !disabled && play("hover")}
-      aria-label={direction === "prev" ? "Previous roles" : "Next roles"}
+      aria-label={label}
       className="group/nav flex size-10 shrink-0 cursor-pointer items-center justify-center rounded-control bg-terminal/50 text-brand-cyan transition-colors hover:bg-terminal focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-yellow disabled:cursor-default disabled:opacity-25"
     >
       <PixelChevron

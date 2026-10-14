@@ -1,16 +1,14 @@
 import { describe, expect, it } from "vitest";
 
-import { DEFAULT_LOCALE, isLocale, LOCALES, translator, type I18nText } from "./locale";
-
-const sample: I18nText = { en: "Projects", es: "Proyectos" };
+import { DEFAULT_LOCALE, isLocale, LOCALE_NAMES, LOCALES } from "./locale";
 
 describe("isLocale", () => {
-  it("acepta los idiomas del sitio", () => {
+  it("accepts the site's languages", () => {
     expect(isLocale("en")).toBe(true);
     expect(isLocale("es")).toBe(true);
   });
 
-  it("rechaza cualquier otra cosa", () => {
+  it("rejects anything else", () => {
     expect(isLocale("fr")).toBe(false);
     expect(isLocale("")).toBe(false);
     expect(isLocale(undefined)).toBe(false);
@@ -18,19 +16,18 @@ describe("isLocale", () => {
   });
 });
 
-describe("translator", () => {
-  it("elige la versión del idioma pedido", () => {
-    expect(translator("en")(sample)).toBe("Projects");
-    expect(translator("es")(sample)).toBe("Proyectos");
-  });
-});
-
-describe("configuración", () => {
-  it("arranca en inglés", () => {
+describe("configuration", () => {
+  it("starts in English", () => {
     expect(DEFAULT_LOCALE).toBe("en");
   });
 
-  it("no repite idiomas", () => {
+  it("lists no language twice", () => {
     expect(new Set(LOCALES).size).toBe(LOCALES.length);
+  });
+
+  it("names every language", () => {
+    for (const locale of LOCALES) {
+      expect(LOCALE_NAMES[locale]).toBeTruthy();
+    }
   });
 });

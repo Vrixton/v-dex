@@ -15,7 +15,6 @@ const base = {
   strokeLinejoin: "round",
 } as const;
 
-/** Altavoz. Con ondas indica sonido activo; sin ellas, silencio. */
 export function SpeakerIcon({ waves = true, className }: IconProps & { waves?: boolean }) {
   return (
     <svg {...base} className={cn("size-4", className)}>

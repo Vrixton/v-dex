@@ -1,10 +1,4 @@
-/**
- * Canales de contacto.
- *
- * El correo va aparte porque es el canal principal: se copia con un clic en
- * lugar de abrir un cliente de correo, que en un ordenador ajeno o sin
- * configurar no lleva a ninguna parte.
- */
+import type { Locale } from "@/i18n/locale";
 
 export const CONTACT = {
   intro: "Want to get in touch",
@@ -14,4 +8,8 @@ export const CONTACT = {
     { name: "LinkedIn", href: "https://www.linkedin.com/in/vrixton/", icon: "linkedin" },
   ],
 } as const;
-export const CV_FILE = "victor-villavicencio-cv.pdf";
+
+export const CV_FILE: Record<Locale, string> = {
+  en: "victor-villavicencio-cv-en.pdf",
+  es: "victor-villavicencio-cv-es.pdf",
+};

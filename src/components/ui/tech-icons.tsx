@@ -1,19 +1,5 @@
 import { cn } from "@/lib/cn";
 
-/**
- * Iconos de tecnologías en pixel art.
- *
- * Los doce viven en un único sprite SVG en línea: cero peticiones, cada
- * trazado se define una sola vez aunque se use en varios sitios, y heredan
- * el color con currentColor, así que teñirlos no cuesta ni un byte.
- *
- * Rejilla de 24x24: con 16 las letras se volvían ilegibles, que es lo que
- * hace reconocible a la mitad de estos logos.
- *
- * Monta <TechIconSprite /> una vez por página y luego usa <TechIcon />
- * tantas veces como haga falta.
- */
-
 export type TechIconName =
   | "typescript"
   | "javascript"

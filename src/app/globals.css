@@ -8,7 +8,6 @@
 
   body {
     @apply bg-device-backdrop font-tech text-fg antialiased;
-    /* Líneas horizontales del fondo claro del dispositivo */
     background-image: repeating-linear-gradient(
       to bottom,
       transparent 0 3px,
@@ -17,7 +16,6 @@
   }
 }
 
-/* Scanlines del cristal de las ventanas */
 @utility screen-lines {
   background-image: repeating-linear-gradient(
     to bottom,
@@ -26,17 +24,6 @@
   );
 }
 
-/*
- * Barra de scroll del dispositivo.
- *
- * Siempre visible: en un aparato los indicadores no se esconden, y además
- * en móvil no hay hover, así que una barra que solo aparece al pasar el
- * ratón no existiría nunca justo donde más falta hace.
- *
- * Safari e iOS ignoran ::-webkit-scrollbar en algunos modos, por eso van
- * también scrollbar-width y scrollbar-color: ahí se ve una versión simple
- * con el mismo pulgar cian.
- */
 @utility hud-scrollbar {
   scrollbar-width: thin;
   scrollbar-color: var(--vdex-cyan-500) color-mix(in oklab, var(--vdex-black) 45%, transparent);

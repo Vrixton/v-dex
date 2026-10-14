@@ -1,15 +1,22 @@
 import type { ProjectType } from "@/content/projects";
 import { cn } from "@/lib/cn";
 
-/** Cada tipo con su color, como los tipos elementales de una ficha. */
 const TONE: Record<ProjectType, string> = {
-  "E-COMMERCE": "border-brand-cyan/60 text-brand-cyan",
-  "WEB APP": "border-status-ok/60 text-status-ok",
-  DASHBOARD: "border-brand-yellow/60 text-brand-yellow",
-  PORTFOLIO: "border-level-border text-level",
+  ecommerce: "border-brand-cyan/60 text-brand-cyan",
+  webApp: "border-status-ok/60 text-status-ok",
+  dashboard: "border-brand-yellow/60 text-brand-yellow",
+  portfolio: "border-level-border text-level",
 };
 
-export function ProjectTypeTag({ type, className }: { type: ProjectType; className?: string }) {
+export function ProjectTypeTag({
+  type,
+  label,
+  className,
+}: {
+  type: ProjectType;
+  label: string;
+  className?: string;
+}) {
   return (
     <li
       className={cn(
@@ -18,7 +25,7 @@ export function ProjectTypeTag({ type, className }: { type: ProjectType; classNa
         className,
       )}
     >
-      {type}
+      {label}
     </li>
   );
 }

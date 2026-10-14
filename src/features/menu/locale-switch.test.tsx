@@ -5,17 +5,10 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { Locale } from "@/i18n/locale";
 import { LOCALE_NOTICE_KEY } from "@/i18n/locale-notice";
 import { LocaleProvider } from "@/i18n/locale-provider";
+import { getMessages } from "@/i18n/messages";
 
 import { LocaleSwitch } from "./locale-switch";
 
-/**
- * Se sustituyen las piezas que aquí no existen: el sonido usa la Web Audio
- * API y la preferencia de movimiento una media query. Lo que se prueba es el
- * comportamiento del control.
- *
- * Los temporizadores son falsos y nunca se avanza hasta la navegación: en
- * jsdom no hay nada a donde navegar, y lo interesante pasa antes.
- */
 const { toastMock, pathnameMock } = vi.hoisted(() => ({
   toastMock: vi.fn(),
   pathnameMock: vi.fn(() => "/projects"),
@@ -26,9 +19,12 @@ vi.mock("@/components/sound/use-sound", () => ({ useSound: () => () => {} }));
 vi.mock("@/components/toast/toast-context", () => ({ useToast: () => toastMock }));
 vi.mock("@/hooks/use-reduced-motion", () => ({ useReducedMotion: () => false }));
 
-function renderWith(locale: Locale) {
+const system = getMessages("en").device.system;
+const locale = getMessages("en").device.locale;
+
+function renderWith(active: Locale) {
   return render(
-    <LocaleProvider locale={locale}>
+    <LocaleProvider locale={active} messages={getMessages(active)}>
       <LocaleSwitch />
     </LocaleProvider>,
   );
@@ -46,21 +42,21 @@ afterEach(() => {
 });
 
 describe("LocaleSwitch", () => {
-  it("ofrece los dos idiomas, cada uno con su nombre", () => {
+  it("offers both languages, each under its own name", () => {
     renderWith("en");
 
     expect(screen.getByRole("link", { name: "English" })).toBeInTheDocument();
     expect(screen.getByRole("link", { name: "Español" })).toBeInTheDocument();
   });
 
-  it("apunta a la misma página en el otro idioma", () => {
+  it("points at the same page in the other language", () => {
     renderWith("en");
 
     expect(screen.getByRole("link", { name: "English" })).toHaveAttribute("href", "/projects");
     expect(screen.getByRole("link", { name: "Español" })).toHaveAttribute("href", "/es/projects");
   });
 
-  it("desde el español vuelve a la URL sin prefijo", () => {
+  it("drops the prefix on the way back from Spanish", () => {
     pathnameMock.mockReturnValue("/es/projects/farmatodo");
     renderWith("es");
 
@@ -70,25 +66,25 @@ describe("LocaleSwitch", () => {
     );
   });
 
-  it("marca el idioma activo", () => {
+  it("marks the active language", () => {
     renderWith("es");
 
     expect(screen.getByRole("link", { name: "Español" })).toHaveAttribute("aria-current", "true");
     expect(screen.getByRole("link", { name: "English" })).not.toHaveAttribute("aria-current");
   });
 
-  it("anuncia el reinicio al elegir otro idioma", async () => {
+  it("announces the reset when another language is picked", async () => {
     const user = userEvent.setup({ advanceTimers: vi.advanceTimersByTime });
     renderWith("en");
 
     await user.click(screen.getByRole("link", { name: "Español" }));
 
     expect(toastMock).toHaveBeenCalledWith(
-      expect.objectContaining({ label: "SYSTEM", value: "RESET" }),
+      expect.objectContaining({ label: system.label, value: system.reset }),
     );
   });
 
-  it("deja la marca para que la página nueva anuncie el idioma", async () => {
+  it("leaves the flag so the next page announces the language", async () => {
     const user = userEvent.setup({ advanceTimers: vi.advanceTimersByTime });
     renderWith("en");
 
@@ -97,7 +93,7 @@ describe("LocaleSwitch", () => {
     expect(window.sessionStorage.getItem(LOCALE_NOTICE_KEY)).toBe("es");
   });
 
-  it("no reinicia al elegir el idioma que ya está puesto", async () => {
+  it("does not reset when the active language is picked again", async () => {
     const user = userEvent.setup({ advanceTimers: vi.advanceTimersByTime });
     renderWith("en");
 
@@ -107,15 +103,23 @@ describe("LocaleSwitch", () => {
     expect(window.sessionStorage.getItem(LOCALE_NOTICE_KEY)).toBeNull();
   });
 
-  it("declara el idioma de cada enlace", () => {
+  it("declares the language of every link", () => {
     renderWith("en");
 
     expect(screen.getByRole("link", { name: "Español" })).toHaveAttribute("hreflang", "es");
   });
 
-  it("anuncia el grupo como selector de idioma", () => {
+  it("names the group as a language picker", () => {
     renderWith("en");
 
-    expect(screen.getByRole("group", { name: "Language" })).toBeInTheDocument();
+    expect(screen.getByRole("group", { name: locale.group })).toBeInTheDocument();
+  });
+
+  it("names the group in the active language", () => {
+    renderWith("es");
+
+    expect(
+      screen.getByRole("group", { name: getMessages("es").device.locale.group }),
+    ).toBeInTheDocument();
   });
 });

@@ -1,17 +1,26 @@
-import { Terminal, TerminalLine } from "@/components/ui/terminal";
+"use client";
+
 import { BracketFrame } from "@/components/ui/bracket-frame";
-import type { Role } from "@/content/experience";
-import { TeamSize } from "@/components/ui/team-size";
-import { PinIcon } from "@/components/ui/icons";
-import { duration, formatPeriod } from "@/lib/date";
-import { ViewerGrid } from "@/components/ui/viewer-grid";
 import { CompanyLogo } from "@/components/ui/company-logo";
+import { PinIcon } from "@/components/ui/icons";
+import { TeamSize } from "@/components/ui/team-size";
+import { Terminal, TerminalLine } from "@/components/ui/terminal";
+import { ViewerGrid } from "@/components/ui/viewer-grid";
+import type { Role } from "@/content/experience";
+import { useLocale, useMessages } from "@/i18n/locale-provider";
+import { duration, formatPeriod } from "@/lib/date";
 
 export function RoleViewer({ role }: { role: Role }) {
+  const locale = useLocale();
+  const messages = useMessages();
+  const m = messages.experience;
+  const entry = m.roles[role.id];
+  const terminal = messages.device.terminal;
+
   return (
     <div className="relative flex h-full flex-col rounded-panel border border-none bg-surface">
       <BracketFrame
-        key={role.slug}
+        key={role.id}
         className="-inset-2 text-brand-yellow motion-safe:animate-bracket-focus"
       />
       <ViewerGrid />
@@ -20,11 +29,11 @@ export function RoleViewer({ role }: { role: Role }) {
           <div className="flex items-center gap-4">
             <CompanyLogo name={role.logo} className="size-12 shrink-0 md:size-14" />
             <div>
-              <p className="text-[10px] text-fg-muted md:text-xs">[COMPANY]:</p>
+              <p className="text-[10px] text-fg-muted md:text-xs">{`[${m.companyLabel}]:`}</p>
               <h2 className="text-lg text-brand-cyan text-shadow-glow md:text-xl">
                 {role.company}
               </h2>
-              <p className="text-xs text-fg md:text-sm">{role.role.toUpperCase()}</p>
+              <p className="text-xs text-fg md:text-sm">{entry.role.toUpperCase()}</p>
             </div>
           </div>
 
@@ -35,16 +44,21 @@ export function RoleViewer({ role }: { role: Role }) {
             </p>
             <p className="mb-2 flex items-center gap-1.5 text-[10px] text-fg-muted md:justify-end md:text-xs">
               <PinIcon className="size-3" />
-              {role.location}
+              {entry.location}
             </p>
             <TeamSize size={role.teamSize} />
           </div>
         </header>
 
-        <Terminal program="EXPEDITION_LOG" status={role.status} className="mt-5 flex-1">
+        <Terminal
+          program={m.program}
+          status={role.status === "active" ? terminal.statusActive : terminal.statusClosed}
+          locale={locale}
+          className="mt-5 flex-1"
+        >
           <ul className="flex flex-col gap-2">
-            {role.log.map((line, index) => (
-              <TerminalLine key={line} cursor={index === role.log.length - 1}>
+            {entry.log.map((line, index) => (
+              <TerminalLine key={line} cursor={index === entry.log.length - 1}>
                 {line}
               </TerminalLine>
             ))}

@@ -1,10 +1,5 @@
 import { cn } from "@/lib/cn";
 
-/**
- * Cursor ">" en estilo pixel art. Va en SVG y no en imagen para heredar el
- * color con currentColor y verse nítido a cualquier tamaño.
- * shapeRendering="crispEdges" evita que el navegador suavice los bordes.
- */
 export function PixelChevron({ className }: { className?: string }) {
   return (
     <svg

@@ -5,18 +5,6 @@ import { Screw } from "./screw";
 import { Shutter } from "./shutter";
 import { SpeakerGrill } from "./speaker-grill";
 
-/**
- * Mitad superior del dispositivo. Son dos capas separadas a propósito:
- *
- * 1. El obturador (<Shutter>): un panel de 50dvh que, abierto, se desplaza
- *    hacia arriba y solo deja ver su borde inferior (la "barra"). Cerrado,
- *    baja hasta el centro.
- * 2. La decoración (tornillos, LED, título): fija en el borde de la pantalla.
- *    Así, en el estado cerrado sigue arriba, como en el diseño, en lugar de
- *    viajar con el panel.
- *
- * El botón central vive dentro del obturador para viajar con su borde.
- */
 export function BezelTop() {
   return (
     <>

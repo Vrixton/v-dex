@@ -6,7 +6,7 @@ import { useSound } from "@/components/sound/use-sound";
 import { Button } from "@/components/ui/button";
 import { PixelChevron } from "@/components/ui/pixel-chevron";
 import type { Project } from "@/content/projects";
-import { useLocale } from "@/i18n/locale-provider";
+import { useLocale, useMessages } from "@/i18n/locale-provider";
 import { localePath } from "@/i18n/paths";
 
 const pad = (value: number) => String(value).padStart(3, "0");
@@ -14,6 +14,8 @@ const pad = (value: number) => String(value).padStart(3, "0");
 export function ProjectNav({ prev, next }: { prev: Project; next: Project }) {
   const play = useSound();
   const locale = useLocale();
+  const m = useMessages().projects;
+
   return (
     <nav className="grid grid-cols-[1fr_auto_1fr] items-center gap-3">
       <Link
@@ -28,7 +30,7 @@ export function ProjectNav({ prev, next }: { prev: Project; next: Project }) {
         <span className="sm:hidden">{`#${pad(prev.number)}`}</span>
       </Link>
 
-      <Button href={localePath("/projects", locale)}>ALL_RECORDS</Button>
+      <Button href={localePath("/projects", locale)}>{m.nav.all}</Button>
 
       <Link
         onMouseEnter={() => play("hover")}

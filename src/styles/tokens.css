@@ -235,6 +235,7 @@
 
   /* Reenfoque del visor: las esquinas salen desde dentro al cambiar de registro */
   --animate-bracket-focus: bracket-focus 320ms cubic-bezier(0.16, 1, 0.3, 1) both;
+
   /* Respiración del marcador: sube y baja un píxel, sin fotogramas nuevos */
   --animate-marker-breathe: marker-breathe 1s ease infinite;
 
@@ -381,7 +382,6 @@
   }
 }
 
-/* Cada esquina declara su punto de partida en --bracket-from */
 @keyframes bracket-in {
   from {
     translate: var(--bracket-from);
@@ -481,11 +481,9 @@
   0%,
   100% {
     translate: 0 0px;
-    /* scale: 1 1; */
   }
   50% {
     translate: 0 -2px;
-    /* scale: 1 1.04; */
   }
 }
 

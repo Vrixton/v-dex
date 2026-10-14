@@ -1,7 +1,6 @@
 import { cn } from "@/lib/cn";
 
 type ScrewProps = {
-  /** Ángulo de la ranura, en grados. Variarlo evita que todos se vean clonados. */
   angle?: number;
   className?: string;
 };

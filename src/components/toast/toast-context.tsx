@@ -13,28 +13,14 @@ export type ToastPosition =
   | "bottom-center"
   | "bottom-right";
 
-/**
- * Dónde aparecen los avisos. Cámbialo aquí y se aplica a todos.
- *
- * Cuando la mascota ocupe el borde inferior, "top-center" vuelve a ser la
- * mejor opción: es la única zona de la pantalla que nadie más usa.
- */
 export const TOAST_POSITION: ToastPosition = "bottom-left";
 
 export type ToastInput = {
-  /** Texto entre corchetes, en mayúsculas: SOUND, EMAIL, MESSAGE_STATUS… */
   label: string;
-  /** Estado o resultado: ON, COPIED, SENT, ERROR… */
   value: string;
   tone?: ToastTone;
   icon?: ReactNode;
-  /** Milisegundos en pantalla. */
   duration?: number;
-  /**
-   * Avisos con la misma clave se reemplazan en vez de apilarse. Por defecto
-   * es la etiqueta, así que pulsar cinco veces el interruptor deja un solo
-   * aviso, no cinco.
-   */
   key?: string;
 };
 
@@ -43,9 +29,7 @@ export type Toast = Required<Omit<ToastInput, "icon">> & {
   icon: ReactNode | null;
 };
 
-/** Tiempo en pantalla: suficiente para leerlo, corto para no estorbar. */
 export const TOAST_DURATION = 1800;
-/** Más de tres a la vez es ruido; los viejos se descartan. */
 const MAX_VISIBLE = 3;
 
 type ToastContextValue = {
@@ -89,7 +73,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
 export function useToast(): (input: ToastInput) => void {
   const context = useContext(ToastContext);
   if (!context) {
-    throw new Error("useToast debe usarse dentro de <ToastProvider>");
+    throw new Error("useToast must be used within <ToastProvider>");
   }
   return context.toast;
 }
@@ -97,7 +81,7 @@ export function useToast(): (input: ToastInput) => void {
 export function useToastQueue(): { toasts: Toast[]; dismiss: (id: number) => void } {
   const context = useContext(ToastContext);
   if (!context) {
-    throw new Error("useToastQueue debe usarse dentro de <ToastProvider>");
+    throw new Error("useToastQueue must be used within <ToastProvider>");
   }
   return { toasts: context.toasts, dismiss: context.dismiss };
 }

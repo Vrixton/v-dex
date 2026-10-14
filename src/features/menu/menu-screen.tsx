@@ -15,17 +15,18 @@ import { useDevice } from "@/components/device/device-context";
 import { useSound } from "@/components/sound/use-sound";
 import { PixelChevron } from "@/components/ui/pixel-chevron";
 import { Window } from "@/components/window/window";
-import { useLocale } from "@/i18n/locale-provider";
+import { useLocale, useMessages } from "@/i18n/locale-provider";
 import { localePath, stripLocale } from "@/i18n/paths";
 
 import { LocaleSwitch } from "./locale-switch";
-import { MENU_IDLE_MESSAGE, MENU_ITEMS } from "./menu-items";
+import { MENU_ITEMS } from "./menu-items";
 import { MenuTerminal } from "./menu-terminal";
 
 export function MenuScreen() {
   const { navigate, toggleMenu, confirmingHref, phase } = useDevice();
   const play = useSound();
   const locale = useLocale();
+  const m = useMessages().device.menu;
   const pathname = usePathname();
 
   const currentPath = stripLocale(pathname);
@@ -101,9 +102,9 @@ export function MenuScreen() {
   const isReady = phase === "open";
 
   return (
-    <Window id="device-menu" title="MENU" ledTone="white" className="min-h-[70dvh]">
+    <Window id="device-menu" title={m.title} ledTone="white" className="min-h-[70dvh]">
       <div className="flex flex-1 flex-col justify-between gap-6">
-        <nav aria-label="Device menu" className="flex flex-1 items-center justify-center">
+        <nav aria-label={m.nav} className="flex flex-1 items-center justify-center">
           <ul
             data-ready={isReady}
             onKeyDown={handleKeyDown}
@@ -114,7 +115,7 @@ export function MenuScreen() {
               const href = localePath(item.href, locale);
 
               return (
-                <li key={item.href} className="flex w-full justify-center">
+                <li key={item.id} className="flex w-full justify-center">
                   <Link
                     ref={(element) => {
                       itemRefs.current[index] = element;
@@ -131,7 +132,7 @@ export function MenuScreen() {
                   >
                     <span className="flex w-[20ch] items-center gap-4">
                       <PixelChevron className="text-brand-yellow opacity-0 group-data-[active=true]:opacity-100 motion-safe:group-data-[active=true]:animate-cursor-blink" />
-                      {item.label}
+                      {m.items[item.id].label}
                     </span>
                   </Link>
                 </li>
@@ -141,7 +142,7 @@ export function MenuScreen() {
         </nav>
         <LocaleSwitch />
 
-        <MenuTerminal message={activeItem?.terminal ?? MENU_IDLE_MESSAGE} />
+        <MenuTerminal message={activeItem ? m.items[activeItem.id].terminal : m.idle} />
       </div>
     </Window>
   );

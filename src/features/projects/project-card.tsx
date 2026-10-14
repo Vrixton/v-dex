@@ -7,7 +7,7 @@ import { BracketFrame } from "@/components/ui/bracket-frame";
 import { PixelChevron } from "@/components/ui/pixel-chevron";
 import { ProjectLogo } from "@/components/ui/project-logo";
 import type { Project } from "@/content/projects";
-import { useLocale } from "@/i18n/locale-provider";
+import { useLocale, useMessages } from "@/i18n/locale-provider";
 import { localePath } from "@/i18n/paths";
 
 import { ProjectTypeTag } from "./project-type";
@@ -15,6 +15,8 @@ import { ProjectTypeTag } from "./project-type";
 export function ProjectCard({ project }: { project: Project }) {
   const play = useSound();
   const locale = useLocale();
+  const m = useMessages().projects;
+  const entry = m.items[project.slug];
   const number = `#${String(project.number).padStart(3, "0")}`;
 
   return (
@@ -47,7 +49,7 @@ export function ProjectCard({ project }: { project: Project }) {
             <div className="relative flex items-end justify-between gap-2">
               <ul className="flex flex-wrap gap-1.5">
                 {project.types.map((type) => (
-                  <ProjectTypeTag key={type} type={type} />
+                  <ProjectTypeTag key={type} type={type} label={m.types[type]} />
                 ))}
               </ul>
 
@@ -61,7 +63,7 @@ export function ProjectCard({ project }: { project: Project }) {
                 <span aria-hidden="true" className="text-status-ok">
                   {">_ "}
                 </span>
-                {project.summary}
+                {entry.summary}
               </p>
             </div>
           </div>

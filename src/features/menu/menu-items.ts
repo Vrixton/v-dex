@@ -1,15 +1,15 @@
+import type { Messages } from "@/i18n/messages";
+
+export type MenuItemId = keyof Messages["device"]["menu"]["items"];
+
 export type MenuItem = {
-  label: string;
+  id: MenuItemId;
   href: string;
-  /** Línea que escribe la terminal cuando el ítem está activo. */
-  terminal: string;
 };
 
 export const MENU_ITEMS: readonly MenuItem[] = [
-  { label: "About me", href: "/", terminal: "Trainer data and skill set" },
-  { label: "Work experience", href: "/experience", terminal: "Expedition log" },
-  { label: "Projects", href: "/projects", terminal: "Challenge log database" },
-  { label: "Contact me", href: "/contact", terminal: "Open a comm channel" },
+  { id: "about", href: "/" },
+  { id: "experience", href: "/experience" },
+  { id: "projects", href: "/projects" },
+  { id: "contact", href: "/contact" },
 ];
-
-export const MENU_IDLE_MESSAGE = "Select an option to proceed";

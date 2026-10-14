@@ -2,24 +2,22 @@ import { Badge } from "@/components/ui/badge";
 import { TechIconSprite } from "@/components/ui/tech-icons";
 import { TechMedal } from "@/components/ui/tech-medal";
 import { CONQUERED, TECHNOLOGIES } from "@/content/stack";
+import type { Locale } from "@/i18n/locale";
+import { getMessages } from "@/i18n/messages";
 
-/**
- * Medallas de gimnasio: el stack completo.
- *
- * La medalla en sí vive en TechMedal, que también usan las fichas de
- * proyecto: aquí solo queda la cabecera con el contador y la rejilla.
- */
-export function GymBadges() {
+export function GymBadges({ locale }: { locale: Locale }) {
+  const m = getMessages(locale).stack;
+
   return (
     <section className="flex flex-col gap-4 rounded-panel bg-surface p-4 md:p-5">
       <TechIconSprite />
 
       <header className="flex flex-wrap items-center justify-between gap-2">
         <span>
-          GYM_BADGES <span className="hidden text-fg-muted sm:inline">|| TECH_STACK</span>
+          {m.title} <span className="hidden text-fg-muted sm:inline">|| {m.subtitle}</span>
         </span>
         <Badge tone="yellow">
-          {`${String(CONQUERED).padStart(2, "0")}/${TECHNOLOGIES.length} CONQUERED`}
+          {`${String(CONQUERED).padStart(2, "0")}/${TECHNOLOGIES.length} ${m.conquered}`}
         </Badge>
       </header>
 

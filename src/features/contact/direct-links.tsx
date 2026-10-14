@@ -1,21 +1,19 @@
 import Link from "next/link";
 
 import { GithubIcon, LinkedinIcon } from "@/components/ui/icons";
-import { CONTACT } from "@/content/contact";
 import { PixelChevron } from "@/components/ui/pixel-chevron";
+import { CONTACT } from "@/content/contact";
+import type { Locale } from "@/i18n/locale";
+import { getMessages } from "@/i18n/messages";
 
 const ICON = { github: GithubIcon, linkedin: LinkedinIcon } as const;
 
-/**
- * Enlaces externos, conectados al hub por el cable link.
- *
- * El conector del centro es el mismo motivo que da nombre al formulario:
- * dos dispositivos que se enlazan para intercambiar.
- */
-export function DirectLinks() {
+export function DirectLinks({ locale }: { locale: Locale }) {
+  const m = getMessages(locale).contact.links;
+
   return (
     <section className="flex flex-col gap-4 rounded-panel bg-surface p-4 md:p-5">
-      <h2 className="text-sm text-fg md:text-base">DIRECT_LINKS</h2>
+      <h2 className="text-sm text-fg md:text-base">{m.title}</h2>
       <ul className="flex flex-col gap-2">
         {CONTACT.networks.map((network) => {
           const Icon = ICON[network.icon];
