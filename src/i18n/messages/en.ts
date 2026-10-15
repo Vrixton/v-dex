@@ -141,7 +141,7 @@ export const en = {
           "When the project lost its lead, I stepped in to **coordinate the team** and took over sprint planning, priorities, and splitting the work.",
           "Reviewed pull requests and walked new developers through the codebase.",
           "We followed **Scrum**, with daily standups, sprint planning, and grooming on two-week cycles.",
-          "Worked day to day with QA, backend, and design.",
+          "Worked day to day with QA, backend, design and the product department.",
         ],
       },
       arbelos: {
@@ -174,7 +174,7 @@ export const en = {
         log: [
           "Worked **four years** in agencies and studios, across **Tsserapp, S9 Consulting, and Tita Media**.",
           "Developed with **Angular** from version 2 and with **Ionic** on hybrid apps.",
-          "Built storefronts on **VTEX** for Colombian brands like **Mario Hernández** and **Fiotti**.",
+          "Built storefronts on **VTEX** for Colombian brands like **Mario Hernández**, **Fiotti**, **Agaval**, and **Prochampions**.",
           "Reviewed code and supported the junior developers on the team.",
         ],
       },

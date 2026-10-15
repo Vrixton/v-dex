@@ -10,7 +10,7 @@ export function Screw({ angle = 45, className }: ScrewProps) {
     <span
       aria-hidden="true"
       className={cn(
-        "relative inline-block size-6 shrink-0 rounded-full border border-seam bg-(image:--gradient-screw) md:size-5",
+        "relative inline-block size-6 shrink-0 rounded-full border border-seam bg-(image:--gradient-screw) shadow-screw md:size-5",
         className,
       )}
     >
