@@ -165,6 +165,7 @@
   /* ── Luces (glows) ─────────────────────────────────────── */
   --shadow-glow-sm: 0 0 8px color-mix(in oklab, var(--vdex-cyan-500) 60%, transparent);
   --shadow-glow-md: 0 0 20px color-mix(in oklab, var(--vdex-cyan-500) 40%, transparent);
+
   /* ── Botón físico ──────────────────────────────────────── */
   /* Luz arriba y sombra abajo: el aro tiene volumen sin canto visible */
   --shadow-key:
@@ -178,6 +179,7 @@
   --shadow-bezel-top: 0 10px 24px rgb(0 0 0 / 0.38);
   --shadow-bezel-bottom: 0 -10px 24px rgb(0 0 0 / 0.38);
 
+  --shadow-screw: 0 2px 3px rgb(0 0 0 / 0.4), inset 0 -1px 2px rgb(0 0 0 / 0.3);
   /* Salida rápida: la ventana llega enseguida y frena, como abrir una app */
   --ease-out-window: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-press: cubic-bezier(0.65, 0, 0.35, 1);

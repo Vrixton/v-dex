@@ -132,10 +132,10 @@ export const es: Messages = {
         role: "Desarrollador Frontend",
         location: "Santiago, Chile \u00b7 Remoto",
         log: [
-          "Cuando el proyecto se quedó sin líder, asumí la **coordinación del equipo** y me encargué de los plannings, las prioridades y el reparto del trabajo.",
+          "Asumí la **coordinación del equipo** y me encargué de los plannings, las prioridades y el reparto del trabajo.",
           "Revisaba pull requests y explicaba el código a los desarrolladores que entraban al equipo.",
           "Seguíamos **Scrum**, con dailies, sprint planning y grooming en ciclos de dos semanas.",
-          "Trabajaba a diario con QA, backend y diseño.",
+          "Trabajaba a diario con backend, QA, diseño y el departamento de producto.",
         ],
       },
       arbelos: {
@@ -168,7 +168,7 @@ export const es: Messages = {
         log: [
           "Trabajé **cuatro años** en agencias y estudios de desarrollo, entre **Tsserapp, S9 Consulting y Tita Media**.",
           "Desarrollé con **Angular** desde la versión 2 y con **Ionic** en aplicaciones híbridas.",
-          "Construí tiendas en **VTEX** para marcas colombianas como **Mario Hernández** y **Fiotti**.",
+          "Construí tiendas en **VTEX** para marcas colombianas como **Mario Hernández**, **Fiotti**, **Agaval** y **Prochampions**.",
           "Revisaba código y acompañaba a los desarrolladores junior del equipo.",
         ],
       },
@@ -239,7 +239,7 @@ export const es: Messages = {
           "Publiqué la página de **Farmatodo Prime**: planes de suscripción, beneficios y una etiqueta que muestra cuánto se habría ahorrado el cliente.",
           "Llevé la actualización **de Angular 11 a 16**, una versión mayor a la vez, en una tienda que no podía caerse.",
           "Hacía los despliegues a producción de las tiendas de Colombia y Venezuela, y cubría guardias de fin de semana.",
-          "Di sesiones internas de **Git y NVM** para el equipo, con diapositivas.",
+          "Di sesiones internas de capacitación en **Git y NVM** para el equipo, con diapositivas.",
         ],
       },
       uhomie: {
