@@ -134,7 +134,7 @@ export function MenuScreen() {
                     onClick={(event) => handleClick(event, href)}
                     onMouseEnter={() => selectItem(index)}
                     onFocus={() => selectItem(index)}
-                    className="group flex w-full max-w-md items-center justify-center rounded-control px-6 py-3 text-xl leading-tight text-fg transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-yellow data-[active=true]:bg-surface-hover data-[active=true]:text-brand-cyan data-[confirming=true]:animate-menu-confirm data-[current=true]:text-brand-cyan md:text-xl"
+                    className="group flex w-full max-w-md items-center justify-center rounded-control px-6 py-3 text-xl leading-tight text-fg transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-yellow data-[active=true]:bg-surface-hover data-[active=true]:text-brand-cyan data-[current=true]:text-brand-cyan motion-safe:data-[confirming=true]:animate-menu-confirm md:text-xl"
                   >
                     <span className="flex w-[20ch] items-center gap-4">
                       <PixelChevron className="text-brand-yellow opacity-0 group-data-[active=true]:opacity-100 motion-safe:group-data-[active=true]:animate-cursor-blink" />

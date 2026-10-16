@@ -73,7 +73,7 @@ function LoaderIcon() {
   return (
     <svg
       {...iconProps}
-      className="relative mt-[6%] size-[50%] animate-spin motion-reduce:[animation-duration:2.4s]"
+      className="relative mt-[6%] size-[50%] motion-safe:animate-spin motion-reduce:[animation-duration:2.4s]"
     >
       <circle cx="12" cy="12" r="8" opacity="0.35" />
       <path d="M12 4a8 8 0 0 1 8 8" />
