@@ -21,6 +21,7 @@ const SAME_IN_BOTH = new Set<string>([
   "contact.form.title",
   "contact.form.fields.name.placeholder",
 ]);
+const TECH_NAME_KEYS = /^experience\.roles\.[^.]+\.stack\[\d+\]$/;
 
 type Flat = Record<string, string>;
 
@@ -71,7 +72,10 @@ describe("message catalogs", () => {
 
   it("leaves no text untranslated", () => {
     const untranslated = Object.entries(flatEn)
-      .filter(([key, text]) => !SAME_IN_BOTH.has(key) && flatEs[key] === text)
+      .filter(
+        ([key, text]) =>
+          !SAME_IN_BOTH.has(key) && !TECH_NAME_KEYS.test(key) && flatEs[key] === text,
+      )
       .map(([key]) => key);
 
     expect(untranslated).toEqual([]);
