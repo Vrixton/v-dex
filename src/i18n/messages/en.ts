@@ -1,14 +1,18 @@
 export const en = {
   device: {
+    /** Shown on every screen's title bar. */
     sync: "SYNC: READY",
     terminal: {
       statusLabel: "STATUS",
       statusActive: "ACTIVE",
       statusClosed: "CLOSED",
     },
+    /** Accessible name of the device's centre button. */
     toggle: "Menu",
     sound: {
+      /** Accessible name of the switch. */
       name: "Sound effects",
+      /** Toast shown when the switch is flipped. */
       label: "SOUND",
       on: "ON",
       off: "OFF",
@@ -16,13 +20,16 @@ export const en = {
     system: {
       label: "SYSTEM",
       reset: "RESET",
+      /** Reads as `LANG_SET - ENGLISH`; the language name is its own. */
       languageSet: "LANG_SET",
     },
     locale: {
+      /** Accessible name of the group of language links. */
       group: "Language",
     },
     menu: {
       title: "MENU",
+      /** Accessible name of the navigation. */
       nav: "Device menu",
       idle: "Select an option to proceed",
       items: {
@@ -44,11 +51,12 @@ export const en = {
         },
       },
     },
+
     pet: {
       label: "{name}, the pet",
-      happy: "{name} is happy.",
-      overwhelmed: "{name} is overwhelmed.",
-      curious: "{name} is very curious.",
+      happy: "{name} is **happy**.",
+      overwhelmed: "{name} is **overwhelmed**.",
+      curious: "{name} is very **curious**.",
     },
   },
 
@@ -114,7 +122,7 @@ export const en = {
       crossFunctional: "Cross-Functional Collaboration",
       stakeholderManagement: "Stakeholder Management",
       designHandoff: "Design Handoff",
-      testing: "Unit testing",
+      testing: "Unit Testing",
     },
   },
   experience: {
@@ -138,37 +146,37 @@ export const en = {
         role: "Frontend Developer",
         location: "Santiago, Chile \u00b7 Remote",
         log: [
-          "I took on **team coordination**, planned the six-month roadmap with them, set priorities, and distributed the work.",
+          "Took on **coordinating the team**, planned the six-month roadmap with them, set priorities, and split the work.",
           "We talked directly with the **client** to gather requirements.",
-          "Before committing to dates, we estimated time and tasks in **sprint planning** and left room for testing and adjustments.",
-          "I ran the meetings for a team spread across **Colombia, Chile, Ecuador, and Venezuela**, with the client in the **United States**.",
-          "I reviewed pull requests, explained the code, and supported the developers joining the team.",
-          "We developed the components with **AI** and delivered them with **unit tests**.",
-          "I worked daily with backend, QA, design, and the product department.",
+          "Before committing to dates, we estimated time and tasks in **sprint planning** and built in a buffer for testing and adjustments.",
+          "Coordinated meetings for a team spread across **Colombia, Chile, Ecuador, and Venezuela**, with the client in the **United States**.",
+          "Reviewed pull requests, walked through the code, and supported developers joining the team.",
+          "We built components with **AI** and delivered them with **unit tests**.",
+          "Worked day to day with backend, QA, design, and the product department.",
         ],
         stack: ["React", "TypeScript", "Tailwind CSS", "SCSS"],
       },
       arbelos: {
-        role: "Frontend Developer \u00b7 Recurring contractor",
-        location: "Ontario, Canada \u00b7 Remote",
+        role: "Frontend Developer · Recurring contractor",
+        location: "Ontario, Canada · Remote",
         log: [
-          "**Recurring collaboration over four years**: they brought me in whenever a new project opened.",
-          "Worked **in written English** day to day: tickets, documentation and standups with a distributed team.",
-          "Picked work from a shared board and ran daily standups focused on blockers and missing specs.",
-          "**Learned to work inside someone else\u2019s codebase**: following the design system and the conventions already in place instead of my own.",
-          "Covered my work with unit tests before handing it over.",
+          "Worked with them for **four years**, joining each new project they opened.",
+          "Tasks came in through **Trello**, assigned by the lead based on who was strongest at each one.",
+          "Finished my assigned work and took on additional tasks from the team.",
+          "Built on the **stack and conventions already in place**.",
+          "Communicated in **written English** with the designer and the administrative team.",
         ],
         stack: ["React", "Next.js", "TypeScript", "Tailwind CSS", "SCSS", "Firebase"],
       },
       farmatodo: {
         role: "Frontend Developer",
-        location: "Bogot\u00e1, Colombia",
+        location: "Bogotá, Colombia",
         log: [
           "Turned requests from the **product department** and **the backend team** into **tasks the team could assign, plan, and prioritize**.",
           "Defined with the **designer** what was feasible to build and maintain.",
-          "Rotated through **sprint planning and estimation** with the frontend team.",
+          "Drove the upgrade **from Angular 11 to 16**, one major version at a time, on a storefront that could not go down.",
           "Covered my code with **unit tests**.",
-          "On my **on-call weeks** I fixed production incidents and deployed the fix when needed.",
+          "On my **on-call weeks** I fixed production incidents and, when needed, deployed the fix to the storefronts in **Colombia and Venezuela**.",
           "Ran internal **Git and NVM** training to unify the team's workflow.",
           "Joined through an agency, and **the company hired me directly** a year later.",
         ],
@@ -178,12 +186,12 @@ export const en = {
         role: "Frontend Developer",
         location: "Agencies and studios · Remote and on-site",
         log: [
-          "I spent **four years** at agencies and development studios, including **Tsserapp, S9 Consulting, and Tita Media**.",
-          "I started at **Tsserapp** with **AngularJS** and moved to **Angular 2** when it came out, while keeping the earlier applications running alongside it.",
-          "There I reviewed code and supported the developers on the team.",
-          "I developed hybrid applications with **Ionic**.",
-          "I built admin dashboards in **Angular** at **S9 Consulting**.",
-          "I built **VTEX** storefronts for Colombian brands such as **Mario Hernández**, **Fiotti**, **Agaval**, and **Prochampions**.",
+          "Worked **four years** in agencies and studios, across **Tsserapp, S9 Consulting, and Tita Media**.",
+          "Started at **Tsserapp** with **AngularJS** and moved to **Angular 2** when it came out, keeping the older apps running alongside.",
+          "There I reviewed code and supported the junior developers on the team.",
+          "Developed hybrid apps with **Ionic**.",
+          "Shipped admin dashboards in **Angular** at **S9 Consulting**.",
+          "Built storefronts on **VTEX** for Colombian brands like **Mario Hernández**, **Fiotti**, **Agaval**, and **Prochampions**.",
         ],
         stack: ["Angular", "Ionic", "TypeScript", "SCSS", "VTEX", "Firebase", "Docker"],
       },
@@ -257,9 +265,11 @@ export const en = {
           "Keeping the sprint moving while production kept interrupting it. Incidents arrive without warning on a high-traffic store, and every new priority threatens to bury a bug someone reported last week. Half the work was technical; the other half was making sure nothing fell through the cracks.",
         work: [
           "Integrated **PSE payments**, the most widely used bank transfer method in Colombia, into the checkout flow.",
-          "Built the **medication information module**: dosage, warnings, and whether a drug is safe during pregnancy or breastfeeding.",
-          "Built a **personalized product search** on top of BazaarVoice that recommends items from each customer's preferences.",
-          "Shipped the **Farmatodo Prime** landing page: subscription plans, benefits, and a tag showing how much the customer would have saved.",
+          "Built the **medication information module**: dosage, warnings and whether a drug is safe during pregnancy or breastfeeding.",
+          "Built a **personalized product search** on top of BazaarVoice that recommends items from each customer’s preferences.",
+          "Shipped the **Farmatodo Prime** landing page: subscription plans, benefits and a tag showing how much the customer would have saved.",
+          "Ran the upgrade **from Angular 11 to 16**, one major version at a time, on a storefront that could not go down.",
+          "Ran production deployments for the Colombian and Venezuelan storefronts, and took weekend on-call shifts.",
         ],
       },
       uhomie: {
@@ -270,11 +280,12 @@ export const en = {
         challenge:
           "The frontend ran ahead of the backend for most of the project, so large parts of the product had to be built, demoed and kept moving against APIs that did not exist yet. Keeping a six-month plan realistic while the team changed around it was as much of the job as the code.",
         work: [
-          "Built the public site: home, **property search**, listing cards, popular districts, and the content pages.",
+          "Built the public site: home, **property search**, listing cards, popular districts and the content pages.",
           "Put the listings **on a map**, with the price shown on each pin so you can compare without opening a single listing.",
           "Built the property detail page, a **cost estimator** for utilities and running expenses, and the **tour booking** flow.",
-          "Built the admin panel with **four roles**—owner, agent, manager, and admin—each with its own permissions, listings, and workflows.",
+          "Built the admin panel with **four roles** — owner, agent, manager and admin — each with its own permissions, listings and workflows.",
           "Implemented authentication and role-based access across both apps.",
+          "Planned the roadmap up to six months out, set priorities and assigned work.",
         ],
       },
       "v-dex": {
@@ -285,7 +296,7 @@ export const en = {
           "Knowing when to stop. Every idea opened three more, and a portfolio that never ships is worth nothing. Most of the work was deciding what stayed out: no screenshot galleries, no filters for six records.",
         work: [
           "I built the device's 'hardware', **two bezels driven by a state machine** that close over the screen on every navigation and open once the view is ready.",
-          "I synthesized the sounds **in the browser with the Web Audio API**, with no audio files and no library, and drew the pixel art from scratch —medals, logos, sprites, and maps— packed into **sprite sheets**.",
+          "I synthesized every sound **in the browser with the Web Audio API**, with no audio files and no library, and drew the pixel art from scratch —medals, logos, sprites, and maps— packed into **sprite sheets**.",
           "I wired the contact form to Resend through a route handler, with validation on both sides and **rate limiting** against abuse.",
           "Every animation respects the **reduced motion** preference, the entire device can be operated from the keyboard, and the bezels never trap focus.",
           "I made the site **bilingual with one route per language** —English at the root and Spanish under `/es`, each version prerendered— with the copy in **typed catalogs** where a missing translation doesn't compile.",
