@@ -11,15 +11,19 @@ import {
   type ReactNode,
 } from "react";
 
+import {
+  petCookie,
+  readPetId,
+  resolvePhase,
+  type BootPhase,
+  type BootProgress,
+} from "./boot-rules";
+
 export const POWER_ON_MS = 940;
-
-export type BootPhase = "closed" | "powering" | "welcome" | "done";
-
-type BootProgress = "idle" | "powering" | "welcome" | "done";
 
 type BootContextValue = {
   phase: BootPhase;
-  isBooting: boolean;
+  petId: string | null;
   powerOn: () => void;
   completeBoot: (petId: string) => void;
 };
@@ -30,24 +34,30 @@ function subscribe(): () => void {
   return () => {};
 }
 
-function getSnapshot(): boolean {
+function getBootSnapshot(): boolean {
   return document.documentElement.dataset.boot === "pending";
 }
 
-function getServerSnapshot(): boolean {
+function getBootServerSnapshot(): boolean {
   return false;
 }
 
-function resolvePhase(progress: BootProgress, isFirstVisit: boolean): BootPhase {
-  if (progress !== "idle") return progress;
-  return isFirstVisit ? "closed" : "done";
+function getPetSnapshot(): string | null {
+  return readPetId(document.cookie);
+}
+
+function getPetServerSnapshot(): string | null {
+  return null;
 }
 
 export function BootProvider({ children }: { children: ReactNode }) {
-  const isFirstVisit = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
+  const isFirstVisit = useSyncExternalStore(subscribe, getBootSnapshot, getBootServerSnapshot);
+  const storedPetId = useSyncExternalStore(subscribe, getPetSnapshot, getPetServerSnapshot);
   const [progress, setProgress] = useState<BootProgress>("idle");
+  const [chosenPetId, setChosenPetId] = useState<string | null>(null);
 
   const phase = resolvePhase(progress, isFirstVisit);
+  const petId = chosenPetId ?? storedPetId;
 
   useEffect(() => {
     if (phase !== "powering") return;
@@ -57,15 +67,16 @@ export function BootProvider({ children }: { children: ReactNode }) {
 
   const powerOn = useCallback(() => setProgress("powering"), []);
 
-  const completeBoot = useCallback((petId: string) => {
-    document.cookie = `vdex-pet=${petId}; path=/; max-age=31536000; samesite=lax`;
+  const completeBoot = useCallback((id: string) => {
+    document.cookie = petCookie(id);
     delete document.documentElement.dataset.boot;
+    setChosenPetId(id);
     setProgress("done");
   }, []);
 
   const value = useMemo(
-    () => ({ phase, isBooting: phase !== "done", powerOn, completeBoot }),
-    [phase, powerOn, completeBoot],
+    () => ({ phase, petId, powerOn, completeBoot }),
+    [phase, petId, powerOn, completeBoot],
   );
 
   return <BootContext value={value}>{children}</BootContext>;
