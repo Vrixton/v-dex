@@ -51,6 +51,13 @@ export const en = {
         },
       },
     },
+
+    pet: {
+      label: "__{name}__, the pet",
+      happy: "__{name}__ is **happy**.",
+      overwhelmed: "__{name}__ is **overwhelmed**.",
+      curious: "__{name}__ is very **curious**.",
+    },
   },
 
   about: {

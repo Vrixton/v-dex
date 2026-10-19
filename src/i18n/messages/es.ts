@@ -46,6 +46,13 @@ export const es: Messages = {
         },
       },
     },
+
+    pet: {
+      label: "__{name}__, la mascota",
+      happy: "__{name}__ está **feliz**.",
+      overwhelmed: "__{name}__ está **abrumado**.",
+      curious: "__{name}__ tiene mucha **curiosidad**.",
+    },
   },
 
   about: {
