@@ -60,11 +60,11 @@ export const en = {
       curious: "__{name}__ is very **curious**.",
     },
     welcome: {
-      title: "WELCOME",
+      eyebrow: "Pokédex-Portfolio inspired",
       heading: "Welcome to V-DEX",
-      intro: "Victor Villavicencio's portfolio.",
+      intro: "Select a PixelPet to join you as you explore my portfolio",
+      hint: "By keeping the mouse button pressed on your PixelPet, you can save it to interact with it later.",
       continue: "Continue",
-      choose: "Pick who comes along.",
     },
   },
 

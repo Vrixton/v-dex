@@ -56,11 +56,11 @@ export const es: Messages = {
     },
 
     welcome: {
-      title: "BIENVENID@",
+      eyebrow: "Portafolio inspirado en una Pokédex",
       heading: "Bienvenid@ a V-DEX",
-      intro: "El portafolio de Victor Villavicencio.",
+      intro: "Elige un PixelPet que te acompañe mientras exploras mi portafolio",
+      hint: "Mantén pulsado el botón del ratón sobre tu PixelPet para guardarlo y poder interactuar con él más tarde.",
       continue: "Continuar",
-      choose: "Elige quién te acompaña.",
     },
   },
 

@@ -8,10 +8,18 @@ export type Pet = {
   spriteSrc?: string | undefined;
 };
 
-export const PETS: Pet[] = [
-  { id: "robot", name: "V-BOT", color: "#197788", spriteSrc: "/pets/robot-sprite.png" },
-  { id: "cat", name: "Static", color: "#FDDBA0", variant: "cat" },
-  { id: "hamster", name: "Lion", color: "#d4bd0e", variant: "hamster" },
-];
+export const DEFAULT_PET: Pet = {
+  id: "robot",
+  name: "V-BOT",
+  color: "#00f0ff",
+  spriteSrc: "/pets/robot-sprite.png",
+};
 
-export const DEFAULT_PET_ID = "robot";
+export const PETS: Pet[] = [
+  { id: "cat", name: "Static", color: "#FDDBA0", variant: "cat" },
+  DEFAULT_PET,
+  { id: "hamster", name: "Neo", color: "#ffa42d", variant: "hamster" },
+];
+export function findPet(id: string): Pet {
+  return PETS.find((pet) => pet.id === id) ?? DEFAULT_PET;
+}
