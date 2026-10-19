@@ -4,12 +4,14 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 
 import { DeviceProvider } from "@/components/device/device-context";
 import { DeviceShell } from "@/components/device/device-shell";
+import { PetLayer } from "@/components/device/pet-layer";
 import { ToastProvider } from "@/components/toast/toast-context";
 import { LOCALES, type Locale } from "@/i18n/locale";
 import { LocaleNotice } from "@/i18n/locale-notice";
 import { LocaleProvider } from "@/i18n/locale-provider";
 import { getMessages } from "@/i18n/messages";
 import { routeLocale, type LocaleRouteProps } from "@/i18n/route-locale";
+import "@vrixton/pixel-pet/styles.css";
 import "../globals.css";
 
 const shareTechMono = Share_Tech_Mono({
@@ -97,6 +99,7 @@ export default async function RootLayout({
             <LocaleNotice />
             <DeviceProvider>
               <DeviceShell>{children}</DeviceShell>
+              <PetLayer />
             </DeviceProvider>
           </ToastProvider>
         </LocaleProvider>
