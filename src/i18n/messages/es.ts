@@ -46,6 +46,12 @@ export const es: Messages = {
         },
       },
     },
+    pet: {
+      label: "{name}, la mascota",
+      happy: "{name} está feliz.",
+      overwhelmed: "{name} está abrumado.",
+      curious: "{name} tiene mucha curiosidad.",
+    },
   },
 
   about: {
@@ -247,8 +253,6 @@ export const es: Messages = {
           "Construí el **módulo de información de medicamentos**: dosis, advertencias y si un fármaco es seguro durante el embarazo o la lactancia.",
           "Construí una **búsqueda de productos personalizada** sobre BazaarVoice que recomienda artículos según las preferencias de cada cliente.",
           "Publiqué la página de **Farmatodo Prime**: planes de suscripción, beneficios y una etiqueta que muestra cuánto se habría ahorrado el cliente.",
-          "Llevé la actualización **de Angular 11 a 16**, una versión mayor a la vez, en una tienda que no podía caerse.",
-          "Hacía los despliegues a producción de las tiendas de Colombia y Venezuela, y cubría guardias de fin de semana.",
         ],
       },
       uhomie: {
@@ -264,7 +268,6 @@ export const es: Messages = {
           "Construí la ficha de la propiedad, un **estimador de costos** de servicios y gastos, y el flujo de **agendamiento de visitas**.",
           "Construí el panel de administración con **cuatro roles** —propietario, agente, gestor y administrador—, cada uno con sus permisos, sus anuncios y sus flujos.",
           "Implementé la autenticación y el acceso por roles en las dos aplicaciones.",
-          "Planifiqué el roadmap hasta seis meses adelante, fijé prioridades y repartí el trabajo.",
         ],
       },
       "v-dex": {

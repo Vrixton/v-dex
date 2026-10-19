@@ -99,7 +99,7 @@ export default async function RootLayout({
             <LocaleNotice />
             <DeviceProvider>
               <DeviceShell>{children}</DeviceShell>
-              <PetLayer />
+              <PetLayer messages={getMessages(locale).device.pet} />
             </DeviceProvider>
           </ToastProvider>
         </LocaleProvider>
