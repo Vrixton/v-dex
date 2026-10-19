@@ -64,6 +64,7 @@ export const en = {
       heading: "Welcome to V-DEX",
       intro: "Victor Villavicencio's portfolio.",
       continue: "Continue",
+      choose: "Pick who comes along.",
     },
   },
 

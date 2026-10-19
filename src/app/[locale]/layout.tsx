@@ -11,6 +11,7 @@ import { LocaleNotice } from "@/i18n/locale-notice";
 import { LocaleProvider } from "@/i18n/locale-provider";
 import { getMessages } from "@/i18n/messages";
 import { routeLocale, type LocaleRouteProps } from "@/i18n/route-locale";
+import Script from "next/script";
 import "@vrixton/pixel-pet/styles.css";
 import "../globals.css";
 
@@ -94,18 +95,16 @@ export default async function RootLayout({
   return (
     <html lang={locale} className={shareTechMono.variable} suppressHydrationWarning>
       <body>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `try{if(!/(^|;\\s*)vdex-pet=/.test(document.cookie))document.documentElement.dataset.boot="pending"}catch{}`,
-          }}
-        />
+        <Script id="vdex-boot" strategy="beforeInteractive">
+          {`try{if(!/(^|;\\s*)vdex-pet=/.test(document.cookie))document.documentElement.dataset.boot="pending"}catch{}`}
+        </Script>
         <LocaleProvider locale={locale} messages={getMessages(locale)}>
           <ToastProvider>
             <LocaleNotice />
             <BootProvider>
               <DeviceProvider>
                 <DeviceShell>{children}</DeviceShell>
-                <PetLayer messages={getMessages(locale).device.pet} />
+                {/* <PetLayer messages={getMessages(locale).device.pet} /> */}
               </DeviceProvider>
             </BootProvider>
           </ToastProvider>

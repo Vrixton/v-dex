@@ -60,6 +60,7 @@ export const es: Messages = {
       heading: "Bienvenid@ a V-DEX",
       intro: "El portafolio de Victor Villavicencio.",
       continue: "Continuar",
+      choose: "Elige quién te acompaña.",
     },
   },
 

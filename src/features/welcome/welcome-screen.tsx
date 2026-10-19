@@ -1,18 +1,20 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { useBoot } from "@/components/device/boot-context";
+import { DEFAULT_PET_ID } from "@/components/device/pets";
 import { useSound } from "@/components/sound/use-sound";
 import { Window } from "@/components/window/window";
 import { useMessages } from "@/i18n/locale-provider";
 
-const DEFAULT_PET = "robot";
+import { PetChooser } from "./pet-chooser";
 
 export function WelcomeScreen() {
   const { phase, completeBoot } = useBoot();
   const play = useSound();
   const m = useMessages().device.welcome;
+  const [selectedId, setSelectedId] = useState(DEFAULT_PET_ID);
   const buttonRef = useRef<HTMLButtonElement>(null);
 
   const isReady = phase === "welcome";
@@ -24,7 +26,7 @@ export function WelcomeScreen() {
 
   function handleContinue() {
     play("select");
-    completeBoot(DEFAULT_PET);
+    completeBoot(selectedId);
   }
 
   return (
@@ -47,10 +49,16 @@ export function WelcomeScreen() {
     >
       <div
         data-ready={isReady}
-        className="flex flex-1 flex-col items-center justify-center gap-3 text-center opacity-0 transition-opacity delay-100 duration-300 data-[ready=true]:opacity-100"
+        className="flex flex-1 flex-col items-center justify-center gap-6 text-center opacity-0 transition-opacity delay-100 duration-300 data-[ready=true]:opacity-100"
       >
-        <h1 className="text-3xl leading-tight text-brand-cyan md:text-4xl">{m.heading}</h1>
-        <p className="text-base text-fg/70">{m.intro}</p>
+        <div className="flex flex-col gap-3">
+          <h1 className="text-3xl leading-tight text-brand-cyan md:text-4xl">{m.heading}</h1>
+          <p className="text-base text-fg/70">{m.intro}</p>
+        </div>
+
+        <p className="text-sm text-fg/70">{m.choose}</p>
+
+        <PetChooser selectedId={selectedId} onSelect={setSelectedId} />
       </div>
     </Window>
   );
