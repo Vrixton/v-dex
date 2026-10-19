@@ -1,12 +1,22 @@
 "use client";
 
+import { useEffect } from "react";
 import { createPortal } from "react-dom";
-import { useBoot } from "./boot-context";
 
-export const POWER_ON_MS = 940;
+import { useSound } from "@/components/sound/use-sound";
+
+import { useBoot } from "./boot-context";
+const SHUTTER_MS = 800;
 
 export function PowerOn() {
   const { phase } = useBoot();
+  const play = useSound();
+
+  useEffect(() => {
+    if (phase !== "powering") return;
+    const timer = window.setTimeout(() => play("power"), SHUTTER_MS);
+    return () => window.clearTimeout(timer);
+  }, [phase, play]);
 
   if (phase !== "powering" || typeof document === "undefined") return null;
 
