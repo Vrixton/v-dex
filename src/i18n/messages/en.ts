@@ -53,10 +53,10 @@ export const en = {
     },
 
     pet: {
-      label: "{name}, the pet",
-      happy: "{name} is **happy**.",
-      overwhelmed: "{name} is **overwhelmed**.",
-      curious: "{name} is very **curious**.",
+      label: "__{name}__, the pet",
+      happy: "__{name}__ is **happy**.",
+      overwhelmed: "__{name}__ is **overwhelmed**.",
+      curious: "__{name}__ is very **curious**.",
     },
   },
 

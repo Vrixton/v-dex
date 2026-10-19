@@ -48,10 +48,10 @@ export const es: Messages = {
     },
 
     pet: {
-      label: "{name}, la mascota",
-      happy: "{name} está **feliz**.",
-      overwhelmed: "{name} está **abrumado**.",
-      curious: "{name} tiene mucha **curiosidad**.",
+      label: "__{name}__, la mascota",
+      happy: "__{name}__ está **feliz**.",
+      overwhelmed: "__{name}__ está **abrumado**.",
+      curious: "__{name}__ tiene mucha **curiosidad**.",
     },
   },
 
