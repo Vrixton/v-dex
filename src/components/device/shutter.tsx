@@ -18,7 +18,6 @@ const sideClass: Record<ShutterProps["side"], string> = {
 
 export function Shutter({ side, children }: ShutterProps) {
   const { shutterPosition } = useDevice();
-  const { isBooting } = useBoot();
   const { phase } = useBoot();
   return (
     <div
