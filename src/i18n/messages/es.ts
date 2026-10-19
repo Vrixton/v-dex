@@ -9,6 +9,7 @@ export const es: Messages = {
       statusClosed: "CERRADO",
     },
     toggle: "Menú",
+    open: "Abrir",
     sound: {
       name: "Efectos de sonido",
       label: "SONIDO",
@@ -52,6 +53,13 @@ export const es: Messages = {
       happy: "__{name}__ está **feliz**.",
       overwhelmed: "__{name}__ está **abrumado**.",
       curious: "__{name}__ tiene mucha **curiosidad**.",
+    },
+
+    welcome: {
+      title: "BIENVENID@",
+      heading: "Bienvenid@ a V-DEX",
+      intro: "El portafolio de Victor Villavicencio.",
+      continue: "Continuar",
     },
   },
 

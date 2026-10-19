@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Share_Tech_Mono } from "next/font/google";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-
+import { BootProvider } from "@/components/device/boot-context";
 import { DeviceProvider } from "@/components/device/device-context";
 import { DeviceShell } from "@/components/device/device-shell";
 import { PetLayer } from "@/components/device/pet-layer";
@@ -92,15 +92,22 @@ export default async function RootLayout({
   const locale = await routeLocale(params);
 
   return (
-    <html lang={locale} className={shareTechMono.variable}>
+    <html lang={locale} className={shareTechMono.variable} suppressHydrationWarning>
       <body>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `try{if(!/(^|;\\s*)vdex-pet=/.test(document.cookie))document.documentElement.dataset.boot="pending"}catch{}`,
+          }}
+        />
         <LocaleProvider locale={locale} messages={getMessages(locale)}>
           <ToastProvider>
             <LocaleNotice />
-            <DeviceProvider>
-              <DeviceShell>{children}</DeviceShell>
-              <PetLayer messages={getMessages(locale).device.pet} />
-            </DeviceProvider>
+            <BootProvider>
+              <DeviceProvider>
+                <DeviceShell>{children}</DeviceShell>
+                <PetLayer messages={getMessages(locale).device.pet} />
+              </DeviceProvider>
+            </BootProvider>
           </ToastProvider>
         </LocaleProvider>
         <SpeedInsights />

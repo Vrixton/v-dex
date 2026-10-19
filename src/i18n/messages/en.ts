@@ -9,6 +9,7 @@ export const en = {
     },
     /** Accessible name of the device's centre button. */
     toggle: "Menu",
+    open: "Open",
     sound: {
       /** Accessible name of the switch. */
       name: "Sound effects",
@@ -57,6 +58,12 @@ export const en = {
       happy: "__{name}__ is **happy**.",
       overwhelmed: "__{name}__ is **overwhelmed**.",
       curious: "__{name}__ is very **curious**.",
+    },
+    welcome: {
+      title: "WELCOME",
+      heading: "Welcome to V-DEX",
+      intro: "Victor Villavicencio's portfolio.",
+      continue: "Continue",
     },
   },
 
