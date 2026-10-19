@@ -1,25 +1,35 @@
+"use client";
+
 import { PixelPet } from "@vrixton/pixel-pet";
 
 import { format } from "@/i18n/format";
-import type { Messages } from "@/i18n/messages/en";
+import { useMessages } from "@/i18n/locale-provider";
 
-const PET_NAME = "V-BOT";
+import { useBoot } from "./boot-context";
+import { findPet } from "./pets";
 
-export function PetLayer({ messages }: { messages: Messages["device"]["pet"] }) {
-  const values = { name: PET_NAME };
+export function PetLayer() {
+  const { phase, petId } = useBoot();
+  const m = useMessages().device.pet;
+
+  if (phase !== "done" || petId === null) return null;
+
+  const pet = findPet(petId);
+  const values = { name: pet.name };
 
   return (
     <div className="pointer-events-none fixed inset-x-0 bottom-(--bezel-bottom-h) z-[6] h-44">
       <PixelPet
-        petName={PET_NAME}
-        spriteSrc="/pets/robot-sprite.png"
-        color="#00f0ff"
-        label={format(messages.label, values)}
+        petName={pet.name}
+        color={pet.color}
+        label={format(m.label, values)}
         messages={{
-          happy: format(messages.happy, values),
-          angry: format(messages.overwhelmed, values),
-          curious: format(messages.curious, values),
+          happy: format(m.happy, values),
+          angry: format(m.overwhelmed, values),
+          curious: format(m.curious, values),
         }}
+        {...(pet.variant ? { variant: pet.variant } : {})}
+        {...(pet.spriteSrc ? { spriteSrc: pet.spriteSrc } : {})}
       />
     </div>
   );
