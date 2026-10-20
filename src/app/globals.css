@@ -14,6 +14,10 @@
       color-mix(in oklab, var(--vdex-white) 35%, transparent) 3px 4px
     );
   }
+
+  html[data-boot="pending"] [data-shutter] {
+    translate: none;
+  }
 }
 
 @utility screen-lines {

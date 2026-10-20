@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Share_Tech_Mono } from "next/font/google";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-
+import { BootProvider } from "@/components/device/boot-context";
 import { DeviceProvider } from "@/components/device/device-context";
 import { DeviceShell } from "@/components/device/device-shell";
 import { PetLayer } from "@/components/device/pet-layer";
@@ -11,6 +11,8 @@ import { LocaleNotice } from "@/i18n/locale-notice";
 import { LocaleProvider } from "@/i18n/locale-provider";
 import { getMessages } from "@/i18n/messages";
 import { routeLocale, type LocaleRouteProps } from "@/i18n/route-locale";
+import { BOOT_COOKIE } from "@/components/device/boot-rules";
+import Script from "next/script";
 import "@vrixton/pixel-pet/styles.css";
 import "../globals.css";
 
@@ -92,15 +94,20 @@ export default async function RootLayout({
   const locale = await routeLocale(params);
 
   return (
-    <html lang={locale} className={shareTechMono.variable}>
+    <html lang={locale} className={shareTechMono.variable} suppressHydrationWarning>
       <body>
+        <Script id="vdex-boot" strategy="beforeInteractive">
+          {`try{if(!/(^|;\\s*)${BOOT_COOKIE}=/.test(document.cookie))document.documentElement.dataset.boot="pending"}catch{}`}
+        </Script>
         <LocaleProvider locale={locale} messages={getMessages(locale)}>
           <ToastProvider>
             <LocaleNotice />
-            <DeviceProvider>
-              <DeviceShell>{children}</DeviceShell>
-              <PetLayer messages={getMessages(locale).device.pet} />
-            </DeviceProvider>
+            <BootProvider>
+              <DeviceProvider>
+                <DeviceShell>{children}</DeviceShell>
+                <PetLayer />
+              </DeviceProvider>
+            </BootProvider>
           </ToastProvider>
         </LocaleProvider>
         <SpeedInsights />

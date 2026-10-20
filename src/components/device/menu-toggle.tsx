@@ -3,12 +3,21 @@
 import { useDevice } from "./device-context";
 import { useSound } from "@/components/sound/use-sound";
 import { useMessages } from "@/i18n/locale-provider";
+import { useBoot } from "./boot-context";
 
 export function MenuToggle() {
   const { isMenuOpen, isBusy, isLoading, tone, toggleMenu } = useDevice();
+  const { phase, powerOn } = useBoot();
+  const isClosed = phase === "closed";
+  const isEntering = phase === "powering" || phase === "welcome";
   const play = useSound();
-  const label = useMessages().device.toggle;
-
+  const device = useMessages().device;
+  const label = isClosed ? device.open : device.toggle;
+  function handleOpen() {
+    play("select");
+    play("shutterOpen");
+    powerOn();
+  }
   return (
     <button
       id="menu-toggle"
@@ -19,13 +28,15 @@ export function MenuToggle() {
       {...(isMenuOpen ? { "aria-controls": "device-menu" } : {})}
       data-state={isMenuOpen ? "open" : "closed"}
       data-tone={tone}
-      onClick={toggleMenu}
+      data-boot={isClosed}
+      onClick={isClosed ? handleOpen : toggleMenu}
       onMouseEnter={() => play("hover")}
+      disabled={isEntering}
       className="group absolute bottom-0 left-1/2 size-(--menu-toggle-size) -translate-x-1/2 translate-y-1/2 cursor-pointer rounded-full focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-yellow"
     >
       <span className="block size-full rounded-full bg-seam p-[calc(var(--menu-toggle-size)*0.06)] shadow-key transition-[box-shadow,translate] duration-100 ease-out group-active:translate-y-[2px] group-active:shadow-key-pressed">
         <span className="block size-full rounded-full bg-white p-[calc(var(--menu-toggle-size)*0.04)]">
-          <span className="relative grid size-full place-items-center overflow-hidden rounded-full bg-(image:--gradient-button-cyan) text-white group-hover:brightness-115 motion-safe:transition-[filter] motion-safe:duration-800">
+          <span className="relative grid size-full place-items-center overflow-hidden rounded-full bg-(image:--gradient-button-cyan) text-white group-hover:brightness-115 group-disabled:grayscale disabled:cursor-default motion-safe:transition-[filter] motion-safe:duration-800 group-data-[boot=true]:motion-safe:animate-pulse data-[boot=true]:motion-safe:animate-pulse">
             <span
               aria-hidden="true"
               className="absolute inset-0 rounded-full bg-(image:--gradient-button-red) opacity-0 transition-opacity duration-300 ease-in-out group-data-[tone=red]:opacity-100 motion-reduce:transition-none"
@@ -35,7 +46,17 @@ export function MenuToggle() {
               className="absolute inset-0 rounded-full bg-(image:--gradient-button-amber) opacity-0 transition-opacity duration-300 ease-in-out group-data-[tone=amber]:opacity-100 motion-reduce:transition-none"
             />
             <span className="absolute top-[8%] left-1/2 h-[22%] w-[45%] -translate-x-1/2 rounded-full bg-white/50" />
-            {isLoading ? <LoaderIcon /> : isMenuOpen ? <CloseIcon /> : <MenuIcon />}
+            {isEntering ? null : isClosed ? (
+              <span className="relative text-lg font-bold tracking-tight uppercase">
+                {device.open}
+              </span>
+            ) : isLoading ? (
+              <LoaderIcon />
+            ) : isMenuOpen ? (
+              <CloseIcon />
+            ) : (
+              <MenuIcon />
+            )}
           </span>
         </span>
       </span>

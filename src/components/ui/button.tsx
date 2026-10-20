@@ -1,8 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import type { ReactNode } from "react";
-
+import type { ReactNode, Ref } from "react";
 import { useSound } from "@/components/sound/use-sound";
 
 type Tone = "cyan" | "yellow";
@@ -36,9 +35,11 @@ export function Button({
   type = "button",
   disabled,
   onClick,
+  ref,
 }: {
   children: ReactNode;
   href?: string;
+  ref?: Ref<HTMLButtonElement> | undefined;
   tone?: Tone;
   size?: Size;
   className?: string;
@@ -77,6 +78,7 @@ export function Button({
 
   return (
     <button
+      ref={ref}
       type={type}
       disabled={disabled}
       onMouseEnter={() => play("hover")}

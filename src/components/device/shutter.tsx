@@ -1,10 +1,9 @@
 "use client";
 
 import type { ReactNode } from "react";
-
 import { cn } from "@/lib/cn";
-
 import { useDevice } from "./device-context";
+import { useBoot } from "./boot-context";
 
 type ShutterProps = {
   side: "top" | "bottom";
@@ -19,10 +18,11 @@ const sideClass: Record<ShutterProps["side"], string> = {
 
 export function Shutter({ side, children }: ShutterProps) {
   const { shutterPosition } = useDevice();
-
+  const { phase } = useBoot();
   return (
     <div
-      data-state={shutterPosition}
+      data-shutter=""
+      data-state={phase === "closed" ? "closed" : shutterPosition}
       className={cn(
         "fixed inset-x-0 h-[50dvh] border-seam transition-transform duration-(--shutter-duration) ease-press data-[state=closed]:translate-y-0",
         sideClass[side],

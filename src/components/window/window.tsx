@@ -8,7 +8,7 @@ import { CrtSweep } from "./crt-sweep";
 
 type WindowProps = {
   id?: string | undefined;
-  title: string;
+  title?: string | undefined;
   breadcrumb?: string | undefined;
   ledTone?: LedTone | undefined;
   ledPulse?: boolean | undefined;
@@ -42,13 +42,15 @@ export function Window({
         className,
       )}
     >
-      <WindowHeader
-        title={title}
-        breadcrumb={breadcrumb}
-        ledTone={ledTone}
-        ledPulse={ledPulse}
-        actions={actions}
-      />
+      {title ? (
+        <WindowHeader
+          title={title}
+          breadcrumb={breadcrumb}
+          ledTone={ledTone}
+          ledPulse={ledPulse}
+          actions={actions}
+        />
+      ) : null}
 
       {scrollable ? (
         <div className="relative z-10 min-h-0 flex-1">
@@ -66,7 +68,7 @@ export function Window({
           />
         </div>
       ) : (
-        <div className="relative z-10 flex flex-1 flex-col p-5 md:p-8">{children}</div>
+        <div className="relative z-10 flex min-h-0 flex-1 flex-col p-5 md:p-8">{children}</div>
       )}
 
       {footer ? (

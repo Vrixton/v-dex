@@ -9,6 +9,7 @@ export const en = {
     },
     /** Accessible name of the device's centre button. */
     toggle: "Menu",
+    open: "Open",
     sound: {
       /** Accessible name of the switch. */
       name: "Sound effects",
@@ -54,9 +55,17 @@ export const en = {
 
     pet: {
       label: "__{name}__, the pet",
+      greeting: "Hi, I'm __{name}__!",
       happy: "__{name}__ is **happy**.",
       overwhelmed: "__{name}__ is **overwhelmed**.",
       curious: "__{name}__ is very **curious**.",
+    },
+    welcome: {
+      eyebrow: "Pokédex-Portfolio inspired",
+      heading: "Welcome to V-DEX",
+      intro: "Select a PixelPet to join you as you explore my portfolio",
+      hint: "Once you have decided on one, press continue.",
+      continue: "Continue",
     },
   },
 
