@@ -50,6 +50,7 @@ export const es: Messages = {
 
     pet: {
       label: "__{name}__, la mascota",
+      greeting: "¡Hola, soy __{name}__!",
       happy: "__{name}__ está **feliz**.",
       overwhelmed: "__{name}__ está **abrumado**.",
       curious: "__{name}__ tiene mucha **curiosidad**.",
@@ -59,7 +60,7 @@ export const es: Messages = {
       eyebrow: "Portafolio inspirado en una Pokédex",
       heading: "Bienvenid@ a V-DEX",
       intro: "Elige un PixelPet que te acompañe mientras exploras mi portafolio",
-      hint: "Mantén pulsado el botón del ratón sobre tu PixelPet para guardarlo y poder interactuar con él más tarde.",
+      hint: "Una vez te hayas decidido por una, presiona continuar.",
       continue: "Continuar",
     },
   },

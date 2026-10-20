@@ -55,6 +55,7 @@ export const en = {
 
     pet: {
       label: "__{name}__, the pet",
+      greeting: "Hi, I'm __{name}__!",
       happy: "__{name}__ is **happy**.",
       overwhelmed: "__{name}__ is **overwhelmed**.",
       curious: "__{name}__ is very **curious**.",
@@ -63,7 +64,7 @@ export const en = {
       eyebrow: "Pokédex-Portfolio inspired",
       heading: "Welcome to V-DEX",
       intro: "Select a PixelPet to join you as you explore my portfolio",
-      hint: "By keeping the mouse button pressed on your PixelPet, you can save it to interact with it later.",
+      hint: "Once you have decided on one, press continue.",
       continue: "Continue",
     },
   },

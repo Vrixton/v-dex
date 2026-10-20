@@ -23,6 +23,9 @@ export function PetLayer() {
         petName={pet.name}
         color={pet.color}
         label={format(m.label, values)}
+        dialogStyle={{
+          borderRadius: "5px",
+        }}
         messages={{
           happy: format(m.happy, values),
           angry: format(m.overwhelmed, values),
