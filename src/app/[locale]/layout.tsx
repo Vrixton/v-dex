@@ -106,7 +106,6 @@ export default async function RootLayout({
               <DeviceProvider>
                 <DeviceShell>{children}</DeviceShell>
                 <PetLayer />
-                {/* <PetLayer messages={getMessages(locale).device.pet} /> */}
               </DeviceProvider>
             </BootProvider>
           </ToastProvider>
