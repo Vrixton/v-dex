@@ -12,7 +12,6 @@ import { LocaleProvider } from "@/i18n/locale-provider";
 import { getMessages } from "@/i18n/messages";
 import { routeLocale, type LocaleRouteProps } from "@/i18n/route-locale";
 import { BOOT_COOKIE } from "@/components/device/boot-rules";
-import Script from "next/script";
 import "@vrixton/pixel-pet/styles.css";
 import "../globals.css";
 
@@ -96,9 +95,11 @@ export default async function RootLayout({
   return (
     <html lang={locale} className={shareTechMono.variable} suppressHydrationWarning>
       <body>
-        <Script id="vdex-boot" strategy="beforeInteractive">
-          {`try{if(!/(^|;\\s*)${BOOT_COOKIE}=/.test(document.cookie))document.documentElement.dataset.boot="pending"}catch{}`}
-        </Script>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `try{if(!/(^|;\\s*)${BOOT_COOKIE}=/.test(document.cookie))document.documentElement.dataset.boot="pending"}catch{}`,
+          }}
+        />
         <LocaleProvider locale={locale} messages={getMessages(locale)}>
           <ToastProvider>
             <LocaleNotice />
