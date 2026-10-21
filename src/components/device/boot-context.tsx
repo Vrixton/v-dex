@@ -65,11 +65,13 @@ export function BootProvider({ children }: { children: ReactNode }) {
     return () => window.clearTimeout(timer);
   }, [phase]);
 
-  const powerOn = useCallback(() => setProgress("powering"), []);
+  const powerOn = useCallback(() => {
+    delete document.documentElement.dataset.boot;
+    setProgress("powering");
+  }, []);
 
   const completeBoot = useCallback((id: string) => {
     document.cookie = petCookie(id);
-    delete document.documentElement.dataset.boot;
     setChosenPetId(id);
     setProgress("done");
   }, []);
