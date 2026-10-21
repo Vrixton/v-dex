@@ -14,12 +14,22 @@ export const DEFAULT_PET: Pet = {
   color: "#00f0ff",
   spriteSrc: "/pets/robot-sprite.png",
 };
+const CAT_PET: Pet = {
+  id: "cat",
+  name: "Volt",
+  color: "#FDDBA0",
+  spriteSrc: "/pets/cat-sprite.png",
+};
 
-export const PETS: Pet[] = [
-  { id: "cat", name: "Static", color: "#FDDBA0", variant: "cat" },
-  DEFAULT_PET,
-  { id: "hamster", name: "Neo", color: "#ffa42d", variant: "hamster" },
-];
+const ALIEN_PET: Pet = {
+  id: "alien",
+  name: "Vlorp",
+  color: "#d0ff00",
+  spriteSrc: "/pets/alien-sprite.png",
+};
+
+export const PETS: Pet[] = [CAT_PET, DEFAULT_PET, ALIEN_PET];
+
 export function findPet(id: string): Pet {
   return PETS.find((pet) => pet.id === id) ?? DEFAULT_PET;
 }
