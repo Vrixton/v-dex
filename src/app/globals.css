@@ -14,10 +14,6 @@
       color-mix(in oklab, var(--vdex-white) 35%, transparent) 3px 4px
     );
   }
-
-  html[data-boot="pending"] [data-shutter] {
-    translate: none;
-  }
 }
 
 @utility screen-lines {
@@ -52,4 +48,8 @@
     background: color-mix(in oklab, var(--vdex-cyan-500) 80%, white);
     box-shadow: 0 0 14px color-mix(in oklab, var(--vdex-cyan-500) 95%, transparent);
   }
+}
+
+html[data-boot="pending"] [data-shutter] {
+  translate: none;
 }
