@@ -26,6 +26,7 @@ type BootContextValue = {
   petId: string | null;
   powerOn: () => void;
   completeBoot: (petId: string) => void;
+  completeTour: () => void;
 };
 
 const BootContext = createContext<BootContextValue | null>(null);
@@ -73,12 +74,14 @@ export function BootProvider({ children }: { children: ReactNode }) {
   const completeBoot = useCallback((id: string) => {
     document.cookie = petCookie(id);
     setChosenPetId(id);
-    setProgress("done");
+    setProgress("tour");
   }, []);
 
+  const completeTour = useCallback(() => setProgress("done"), []);
+
   const value = useMemo(
-    () => ({ phase, petId, powerOn, completeBoot }),
-    [phase, petId, powerOn, completeBoot],
+    () => ({ phase, petId, powerOn, completeBoot, completeTour }),
+    [phase, petId, powerOn, completeBoot, completeTour],
   );
 
   return <BootContext value={value}>{children}</BootContext>;

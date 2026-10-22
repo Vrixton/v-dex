@@ -63,6 +63,17 @@ export const es: Messages = {
       hint: "Una vez te hayas decidido por una, presiona continuar.",
       continue: "Continuar",
     },
+
+    tour: {
+      skip: "Omitir",
+      next: "Continuar",
+      intro: "Hola, humano. Soy {name}, tu guía en este portafolio. Te lo enseño en tres pasos.",
+      steps: {
+        menu: "Pulsa el botón central para abrir el menú y llegar al resto del sitio.",
+        cv: "En las pantallas de inicio y contacto hay una sección TRAINER_CARD. Pulsa EJECT ahí para descargar mi hoja de vida.",
+        contact: "¿Quieres hablar? En la pantalla de contacto están el formulario y mi correo.",
+      },
+    },
   },
 
   about: {

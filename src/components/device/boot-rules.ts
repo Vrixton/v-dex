@@ -1,8 +1,8 @@
 import { DEFAULT_PET } from "./pets";
 
-export type BootPhase = "closed" | "powering" | "welcome" | "done";
+export type BootPhase = "closed" | "powering" | "welcome" | "tour" | "done";
 
-export type BootProgress = "idle" | "powering" | "welcome" | "done";
+export type BootProgress = "idle" | "powering" | "welcome" | "tour" | "done";
 
 export const BOOT_COOKIE = "vdex-pet";
 

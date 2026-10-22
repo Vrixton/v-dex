@@ -60,12 +60,25 @@ export const en = {
       overwhelmed: "__{name}__ is **overwhelmed**.",
       curious: "__{name}__ is very **curious**.",
     },
+
     welcome: {
       eyebrow: "Pokédex-Portfolio inspired",
       heading: "Welcome to V-DEX",
       intro: "Select a PixelPet to join you as you explore my portfolio",
       hint: "Once you have decided on one, press continue.",
       continue: "Continue",
+    },
+
+    tour: {
+      skip: "Skip",
+      next: "Continue",
+      intro:
+        "Hi, human. I'm {name}, your guide to this portfolio. Let me show you around in three steps.",
+      steps: {
+        menu: "Press the center button to open the menu and reach the rest of the site.",
+        cv: "On the home and contact screens there is a TRAINER_CARD section. Press EJECT there to download my resume.",
+        contact: "Want to talk? The contact screen has the form and my email address.",
+      },
     },
   },
 
