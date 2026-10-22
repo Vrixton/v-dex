@@ -1,4 +1,5 @@
 import { BracketFrame } from "@/components/ui/bracket-frame";
+import { ProgressBar } from "@/components/ui/progress-bar";
 import { PROFILE } from "@/content/profile";
 import { format } from "@/i18n/format";
 import type { Locale } from "@/i18n/locale";
@@ -39,26 +40,14 @@ export function TrainerAvatar({ locale }: TrainerAvatarProps) {
         />
       </div>
 
-      <div className="absolute right-0 bottom-5 z-10 flex w-[70%] items-center gap-2 rounded-l-full bg-gradient-to-r from-transparent to-[color-mix(in_oklab,var(--vdex-yellow-400)_40%,transparent)] py-1.5 pr-3 pl-2 [animation-delay:750ms] group-data-[ready=true]/screen:motion-safe:animate-exp-in">
-        <span className="text-sm text-fg">{m.exp}</span>
-        <div
-          className="relative h-4 flex-1 overflow-hidden rounded-full bg-brand-yellow"
-          role="progressbar"
-          aria-valuenow={progress}
-          aria-valuemin={0}
-          aria-valuemax={100}
-          aria-label={format(m.progress, { years })}
-        >
-          <div
-            className="flex h-full items-center rounded-full bg-gradient-to-r from-white/20 to-white/80 px-2"
-            style={{ width: `${Math.max(progress, 70)}%` }}
-          >
-            <span className="text-[10px] whitespace-nowrap text-screen md:text-xs">
-              {format(m.years, { years })}
-            </span>
-          </div>
-        </div>
-      </div>
+      <ProgressBar
+        caption={m.exp}
+        value={progress}
+        minFill={70}
+        label={format(m.years, { years })}
+        ariaLabel={format(m.progress, { years })}
+        className="absolute right-0 bottom-5 z-10 w-[70%] [animation-delay:750ms] group-data-[ready=true]/screen:motion-safe:animate-exp-in"
+      />
     </div>
   );
 }
