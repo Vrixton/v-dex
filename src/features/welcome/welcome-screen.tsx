@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 
 import { useBoot } from "@/components/device/boot-context";
-import { DEFAULT_PET } from "@/components/device/pets";
+import { DEFAULT_PET, findPet } from "@/components/device/pets";
 import { BracketFrame } from "@/components/ui/bracket-frame";
 import { Button } from "@/components/ui/button";
 import { Window } from "@/components/window/window";
@@ -23,6 +23,14 @@ export function WelcomeScreen() {
     if (!isReady) return;
     buttonRef.current?.focus();
   }, [isReady]);
+
+  useEffect(() => {
+    const pet = findPet(selectedId);
+    for (const src of [pet.tourHappy, pet.tourTalking]) {
+      const image = new window.Image();
+      image.src = src;
+    }
+  }, [selectedId]);
 
   return (
     <Window id="device-welcome" fill>
