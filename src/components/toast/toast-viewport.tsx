@@ -43,7 +43,7 @@ export function ToastViewport({ position = TOAST_POSITION }: { position?: ToastP
       role="status"
       aria-live="polite"
       className={cn(
-        "pointer-events-none fixed z-[5] flex gap-2 px-4 py-2 md:px-8",
+        "pointer-events-none fixed z-[9] flex gap-2 px-4 py-2 md:px-8",
         positionClass[position],
       )}
     >

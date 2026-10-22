@@ -9,7 +9,8 @@ export function MenuToggle() {
   const { isMenuOpen, isBusy, isLoading, tone, toggleMenu } = useDevice();
   const { phase, powerOn } = useBoot();
   const isClosed = phase === "closed";
-  const isEntering = phase === "powering" || phase === "welcome";
+  const isAsleep = phase === "powering" || phase === "welcome";
+  const isEntering = isAsleep || phase === "tour";
   const play = useSound();
   const device = useMessages().device;
   const label = isClosed ? device.open : device.toggle;
@@ -32,6 +33,7 @@ export function MenuToggle() {
       onClick={isClosed ? handleOpen : toggleMenu}
       onMouseEnter={() => play("hover")}
       disabled={isEntering}
+      data-asleep={isAsleep}
       className="group absolute bottom-0 left-1/2 size-(--menu-toggle-size) -translate-x-1/2 translate-y-1/2 cursor-pointer rounded-full focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-yellow"
     >
       <span className="block size-full rounded-full bg-seam p-[calc(var(--menu-toggle-size)*0.06)] shadow-key transition-[box-shadow,translate] duration-100 ease-out group-active:translate-y-[2px] group-active:shadow-key-pressed">
@@ -46,7 +48,7 @@ export function MenuToggle() {
               className="absolute inset-0 rounded-full bg-(image:--gradient-button-amber) opacity-0 transition-opacity duration-300 ease-in-out group-data-[tone=amber]:opacity-100 motion-reduce:transition-none"
             />
             <span className="absolute top-[8%] left-1/2 h-[22%] w-[45%] -translate-x-1/2 rounded-full bg-white/50" />
-            {isEntering ? null : isClosed ? (
+            {isAsleep ? null : isClosed ? (
               <span className="relative text-lg font-bold tracking-tight uppercase">
                 {device.open}
               </span>
