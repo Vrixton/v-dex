@@ -72,6 +72,7 @@ export const en = {
     tour: {
       skip: "Skip",
       next: "Continue",
+      back: "Back",
       intro:
         "Hi, human. I'm {name}, your guide to this portfolio. Let me show you around in three steps.",
       steps: {
@@ -99,7 +100,7 @@ export const en = {
     avatar: {
       alt: "Pixel art avatar of {name}",
       level: "LVL.{level}",
-      exp: "EXP.",
+      exp: "EXP",
       years: "+{years} years",
       progress: "{years} years of experience, progress toward the next one",
     },

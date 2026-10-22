@@ -67,6 +67,7 @@ export const es: Messages = {
     tour: {
       skip: "Omitir",
       next: "Continuar",
+      back: "Volver",
       intro: "Hola, humano. Soy {name}, tu guía en este portafolio. Te lo enseño en tres pasos.",
       steps: {
         menu: "Pulsa el botón central para abrir el menú y llegar al resto del sitio.",
@@ -93,7 +94,7 @@ export const es: Messages = {
     avatar: {
       alt: "Avatar en pixel art de {name}",
       level: "NVL.{level}",
-      exp: "EXP.",
+      exp: "EXP",
       years: "+{years} años",
       progress: "{years} años de experiencia, progreso hacia el siguiente",
     },
