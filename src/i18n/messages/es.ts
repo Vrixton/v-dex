@@ -22,6 +22,7 @@ export const es: Messages = {
       languageSet: "IDIOMA_CAMBIADO",
     },
     locale: {
+      label: "[IDIOMA]:",
       group: "Idioma",
     },
     menu: {

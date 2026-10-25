@@ -26,6 +26,7 @@ export const en = {
     },
     locale: {
       /** Accessible name of the group of language links. */
+      label: "[LANG]:",
       group: "Language",
     },
     menu: {
