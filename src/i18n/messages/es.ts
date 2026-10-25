@@ -65,15 +65,18 @@ export const es: Messages = {
     },
 
     tour: {
+      speaker: "[{name}_DICE]:",
       skip: "Omitir",
       next: "Continuar",
       back: "Volver",
       finish: "Finalizar",
-      intro: "Hola, humano. Soy {name}, tu guía en este portafolio. Te lo enseño en tres pasos.",
+      intro:
+        "Hola, explorador. Mi nombre es __{name}__, tu compañero **PixelPet**. Te enseño tres cosas importantes que debes saber de este portafolio.",
       steps: {
-        menu: "Pulsa el botón central para abrir el menú y llegar al resto del sitio.",
-        cv: "En las pantallas de inicio y contacto hay una sección TRAINER_CARD. Pulsa EJECT ahí para descargar mi hoja de vida.",
-        contact: "¿Quieres hablar? En la pantalla de contacto están el formulario y mi correo.",
+        menu: "En primer lugar debes saber que hay más pantallas de las que ves. Todas se abren desde el **botón central**. ((Ashora está desactivado))",
+        cv: "En la pantalla de inicio y en contacto verás la **FICHA_DE_ENTRENADOR**. Pulsa **DESCARGAR** y guarda la hoja de vida del entrenador.",
+        contact:
+          "¿Quieres escribirle? La pantalla de **contacto** tiene un formulario, su correo y sus enlaces.",
       },
     },
   },

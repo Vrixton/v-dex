@@ -70,16 +70,18 @@ export const en = {
     },
 
     tour: {
+      speaker: "[{name}_SAY]:",
       skip: "Skip",
       next: "Continue",
       back: "Back",
       finish: "Finish",
       intro:
-        "Hi, human. I'm {name}, your guide to this portfolio. Let me show you around in three steps.",
+        "Hi, explorer. My name is __{name}__, your **PixelPet** companion. Let me show you three important things you should know about this portfolio.",
       steps: {
-        menu: "Press the center button to open the menu and reach the rest of the site.",
-        cv: "On the home and contact screens there is a TRAINER_CARD section. Press EJECT there to download my resume.",
-        contact: "Want to talk? The contact screen has the form and my email address.",
+        menu: "First, you should know there are more screens than you can see. They all open from the **center button**. ((it's disabled right now))",
+        cv: "On the home and contact screens you'll see the **TRAINER_CARD**. Press **DOWNLOAD** and save the trainer's resume.",
+        contact:
+          "Want to write to him? The **contact** screen has a form, his email, and his links.",
       },
     },
   },
@@ -121,7 +123,7 @@ export const en = {
       file: "FILE",
       type: "FILE_TYPE",
       size: "FILE_SIZE",
-      download: "EJECT / DOWNLOAD",
+      download: "DOWNLOAD",
     },
 
     skillsTitle: "SKILLS",

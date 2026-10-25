@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { ProgressBar } from "@/components/ui/progress-bar";
 import { format } from "@/i18n/format";
 import { useMessages } from "@/i18n/locale-provider";
+import { highlight } from "@/i18n/highlight";
 
 const STEP_KEYS = ["menu", "cv", "contact"] as const;
 
@@ -136,7 +137,9 @@ export function TourOverlay() {
           />
 
           <div className="flex items-baseline justify-between text-sm">
-            <p style={{ color: pet.color }}>[{pet.name.toUpperCase()}_SAY]:</p>
+            <p style={{ color: pet.color }}>
+              {format(m.speaker, { name: pet.name.toUpperCase() })}
+            </p>
             {stepKey ? (
               <p className="text-brand-yellow">
                 {index}/{STEP_KEYS.length}
@@ -145,7 +148,7 @@ export function TourOverlay() {
           </div>
 
           <p id="tour-text" className="mt-4 text-base leading-relaxed text-fg">
-            {text}
+            {highlight(text, pet.color)}
           </p>
 
           <div className="mt-6 flex justify-end gap-3 pl-28 sm:pl-52">
