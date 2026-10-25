@@ -73,6 +73,7 @@ export const en = {
       skip: "Skip",
       next: "Continue",
       back: "Back",
+      finish: "Finish",
       intro:
         "Hi, human. I'm {name}, your guide to this portfolio. Let me show you around in three steps.",
       steps: {

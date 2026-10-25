@@ -26,7 +26,7 @@ export function WelcomeScreen() {
 
   useEffect(() => {
     const pet = findPet(selectedId);
-    for (const src of [pet.tourHappy, pet.tourTalking]) {
+    for (const src of [pet.tourHappy, pet.tourPoint, pet.tourTalking]) {
       const image = new window.Image();
       image.src = src;
     }

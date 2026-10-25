@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
 import { useBoot } from "@/components/device/boot-context";
-import { findPet } from "@/components/device/pets";
+import { findPet, type Pet } from "@/components/device/pets";
 import { Button } from "@/components/ui/button";
 import { ProgressBar } from "@/components/ui/progress-bar";
 import { format } from "@/i18n/format";
@@ -12,7 +12,15 @@ import { useMessages } from "@/i18n/locale-provider";
 
 const STEP_KEYS = ["menu", "cv", "contact"] as const;
 
-const STEP_MS = 30000;
+type StepKey = (typeof STEP_KEYS)[number];
+
+function tourArt(pet: Pet, stepKey: StepKey | null): string {
+  if (stepKey === null) return pet.tourHappy;
+  if (stepKey === "menu") return pet.tourPoint;
+  return pet.tourTalking;
+}
+
+const STEP_MS = 60000;
 
 export function TourOverlay() {
   const { phase, petId, completeTour } = useBoot();
@@ -24,7 +32,7 @@ export function TourOverlay() {
   const nextRef = useRef<HTMLButtonElement>(null);
 
   const isOpen = phase === "tour" && petId !== null;
-  const stepKey = index === 0 ? null : STEP_KEYS[index - 1];
+  const stepKey = index === 0 ? null : (STEP_KEYS[index - 1] ?? null);
 
   useEffect(() => {
     if (!isOpen) return;
@@ -111,26 +119,26 @@ export function TourOverlay() {
     >
       <span
         aria-hidden="true"
-        className="absolute inset-0 bg-[color-mix(in_oklab,var(--color-screen-off)_88%,transparent)]"
+        className="absolute inset-0 bg-[color-mix(in_oklab,var(--color-black)_70%,transparent)]"
       />
 
       <div className="absolute inset-0 flex overflow-y-auto p-4">
         <div
-          className={`relative w-full max-w-lg rounded-window border border-brand-cyan/70 bg-window p-4 shadow-[0_0_34px_color-mix(in_oklab,var(--color-brand-cyan)_28%,transparent)] sm:p-6 ${placement}`}
+          className={`relative w-full max-w-lg rounded-window border border-brand-cyan/20 bg-window p-4 inset-shadow-window sm:p-6 ${placement}`}
         >
           <Image
-            src={stepKey ? pet.tourTalking : pet.tourHappy}
+            src={tourArt(pet, stepKey)}
             alt=""
-            width={64}
-            height={64}
+            width={96}
+            height={96}
             unoptimized
-            className="pointer-events-none absolute -bottom-10 left-2 size-36 [image-rendering:pixelated] sm:-bottom-12 sm:size-44"
+            className="pointer-events-none absolute -bottom-15 -left-10 size-38 [image-rendering:pixelated] sm:-bottom-23 sm:-left-9 sm:size-48"
           />
 
           <div className="flex items-baseline justify-between text-sm">
             <p style={{ color: pet.color }}>[{pet.name.toUpperCase()}_SAY]:</p>
             {stepKey ? (
-              <p className="text-brand-cyan">
+              <p className="text-brand-yellow">
                 {index}/{STEP_KEYS.length}
               </p>
             ) : null}
@@ -140,25 +148,32 @@ export function TourOverlay() {
             {text}
           </p>
 
-          <div className="mt-6 flex justify-end gap-3 pl-28 sm:pl-36">
+          <div className="mt-6 flex justify-end gap-3 pl-28 sm:pl-52">
             {index > 0 ? (
               <Button size="md" onClick={() => goTo(index - 1)} className="uppercase">
                 {m.back}
               </Button>
             ) : null}
-            <Button ref={nextRef} size="md" onClick={handleNext} className="uppercase">
-              {m.next}
+            <Button
+              ref={nextRef}
+              size="md"
+              tone={isLast ? "yellow" : "cyan"}
+              onClick={handleNext}
+              className="uppercase"
+            >
+              {isLast ? m.finish : m.next}
             </Button>
           </div>
         </div>
       </div>
-
       <div className="absolute right-0 bottom-4 flex w-[22rem] max-w-[80%] flex-col items-end gap-2">
-        <Button tone="yellow" size="md" className="mr-4 mb-4 uppercase" onClick={finish}>
-          {m.skip}
-        </Button>
+        {isLast ? null : (
+          <Button tone="yellow" size="md" className="mr-4 mb-4 uppercase" onClick={finish}>
+            {m.skip}
+          </Button>
+        )}
         <ProgressBar
-          caption={m.next}
+          caption={isLast ? m.finish : m.next}
           value={remaining}
           max={STEP_MS}
           minFill={20}

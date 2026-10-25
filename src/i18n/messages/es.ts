@@ -68,6 +68,7 @@ export const es: Messages = {
       skip: "Omitir",
       next: "Continuar",
       back: "Volver",
+      finish: "Finalizar",
       intro: "Hola, humano. Soy {name}, tu guía en este portafolio. Te lo enseño en tres pasos.",
       steps: {
         menu: "Pulsa el botón central para abrir el menú y llegar al resto del sitio.",
