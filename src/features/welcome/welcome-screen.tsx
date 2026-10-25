@@ -10,6 +10,7 @@ import { Window } from "@/components/window/window";
 import { useMessages } from "@/i18n/locale-provider";
 
 import { PetChooser } from "./pet-chooser";
+import { LocaleSwitch } from "../menu/locale-switch";
 
 export function WelcomeScreen() {
   const { phase, completeBoot } = useBoot();
@@ -36,6 +37,9 @@ export function WelcomeScreen() {
     <Window id="device-welcome" fill>
       <div className="relative flex min-h-0 flex-1 flex-col border border-brand-cyan/20 bg-brand-cyan/5">
         <BracketFrame className="inset-0 text-brand-cyan" />
+        <div className="absolute top-6 right-6 z-10">
+          <LocaleSwitch />
+        </div>
         <div className="flex min-h-0 hud-scrollbar flex-1 overflow-x-clip overflow-y-auto overscroll-contain">
           <div
             data-ready={isReady}
