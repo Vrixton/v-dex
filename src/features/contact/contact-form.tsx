@@ -27,6 +27,8 @@ const TEXT_FIELDS = [
 
 const FIELD_ORDER: readonly ContactField[] = ["name", "email", "message"];
 
+const OUTCOME_TOAST_MS = 5000;
+
 export function ContactForm({
   onStatusChange,
 }: {
@@ -91,7 +93,13 @@ export function ContactForm({
       if (response.status === 429) {
         setStatus("limited");
         play("error");
-        toast({ label: m.toastLabel, value: m.toasts.limited, tone: "warning", key: "contact" });
+        toast({
+          label: m.toastLabel,
+          value: m.toasts.limited,
+          duration: OUTCOME_TOAST_MS,
+          tone: "warning",
+          key: "contact",
+        });
         return;
       }
 
@@ -99,13 +107,25 @@ export function ContactForm({
 
       setStatus("sent");
       play("select");
-      toast({ label: m.toastLabel, value: m.toasts.sent, tone: "success", key: "contact" });
+      toast({
+        label: m.toastLabel,
+        value: m.toasts.sent,
+        duration: OUTCOME_TOAST_MS,
+        tone: "success",
+        key: "contact",
+      });
       form.reset();
       startedAt.current = Date.now();
     } catch {
       setStatus("failed");
       play("error");
-      toast({ label: m.toastLabel, value: m.toasts.failed, tone: "error", key: "contact" });
+      toast({
+        label: m.toastLabel,
+        value: m.toasts.failed,
+        duration: OUTCOME_TOAST_MS,
+        tone: "error",
+        key: "contact",
+      });
     }
   }
 

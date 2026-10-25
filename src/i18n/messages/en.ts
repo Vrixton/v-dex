@@ -1,7 +1,7 @@
 export const en = {
   device: {
     /** Shown on every screen's title bar. */
-    sync: "SYNC: READY",
+    sync: "[SYNC]: READY",
     terminal: {
       statusLabel: "STATUS",
       statusActive: "ACTIVE",
@@ -381,7 +381,7 @@ export const en = {
     window: {
       title: "CONTACT_ME",
       breadcrumb: "COMM_LINK",
-      connection: "CONNECTION: READY",
+      connection: "[CONNECTION]: READY",
     },
     mainChannel: {
       title: "MAIN_CHANNEL",

@@ -2,7 +2,7 @@ import type { Messages } from "./en";
 
 export const es: Messages = {
   device: {
-    sync: "SINC: LISTO",
+    sync: "[SINC]: LISTO",
     terminal: {
       statusLabel: "ESTADO",
       statusActive: "ACTIVO",
@@ -367,7 +367,7 @@ export const es: Messages = {
     window: {
       title: "CONTACTO",
       breadcrumb: "ENLACE_COMM",
-      connection: "CONEXIÓN: LISTA",
+      connection: "[CONEXIÓN]: LISTA",
     },
     mainChannel: {
       title: "CANAL_PRINCIPAL",
