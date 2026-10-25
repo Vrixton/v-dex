@@ -14,6 +14,7 @@ import { routeLocale, type LocaleRouteProps } from "@/i18n/route-locale";
 import { BOOT_COOKIE } from "@/components/device/boot-rules";
 import "@vrixton/pixel-pet/styles.css";
 import "../globals.css";
+import { TourOverlay } from "@/features/tour/tour-overlay";
 
 const shareTechMono = Share_Tech_Mono({
   weight: "400",
@@ -107,6 +108,7 @@ export default async function RootLayout({
               <DeviceProvider>
                 <DeviceShell>{children}</DeviceShell>
                 <PetLayer />
+                <TourOverlay />
               </DeviceProvider>
             </BootProvider>
           </ToastProvider>

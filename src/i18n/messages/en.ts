@@ -26,6 +26,7 @@ export const en = {
     },
     locale: {
       /** Accessible name of the group of language links. */
+      label: "[LANG]:",
       group: "Language",
     },
     menu: {
@@ -60,12 +61,29 @@ export const en = {
       overwhelmed: "__{name}__ is **overwhelmed**.",
       curious: "__{name}__ is very **curious**.",
     },
+
     welcome: {
       eyebrow: "Pokédex-Portfolio inspired",
       heading: "Welcome to V-DEX",
       intro: "Select a PixelPet to join you as you explore my portfolio",
       hint: "Once you have decided on one, press continue.",
       continue: "Continue",
+    },
+
+    tour: {
+      speaker: "[{name}_SAY]:",
+      skip: "Skip",
+      next: "Continue",
+      back: "Back",
+      finish: "Finish",
+      intro:
+        "Hi, explorer. My name is __{name}__, your **PixelPet** companion. Let me show you three important things you should know about this portfolio.",
+      steps: {
+        menu: "First, you should know there are more screens than you can see. They all open from the **center button**. ((it's disabled right now))",
+        cv: "On the home and contact screens you'll see the **TRAINER_CARD**. Press **DOWNLOAD** and save the trainer's resume.",
+        contact:
+          "Want to write to him? The **contact** screen has a form, his email, and his links.",
+      },
     },
   },
 
@@ -86,7 +104,7 @@ export const en = {
     avatar: {
       alt: "Pixel art avatar of {name}",
       level: "LVL.{level}",
-      exp: "EXP.",
+      exp: "EXP",
       years: "+{years} years",
       progress: "{years} years of experience, progress toward the next one",
     },
@@ -106,7 +124,7 @@ export const en = {
       file: "FILE",
       type: "FILE_TYPE",
       size: "FILE_SIZE",
-      download: "EJECT / DOWNLOAD",
+      download: "DOWNLOAD",
     },
 
     skillsTitle: "SKILLS",

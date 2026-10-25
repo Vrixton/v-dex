@@ -15,6 +15,7 @@ describe("resolvePhase", () => {
   it("follows the progress once the visitor has acted", () => {
     expect(resolvePhase("powering", true)).toBe("powering");
     expect(resolvePhase("welcome", true)).toBe("welcome");
+    expect(resolvePhase("tour", true)).toBe("tour");
     expect(resolvePhase("done", true)).toBe("done");
   });
 });

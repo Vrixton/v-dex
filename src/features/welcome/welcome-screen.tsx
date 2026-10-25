@@ -3,13 +3,14 @@
 import { useEffect, useRef, useState } from "react";
 
 import { useBoot } from "@/components/device/boot-context";
-import { DEFAULT_PET } from "@/components/device/pets";
+import { DEFAULT_PET, findPet } from "@/components/device/pets";
 import { BracketFrame } from "@/components/ui/bracket-frame";
 import { Button } from "@/components/ui/button";
 import { Window } from "@/components/window/window";
 import { useMessages } from "@/i18n/locale-provider";
 
 import { PetChooser } from "./pet-chooser";
+import { LocaleSwitch } from "../menu/locale-switch";
 
 export function WelcomeScreen() {
   const { phase, completeBoot } = useBoot();
@@ -24,10 +25,21 @@ export function WelcomeScreen() {
     buttonRef.current?.focus();
   }, [isReady]);
 
+  useEffect(() => {
+    const pet = findPet(selectedId);
+    for (const src of [pet.tourHappy, pet.tourPoint, pet.tourTalking]) {
+      const image = new window.Image();
+      image.src = src;
+    }
+  }, [selectedId]);
+
   return (
     <Window id="device-welcome" fill>
       <div className="relative flex min-h-0 flex-1 flex-col border border-brand-cyan/20 bg-brand-cyan/5">
         <BracketFrame className="inset-0 text-brand-cyan" />
+        <div className="absolute top-6 right-6 z-10">
+          <LocaleSwitch />
+        </div>
         <div className="flex min-h-0 hud-scrollbar flex-1 overflow-x-clip overflow-y-auto overscroll-contain">
           <div
             data-ready={isReady}

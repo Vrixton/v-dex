@@ -22,6 +22,7 @@ export const es: Messages = {
       languageSet: "IDIOMA_CAMBIADO",
     },
     locale: {
+      label: "[IDIOMA]:",
       group: "Idioma",
     },
     menu: {
@@ -63,6 +64,22 @@ export const es: Messages = {
       hint: "Una vez te hayas decidido por una, presiona continuar.",
       continue: "Continuar",
     },
+
+    tour: {
+      speaker: "[{name}_DICE]:",
+      skip: "Omitir",
+      next: "Continuar",
+      back: "Volver",
+      finish: "Finalizar",
+      intro:
+        "Hola, explorador. Mi nombre es __{name}__, tu compañero **PixelPet**. Te enseño tres cosas importantes que debes saber de este portafolio.",
+      steps: {
+        menu: "En primer lugar debes saber que hay más pantallas de las que ves. Todas se abren desde el **botón central**. ((Ashora está desactivado))",
+        cv: "En la pantalla de inicio y en contacto verás la **FICHA_DE_ENTRENADOR**. Pulsa **DESCARGAR** y guarda la hoja de vida del entrenador.",
+        contact:
+          "¿Quieres escribirle? La pantalla de **contacto** tiene un formulario, su correo y sus enlaces.",
+      },
+    },
   },
 
   about: {
@@ -82,7 +99,7 @@ export const es: Messages = {
     avatar: {
       alt: "Avatar en pixel art de {name}",
       level: "NVL.{level}",
-      exp: "EXP.",
+      exp: "EXP",
       years: "+{years} años",
       progress: "{years} años de experiencia, progreso hacia el siguiente",
     },

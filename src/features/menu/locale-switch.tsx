@@ -57,7 +57,9 @@ export function LocaleSwitch() {
   return (
     <div className="flex items-center gap-1.5 text-[11px] md:text-xs">
       {poweringOff ? <PowerOff /> : null}
-
+      <span aria-hidden="true" className="mb-1">
+        {m.locale.label}
+      </span>
       <div role="group" aria-label={m.locale.group} className="flex items-center gap-1.5">
         {LOCALES.map((code, index) => {
           const active = code === current;
