@@ -24,7 +24,10 @@ export function RoleViewer({ role }: { role: Role }) {
         className="-inset-2 text-brand-yellow motion-safe:animate-bracket-focus"
       />
       <ViewerGrid />
-      <div className="relative min-h-0 hud-scrollbar flex-1 overflow-y-auto p-5 md:p-6">
+      <div
+        key={`log-${role.id}`}
+        className="relative min-h-0 hud-scrollbar flex-1 overflow-y-auto p-5 md:p-6"
+      >
         <header className="flex flex-wrap items-start justify-between gap-4">
           <div className="flex items-center gap-4">
             <CompanyLogo name={role.logo} className="size-12 shrink-0 md:size-14" />

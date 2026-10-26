@@ -8,6 +8,7 @@ import { PixelChevron } from "@/components/ui/pixel-chevron";
 import type { Role } from "@/content/experience";
 import { useMessages } from "@/i18n/locale-provider";
 import { formatPeriod } from "@/lib/date";
+import { BracketFrame } from "@/components/ui/bracket-frame";
 
 export function RoleCard({
   role,
@@ -44,12 +45,17 @@ export function RoleCard({
         onFocus={() => play("hover")}
         className="group/card relative block h-full w-full cursor-pointer text-left focus-visible:outline-none"
       >
+        <BracketFrame
+          className={`text-brand-cyan transition-all duration-200 ${
+            active ? "inset-0 opacity-100" : "inset-3 opacity-0"
+          }`}
+        />
         <div
           className={`relative flex h-full flex-col overflow-hidden rounded-panel transition-colors ${
             active ? "bg-brand-cyan/10" : "bg-surface-soft group-hover/card:bg-brand-cyan/10"
           }`}
         >
-          <div className="flex items-center gap-3 p-4 pb-12">
+          <div className="relative z-10 flex items-center gap-3 p-3">
             <CompanyLogo name={role.logo} className="size-12 shrink-0 md:size-14" />
             <span className="flex min-w-0 flex-col">
               <span
@@ -59,13 +65,17 @@ export function RoleCard({
               >
                 {role.company}
               </span>
-              <span className="text-[10px] text-fg-muted md:text-xs">
+              <span
+                className={`text-[10px] text-fg-muted transition-opacity duration-200 md:text-xs ${
+                  active ? "opacity-0" : "opacity-100"
+                }`}
+              >
                 {role.periodLabel ?? formatPeriod(role.start, role.end)}
               </span>
             </span>
           </div>
           <p
-            className={`absolute inset-x-0 bottom-0 flex items-center justify-end gap-2 rounded-t-panel bg-surface-strong/80 p-3 text-xs text-fg transition-all duration-200 md:text-sm ${
+            className={`absolute inset-x-0 bottom-0 flex items-center justify-end gap-2 rounded-t-panel bg-surface-strong/80 p-2 text-xs text-fg transition-all duration-200 md:text-sm ${
               active ? "translate-y-0 opacity-100" : "translate-y-full opacity-0"
             }`}
           >

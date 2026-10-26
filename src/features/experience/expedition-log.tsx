@@ -32,9 +32,6 @@ export function ExpeditionLog() {
         <RoleSelect value={selected} onChange={setSelected} />
       </div>
 
-      <div className="min-h-80 flex-1">
-        <RoleViewer role={role} />
-      </div>
       <div className="hidden items-center gap-3 lg:flex">
         <CarouselButton
           label={m.nav.previous}
@@ -64,6 +61,10 @@ export function ExpeditionLog() {
           onClick={() => step(1)}
           play={play}
         />
+      </div>
+
+      <div className="min-h-80 flex-1">
+        <RoleViewer role={role} />
       </div>
     </div>
   );
