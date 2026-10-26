@@ -47,17 +47,22 @@ export function MenuToggle() {
               aria-hidden="true"
               className="absolute inset-0 rounded-full bg-(image:--gradient-button-amber) opacity-0 transition-opacity duration-300 ease-in-out group-data-[tone=amber]:opacity-100 motion-reduce:transition-none"
             />
-            <span className="absolute top-[8%] left-1/2 h-[22%] w-[45%] -translate-x-1/2 rounded-full bg-white/50" />
-            {isAsleep ? null : isClosed ? (
-              <span className="relative text-lg font-bold tracking-tight uppercase">
-                {device.open}
-              </span>
-            ) : isLoading ? (
-              <LoaderIcon />
-            ) : isMenuOpen ? (
-              <CloseIcon />
-            ) : (
-              <MenuIcon />
+            <span className="absolute top-[8%] left-1/2 h-[22%] w-[45%] -translate-x-1/2 rounded-[50%] bg-white/50" />
+            {isAsleep ? null : (
+              <>
+                <span
+                  data-key-label
+                  className="relative text-lg font-bold tracking-tight uppercase"
+                  style={{
+                    paintOrder: "stroke fill",
+                    WebkitTextStroke:
+                      "3px color-mix(in oklab, var(--color-screen) 20%, transparent)",
+                  }}
+                >
+                  {device.open}
+                </span>
+                {isLoading ? <LoaderIcon /> : isMenuOpen ? <CloseIcon /> : <MenuIcon />}
+              </>
             )}
           </span>
         </span>
@@ -69,6 +74,7 @@ export function MenuToggle() {
 const iconProps = {
   viewBox: "0 0 24 24",
   "aria-hidden": true,
+  "data-key-icon": true,
   focusable: false,
   fill: "none",
   stroke: "currentColor",
@@ -76,10 +82,20 @@ const iconProps = {
   strokeLinecap: "round",
 } as const;
 
+const OUTLINE_WIDTH = 5;
+
+function IconPath({ d }: { d: string }) {
+  return (
+    <>
+      <path d={d} className="stroke-screen/20" strokeWidth={OUTLINE_WIDTH} />
+      <path d={d} />
+    </>
+  );
+}
 function MenuIcon() {
   return (
     <svg {...iconProps} className="relative mt-[6%] size-[50%]">
-      <path d="M5 7h14M5 12h14M5 17h14" />
+      <IconPath d="M5 7h14M5 12h14M5 17h14" />
     </svg>
   );
 }
@@ -87,7 +103,7 @@ function MenuIcon() {
 function CloseIcon() {
   return (
     <svg {...iconProps} className="relative mt-[6%] size-[45%]">
-      <path d="M6 6l12 12M18 6L6 18" />
+      <IconPath d="M6 6l12 12M18 6L6 18" />
     </svg>
   );
 }
@@ -99,7 +115,7 @@ function LoaderIcon() {
       className="relative mt-[6%] size-[50%] motion-safe:animate-spin motion-reduce:[animation-duration:2.4s]"
     >
       <circle cx="12" cy="12" r="8" opacity="0.35" />
-      <path d="M12 4a8 8 0 0 1 8 8" />
+      <IconPath d="M12 4a8 8 0 0 1 8 8" />
     </svg>
   );
 }

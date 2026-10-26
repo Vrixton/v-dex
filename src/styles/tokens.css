@@ -1,69 +1,69 @@
 /*
  * V-DEX · Design tokens
  *
- * Dos capas:
- *  1. Primitivos (:root) — la paleta cruda del Figma. NO generan utilidades
- *     de Tailwind, así ningún componente puede saltarse la capa semántica.
- *  2. Semánticos (@theme inline) — nombres por intención de uso. Estos sí
- *     generan utilidades (bg-screen, text-fg-muted, rounded-window…).
+ * Two layers:
+ *  1. Primitives (:root) — the raw palette from Figma. These do NOT generate
+ *     Tailwind utilities, so no component can bypass the semantic layer.
+ *  2. Semantic (@theme inline) — named by intent. These do generate
+ *     utilities (bg-screen, text-fg-muted, rounded-window…).
  *
- * Para personalizar: cambia un primitivo y se propaga a todo el sistema.
- * Para añadir un token nuevo: primero el primitivo, luego su uso semántico.
- * Los valores marcados como PROVISIONAL están pendientes de confirmar.
+ * To customize: change a primitive and it propagates through the whole system.
+ * To add a token: the primitive first, then its semantic use.
+ * Values marked PROVISIONAL are still to be confirmed.
  */
 
 :root {
-  /* ── Marca ─────────────────────────────────────────────── */
+  /* ── Brand ─────────────────────────────────────────────── */
   --vdex-red-500: #dc0a2d;
   --vdex-red-700: #a2000e;
-  --vdex-red-300: #ff4d6a; /* Rojo para TEXTO sobre fondo oscuro (6:1). El #dc0a2d solo da 3.8:1 */
-  --vdex-red-200: #ff8a9b; /* Brillo central del botón rojo */
+  --vdex-red-300: #ff4d6a; /* Red for TEXT on a dark background (6:1). #dc0a2d only reaches 3.8:1 */
+  --vdex-red-200: #ff8a9b; /* Center highlight of the red key */
 
   --vdex-cyan-500: #00f0ff;
-  --vdex-cyan-200: #a5fbff; /* Brillo central del botón cian */
-  --vdex-cyan-100: #b8f4f8; /* PROVISIONAL: fondo claro del dispositivo, fuera de las ventanas */
+  --vdex-cyan-200: #a5fbff; /* Center highlight of the cyan key */
+  --vdex-cyan-100: #b8f4f8; /* PROVISIONAL: the device backdrop, outside the windows */
 
-  --vdex-yellow-200: #fde68a; /* Brillo central del botón en espera */
+  --vdex-yellow-200: #fde68a; /* Center highlight of the key while waiting */
   --vdex-yellow-400: #facc15;
   --vdex-green-200: #86efac;
-  --vdex-green-500: #22c55e; /* PROVISIONAL: estado "SYNC: READY" */
+  --vdex-green-500: #22c55e; /* PROVISIONAL: the "SYNC: READY" state */
   --vdex-crt-off: #324447;
 
-  /* ── Neutros ───────────────────────────────────────────── */
-  --vdex-ink-950: #031016; /* Fondo de la pantalla CRT */
-  --vdex-navy-950: #010618; /* Base de las tarjetas */
+  /* ── Neutrals ──────────────────────────────────────────── */
+  --vdex-ink-950: #031016; /* CRT screen background */
+  --vdex-navy-950: #010618; /* Base of the cards */
   --vdex-black: #000000;
   --vdex-white: #ffffff;
-  --vdex-gray-400: #7a8a91; /* PROVISIONAL: texto secundario (5.4:1 sobre la pantalla) */
+  --vdex-gray-400: #7a8a91; /* PROVISIONAL: secondary text (5.4:1 on the screen) */
   --vdex-metal-100: #ffffff;
   --vdex-metal-400: #b1b1b1;
-  --vdex-maroon-900: #4a1414; /* PROVISIONAL: texto y rejillas del bisel metálico (7:1) */
-  --vdex-graphite-800: #2e2e2e; /* Línea de unión entre biseles y aro del botón central */
+  --vdex-maroon-900: #4a1414; /* PROVISIONAL: text and grills on the metal bezel (7:1) */
+  --vdex-graphite-800: #2e2e2e; /* Seam between the bezels, and the ring around the center key */
   --vdex-graphite-900: #141414;
-  --vdex-steel-300: #9aa0a6; /* Brillo de los tornillos */
-  --vdex-steel-600: #4b5054; /* Sombra de los tornillos */
-  --vdex-silver-200: #d9d9d9; /* Brillo del interruptor */
-  --vdex-silver-500: #cacaca; /* Cuerpo del interruptor */
-  --vdex-violet-200: #e9d5ff; /* Texto del nivel */
-  --vdex-violet-500: #9b5de5; /* Marco del nivel */
+  --vdex-steel-300: #9aa0a6; /* Screw highlight */
+  --vdex-steel-600: #4b5054; /* Screw shadow */
+  --vdex-silver-200: #d9d9d9; /* Switch highlight */
+  --vdex-silver-500: #cacaca; /* Switch body */
+  --vdex-violet-200: #e9d5ff; /* Level text */
+  --vdex-violet-500: #9b5de5; /* Level frame */
   --vdex-violet-900: #2a1b3d;
-  /* ── Layout del dispositivo ────────────────────────────── */
-  /* Móvil primero; en pantallas medianas crecen (ver @media al final) */
+  /* ── Device layout ─────────────────────────────────────── */
+  /* Mobile first; these grow on medium screens (see the @media below) */
   --bezel-top-h: calc(4.5rem + env(safe-area-inset-top, 0px));
   --bezel-bottom-h: calc(4rem + env(safe-area-inset-bottom, 0px));
-  --menu-toggle-size: 4rem; /* Nunca por debajo de 44px: zona táctil mínima */
+  --menu-toggle-size: 4rem; /* Never below 44px: minimum touch target */
   --seam-w: 6px;
-  /* Valor inicial; el DeviceProvider lo sobrescribe a partir de SHUTTER_MS */
+  /* Initial value; DeviceProvider overwrites it from SHUTTER_MS */
   --shutter-duration: 260ms;
   --window-duration: 240ms;
-  /* Espacio que el contenido deja libre para no quedar bajo los biseles */
+  /* Room the content leaves clear so it never sits under the bezels */
   --screen-inset-top: calc(var(--bezel-top-h) + var(--menu-toggle-size) / 2 + 1rem);
   --screen-inset-bottom: calc(var(--bezel-bottom-h) + 1rem);
 
-  /* ── Degradados ────────────────────────────────────────── */
-  /* Oscuro arriba y claro en la unión, como en el estado cerrado del diseño */
+  /* ── Gradients ─────────────────────────────────────────── */
+  /* Dark at the top, light at the seam, as in the closed state of the design */
   --gradient-bezel-top: linear-gradient(180deg, var(--vdex-red-700), var(--vdex-red-500));
-  /* Claro en la unión y gris abajo */
+  /* Light at the seam, gray at the bottom */
   --gradient-bezel-bottom: linear-gradient(180deg, var(--vdex-metal-100), var(--vdex-metal-400));
 
   --gradient-button-cyan: radial-gradient(
@@ -106,24 +106,24 @@
 }
 
 @theme inline {
-  /* Eliminamos la paleta por defecto de Tailwind: solo existen nuestros colores */
+  /* Drop Tailwind's default palette: only our colors exist */
   --color-*: initial;
   --color-white: var(--vdex-white);
   --color-black: var(--vdex-black);
 
-  /* ── Marca ─────────────────────────────────────────────── */
+  /* ── Brand ─────────────────────────────────────────────── */
   --color-brand-red: var(--vdex-red-500);
   --color-brand-cyan: var(--vdex-cyan-500);
   --color-brand-yellow: var(--vdex-yellow-400);
   --color-brand-cyan-dark: color-mix(in oklab, var(--vdex-cyan-500) 55%, black);
   --color-brand-yellow-dark: color-mix(in oklab, var(--vdex-yellow-400) 45%, black);
 
-  /* ── Dispositivo ───────────────────────────────────────── */
+  /* ── Device ────────────────────────────────────────────── */
   --color-device-backdrop: var(--vdex-cyan-100);
   --color-bezel-ink: var(--vdex-maroon-900);
   --color-seam: var(--vdex-graphite-800);
 
-  /* ── Superficies de pantalla ───────────────────────────── */
+  /* ── Screen surfaces ───────────────────────────────────── */
   --color-screen: var(--vdex-ink-950);
   --color-surface: color-mix(in oklab, var(--vdex-navy-950) 25%, transparent);
   --color-surface-hover: color-mix(
@@ -134,7 +134,7 @@
   --color-terminal: color-mix(in oklab, var(--vdex-black) 50%, transparent);
   --color-scanline: color-mix(in oklab, var(--vdex-cyan-500) 25%, transparent);
 
-  /* ── Texto ─────────────────────────────────────────────── */
+  /* ── Text ──────────────────────────────────────────────── */
   --color-fg: var(--vdex-white);
   --color-fg-muted: var(--vdex-gray-400);
   --color-fg-accent: var(--vdex-cyan-500);
@@ -142,36 +142,36 @@
   --color-fg-danger: var(--vdex-red-300);
   --color-status-ok: var(--vdex-green-500);
 
-  /* ── Boton LVL ─────────────────────────────────────────────── */
+  /* ── LVL button ────────────────────────────────────────── */
   --color-level: var(--vdex-violet-200);
   --color-level-border: var(--vdex-violet-500);
   --color-level-bg: var(--vdex-violet-900);
 
   /* ── Cards ─────────────────────────────────────────────── */
-  /* Panel interior de las tarjetas: más sólido que surface */
+  /* Inner panel of the cards: more solid than surface */
   --color-surface-strong: color-mix(in oklab, var(--vdex-navy-950) 50%, transparent);
-  /* Cuerpo de las tarjetas del catálogo, apenas tintado */
+  /* Body of the catalog cards, barely tinted */
   --color-surface-soft: color-mix(in oklab, var(--vdex-navy-950) 20%, transparent);
 
-  /* ── Tipografía ────────────────────────────────────────── */
-  /* --font-share-tech-mono lo inyecta next/font en layout.tsx */
+  /* ── Typography ────────────────────────────────────────── */
+  /* --font-share-tech-mono is injected by next/font in layout.tsx */
   --font-tech: var(--font-share-tech-mono), ui-monospace, "SFMono-Regular", Menlo, monospace;
 
-  /* ── Geometría ─────────────────────────────────────────── */
-  --radius-control: 5px; /* Botones, chips, inputs */
+  /* ── Geometry ──────────────────────────────────────────── */
+  --radius-control: 5px; /* Buttons, chips, and inputs */
   --radius-panel: 10px;
-  --radius-window: 25px; /* Ventanas y contenedores grandes */
+  --radius-window: 25px; /* Windows and large containers */
 
-  /* ── Luces (glows) ─────────────────────────────────────── */
+  /* ── Glows ─────────────────────────────────────────────── */
   --shadow-glow-sm: 0 0 8px color-mix(in oklab, var(--vdex-cyan-500) 60%, transparent);
   --shadow-glow-md: 0 0 20px color-mix(in oklab, var(--vdex-cyan-500) 40%, transparent);
 
-  /* ── Botón físico ──────────────────────────────────────── */
-  /* Luz arriba y sombra abajo: el aro tiene volumen sin canto visible */
+  /* ── Physical key ──────────────────────────────────────── */
+  /* Light above and shadow below: the ring reads as volume with no visible edge */
   --shadow-key:
     0 3px 8px rgb(0 0 0 / 0.45), inset 0 2px 3px rgb(255 255 255 / 0.12),
     inset 0 -3px 5px rgb(0 0 0 / 0.4);
-  /* Al pulsar, la sombra se mete hacia dentro: la tecla se hunde */
+  /* On press the shadow moves inward: the key sinks */
   --shadow-key-pressed: 0 1px 3px rgb(0 0 0 / 0.5), inset 0 3px 6px rgb(0 0 0 / 0.5);
   --inset-shadow-screen: inset 0 0 48px color-mix(in oklab, var(--vdex-cyan-500) 25%, transparent);
   --text-shadow-glow: 0 0 10px color-mix(in oklab, var(--vdex-cyan-500) 70%, transparent);
@@ -180,11 +180,11 @@
   --shadow-bezel-bottom: 0 -10px 24px rgb(0 0 0 / 0.38);
 
   --shadow-screw: 0 2px 3px rgb(0 0 0 / 0.4), inset 0 -1px 2px rgb(0 0 0 / 0.3);
-  /* Salida rápida: la ventana llega enseguida y frena, como abrir una app */
+  /* Fast out: the window arrives at once and settles, like opening an app */
   --ease-out-window: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-press: cubic-bezier(0.65, 0, 0.35, 1);
   --animate-cursor-blink: cursor-blink 1s steps(1, end) infinite;
-  /* Dos parpadeos de 210 ms = CONFIRM_MS (420 ms) */
+  /* Two blinks of 210 ms = CONFIRM_MS (420 ms) */
   --animate-menu-confirm: menu-confirm 210ms steps(1, end) 2;
   --animate-toast-in: toast-in 180ms cubic-bezier(0.16, 1, 0.3, 1);
   --animate-toast-out: toast-out 180ms ease-in forwards;
@@ -192,53 +192,53 @@
   /* --animate-toast-in-up: toast-in-up 180ms cubic-bezier(0.16, 1, 0.3, 1);
   --animate-toast-out-down: toast-out-down 180ms ease-in forwards; */
 
-  /* El panel se despliega; el contenido entra un instante después */
+  /* The panel unfolds; the content arrives an instant later */
   --animate-toast-in: toast-in 300ms cubic-bezier(0.16, 1, 0.3, 1);
   --animate-toast-out: toast-out 200ms ease-in forwards;
   --animate-toast-in-up: toast-in-up 300ms cubic-bezier(0.16, 1, 0.3, 1);
   --animate-toast-out-down: toast-out-down 200ms ease-in forwards;
   --animate-toast-content: toast-content 240ms ease-out 110ms both;
 
-  /* Efecto del Parpadeo */
+  /* Flicker effect */
   /* --animate-crt-flicker: crt-flicker 10s steps(1, end) infinite; */
 
-  /* Cuerpo de la ventana: el fondo del dispositivo se transparenta */
+  /* Window body: the device backdrop shows through */
   --color-window: color-mix(in oklab, var(--vdex-navy-950) 82%, transparent);
-  /* La barra de título va algo más sólida, para separarse del cuerpo */
+  /* The title bar sits a little more solid, to separate it from the body */
   --color-window-header: color-mix(in oklab, var(--vdex-navy-950) 92%, transparent);
-  /* Banda del barrido de refresco */
+  /* Band of the refresh sweep */
   --color-sweep: color-mix(in oklab, var(--vdex-cyan-500) 22%, transparent);
 
-  /* Glow cian pegado al borde interior de la ventana */
+  /* Cyan glow hugging the inner edge of the window */
   --inset-shadow-window:
     inset 0 0 24px color-mix(in oklab, var(--vdex-cyan-500) 28%, transparent),
     inset 0 0 2px color-mix(in oklab, var(--vdex-cyan-500) 55%, transparent);
 
-  /* Barrido de refresco del tubo, recorriendo la ventana */
+  /* Tube refresh sweep, traveling down the window */
   --animate-crt-sweep: crt-sweep 7s linear infinite;
 
   /* --animate-trainer-idle: trainer-idle 1.2s steps(7) infinite; */
   --animate-trainer-idle: trainer-idle 1.2s steps(7, jump-none) infinite;
 
-  /* Entrada de la ficha: las esquinas se abren desde el centro, luego
-     aparece el sprite y por último los datos */
+  /* Card entrance: the corners open from the center, then the sprite
+     appears, and the data comes last */
   --animate-bracket-in: bracket-in 500ms cubic-bezier(0.16, 1, 0.3, 1) both;
   --animate-sprite-in: sprite-in 600ms cubic-bezier(0.16, 1, 0.3, 1) both;
   --animate-hud-in: hud-in 500ms ease-out both;
 
   --animate-exp-in: exp-in 600ms cubic-bezier(0.16, 1, 0.3, 1) both;
 
-  /* La flecha empuja hacia su lado: aquí indica dirección, no selección */
+  /* The arrow pushes toward its own side: here it means direction, not selection */
   --animate-nudge-right: nudge-right 700ms ease-in-out infinite;
   --animate-nudge-left: nudge-left 700ms ease-in-out infinite;
 
-  /* Onda de radar: sale del centro, crece y se apaga */
+  /* Radar wave: leaves the center, grows, and fades out */
   --animate-radar-ping: radar-ping 7s ease-out infinite;
 
-  /* Reenfoque del visor: las esquinas salen desde dentro al cambiar de registro */
+  /* Viewer refocus: the corners spring outward when the record changes */
   --animate-bracket-focus: bracket-focus 320ms cubic-bezier(0.16, 1, 0.3, 1) both;
 
-  /* Respiración del marcador: sube y baja un píxel, sin fotogramas nuevos */
+  /* Marker breathing: it rises and falls one pixel, with no new frames */
   --animate-marker-breathe: marker-breathe 1s ease infinite;
 
   --animate-crt-collapse: crt-collapse 680ms cubic-bezier(0.4, 0, 0.2, 1) both;
