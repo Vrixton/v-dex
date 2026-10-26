@@ -159,7 +159,7 @@ export const en = {
       logsFound: "{count} LOGS FOUND",
     },
     /** Terminal program name, without the extension. */
-    program: "EXPEDITION_LOG",
+    program: "EXPERIENCE_LOG",
     companyLabel: "COMPANY",
     selectLabel: "SELECT_LOG",
     /** Badge on the card that is currently open. */
