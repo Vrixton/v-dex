@@ -38,7 +38,7 @@ export function MenuToggle() {
     >
       <span className="block size-full rounded-full bg-seam p-[calc(var(--menu-toggle-size)*0.06)] shadow-key transition-[box-shadow,translate] duration-100 ease-out group-active:translate-y-[2px] group-active:shadow-key-pressed">
         <span className="block size-full rounded-full bg-white p-[calc(var(--menu-toggle-size)*0.04)]">
-          <span className="relative grid size-full place-items-center overflow-hidden rounded-full bg-(image:--gradient-button-cyan) stroke-white text-white group-hover:brightness-115 group-disabled:grayscale disabled:cursor-default motion-safe:transition-[filter] motion-safe:duration-800 group-data-[boot=true]:motion-safe:animate-pulse data-[boot=true]:motion-safe:animate-pulse">
+          <span className="relative grid size-full place-items-center overflow-hidden rounded-full bg-(image:--gradient-button-cyan) text-white group-hover:brightness-115 group-disabled:grayscale disabled:cursor-default motion-safe:transition-[filter] motion-safe:duration-800 group-data-[boot=true]:motion-safe:animate-pulse data-[boot=true]:motion-safe:animate-pulse">
             <span
               aria-hidden="true"
               className="absolute inset-0 rounded-full bg-(image:--gradient-button-red) opacity-0 transition-opacity duration-300 ease-in-out group-data-[tone=red]:opacity-100 motion-reduce:transition-none"
@@ -47,18 +47,22 @@ export function MenuToggle() {
               aria-hidden="true"
               className="absolute inset-0 rounded-full bg-(image:--gradient-button-amber) opacity-0 transition-opacity duration-300 ease-in-out group-data-[tone=amber]:opacity-100 motion-reduce:transition-none"
             />
-            {/* <span className="absolute top-[8%] left-1/2 h-[22%] w-[45%] -translate-x-1/2 rounded-full bg-white/50" /> */}
             <span className="absolute top-[8%] left-1/2 h-[22%] w-[45%] -translate-x-1/2 rounded-[50%] bg-white/50" />
-            {isAsleep ? null : isClosed ? (
-              <span className="relative text-lg font-bold tracking-tight uppercase">
-                {device.open}
-              </span>
-            ) : isLoading ? (
-              <LoaderIcon />
-            ) : isMenuOpen ? (
-              <CloseIcon />
-            ) : (
-              <MenuIcon />
+            {isAsleep ? null : (
+              <>
+                <span
+                  data-key-label
+                  className="relative text-lg font-bold tracking-tight uppercase"
+                  style={{
+                    paintOrder: "stroke fill",
+                    WebkitTextStroke:
+                      "3px color-mix(in oklab, var(--color-screen) 20%, transparent)",
+                  }}
+                >
+                  {device.open}
+                </span>
+                {isLoading ? <LoaderIcon /> : isMenuOpen ? <CloseIcon /> : <MenuIcon />}
+              </>
             )}
           </span>
         </span>
@@ -70,6 +74,7 @@ export function MenuToggle() {
 const iconProps = {
   viewBox: "0 0 24 24",
   "aria-hidden": true,
+  "data-key-icon": true,
   focusable: false,
   fill: "none",
   stroke: "currentColor",

@@ -53,3 +53,15 @@
 html[data-boot="pending"] [data-shutter] {
   translate: none;
 }
+
+[data-key-label] {
+  display: none;
+}
+
+html[data-boot="pending"] [data-key-label] {
+  display: block;
+}
+
+html[data-boot="pending"] [data-key-icon] {
+  display: none;
+}
