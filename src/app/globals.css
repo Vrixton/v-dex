@@ -65,3 +65,10 @@ html[data-boot="pending"] [data-key-label] {
 html[data-boot="pending"] [data-key-icon] {
   display: none;
 }
+
+@media (pointer: coarse) {
+  input,
+  textarea {
+    font-size: 16px;
+  }
+}

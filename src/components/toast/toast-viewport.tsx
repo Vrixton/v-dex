@@ -48,17 +48,11 @@ export function ToastViewport({ position = TOAST_POSITION }: { position?: ToastP
       )}
     >
       {toasts.map((toast) => (
-        <ToastCard
-          key={toast.id}
-          toast={toast}
-          from={enterFrom(position)}
-          onDismiss={() => dismiss(toast.id)}
-        />
+        <ToastCard key={toast.id} toast={toast} from={enterFrom(position)} onDismiss={dismiss} />
       ))}
     </div>
   );
 }
-
 function ToastCard({
   toast,
   from,
@@ -66,19 +60,19 @@ function ToastCard({
 }: {
   toast: Toast;
   from: "top" | "bottom";
-  onDismiss: () => void;
+  onDismiss: (id: number) => void;
 }) {
   const [isLeaving, setIsLeaving] = useState(false);
 
   useEffect(() => {
     const leave = window.setTimeout(() => setIsLeaving(true), toast.duration);
-    const remove = window.setTimeout(onDismiss, toast.duration + EXIT_MS);
+    const remove = window.setTimeout(() => onDismiss(toast.id), toast.duration + EXIT_MS);
 
     return () => {
       window.clearTimeout(leave);
       window.clearTimeout(remove);
     };
-  }, [toast.duration, onDismiss]);
+  }, [toast.duration, toast.id, onDismiss]);
 
   return (
     <div

@@ -19,17 +19,17 @@ export function CommLinkPanels({
 
   return (
     <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
+      <ContactForm onStatusChange={setStatus} />
       <div className="flex flex-col gap-5">
-        <SignalStatus status={status} />
+        <div className={status === "idle" ? "hidden sm:block" : undefined}>
+          <SignalStatus status={status} />
+        </div>
         {mainChannel}
-
         <div className="grid gap-5 sm:grid-cols-2">
           {cartridge}
           {links}
         </div>
       </div>
-
-      <ContactForm onStatusChange={setStatus} />
     </div>
   );
 }
