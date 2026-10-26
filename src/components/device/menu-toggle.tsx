@@ -38,7 +38,7 @@ export function MenuToggle() {
     >
       <span className="block size-full rounded-full bg-seam p-[calc(var(--menu-toggle-size)*0.06)] shadow-key transition-[box-shadow,translate] duration-100 ease-out group-active:translate-y-[2px] group-active:shadow-key-pressed">
         <span className="block size-full rounded-full bg-white p-[calc(var(--menu-toggle-size)*0.04)]">
-          <span className="relative grid size-full place-items-center overflow-hidden rounded-full bg-(image:--gradient-button-cyan) text-white group-hover:brightness-115 group-disabled:grayscale disabled:cursor-default motion-safe:transition-[filter] motion-safe:duration-800 group-data-[boot=true]:motion-safe:animate-pulse data-[boot=true]:motion-safe:animate-pulse">
+          <span className="relative grid size-full place-items-center overflow-hidden rounded-full bg-(image:--gradient-button-cyan) stroke-white text-white group-hover:brightness-115 group-disabled:grayscale disabled:cursor-default motion-safe:transition-[filter] motion-safe:duration-800 group-data-[boot=true]:motion-safe:animate-pulse data-[boot=true]:motion-safe:animate-pulse">
             <span
               aria-hidden="true"
               className="absolute inset-0 rounded-full bg-(image:--gradient-button-red) opacity-0 transition-opacity duration-300 ease-in-out group-data-[tone=red]:opacity-100 motion-reduce:transition-none"
@@ -47,7 +47,8 @@ export function MenuToggle() {
               aria-hidden="true"
               className="absolute inset-0 rounded-full bg-(image:--gradient-button-amber) opacity-0 transition-opacity duration-300 ease-in-out group-data-[tone=amber]:opacity-100 motion-reduce:transition-none"
             />
-            <span className="absolute top-[8%] left-1/2 h-[22%] w-[45%] -translate-x-1/2 rounded-full bg-white/50" />
+            {/* <span className="absolute top-[8%] left-1/2 h-[22%] w-[45%] -translate-x-1/2 rounded-full bg-white/50" /> */}
+            <span className="absolute top-[8%] left-1/2 h-[22%] w-[45%] -translate-x-1/2 rounded-[50%] bg-white/50" />
             {isAsleep ? null : isClosed ? (
               <span className="relative text-lg font-bold tracking-tight uppercase">
                 {device.open}
@@ -76,10 +77,20 @@ const iconProps = {
   strokeLinecap: "round",
 } as const;
 
+const OUTLINE_WIDTH = 5;
+
+function IconPath({ d }: { d: string }) {
+  return (
+    <>
+      <path d={d} className="stroke-screen/20" strokeWidth={OUTLINE_WIDTH} />
+      <path d={d} />
+    </>
+  );
+}
 function MenuIcon() {
   return (
     <svg {...iconProps} className="relative mt-[6%] size-[50%]">
-      <path d="M5 7h14M5 12h14M5 17h14" />
+      <IconPath d="M5 7h14M5 12h14M5 17h14" />
     </svg>
   );
 }
@@ -87,7 +98,7 @@ function MenuIcon() {
 function CloseIcon() {
   return (
     <svg {...iconProps} className="relative mt-[6%] size-[45%]">
-      <path d="M6 6l12 12M18 6L6 18" />
+      <IconPath d="M6 6l12 12M18 6L6 18" />
     </svg>
   );
 }
@@ -99,7 +110,7 @@ function LoaderIcon() {
       className="relative mt-[6%] size-[50%] motion-safe:animate-spin motion-reduce:[animation-duration:2.4s]"
     >
       <circle cx="12" cy="12" r="8" opacity="0.35" />
-      <path d="M12 4a8 8 0 0 1 8 8" />
+      <IconPath d="M12 4a8 8 0 0 1 8 8" />
     </svg>
   );
 }
