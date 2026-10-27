@@ -52,7 +52,6 @@ export function RoleCard({
         />
         <div
           className={`relative flex h-full flex-col overflow-hidden rounded-panel transition-colors ${
-            // active ? "bg-brand-cyan/10" : "bg-surface-soft group-hover/card:bg-brand-cyan/10"
             active
               ? "bg-brand-cyan/10"
               : "bg-surface-soft group-hover/card:bg-brand-cyan/10 group-focus-visible/card:bg-brand-cyan/10"
