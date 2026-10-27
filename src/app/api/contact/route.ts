@@ -35,6 +35,7 @@ export async function POST(request: Request) {
 
   const apiKey = process.env.RESEND_API_KEY;
   if (!apiKey) {
+    console.error("[contact] RESEND_API_KEY is not set");
     return NextResponse.json({ error: "SERVICE_UNAVAILABLE" }, { status: 503 });
   }
 
@@ -60,11 +61,17 @@ export async function POST(request: Request) {
     });
 
     if (!response.ok) {
+      console.error(
+        "[contact] resend rejected the request:",
+        response.status,
+        await response.text(),
+      );
       return NextResponse.json({ error: "SEND_FAILED" }, { status: 502 });
     }
 
     return NextResponse.json({ ok: true });
-  } catch {
+  } catch (error) {
+    console.error("[contact] request to resend failed:", error);
     return NextResponse.json({ error: "SEND_FAILED" }, { status: 502 });
   }
 }
