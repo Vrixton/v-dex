@@ -2,7 +2,7 @@ import { NextResponse, type NextRequest } from "next/server";
 
 import { DEFAULT_LOCALE, LOCALES } from "./i18n/locale";
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   const matches = (locale: string) =>
