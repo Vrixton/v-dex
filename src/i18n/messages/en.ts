@@ -1,4 +1,9 @@
 export const en = {
+  notFound: {
+    breadcrumb: "NOT_FOUND",
+    body: "The address you followed has no record on this device.",
+    home: "BACK_TO_HOME",
+  },
   device: {
     /** Shown on every screen's title bar. */
     sync: "[SYNC]: READY",

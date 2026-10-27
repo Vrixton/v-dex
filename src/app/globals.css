@@ -72,3 +72,8 @@ html[data-boot="pending"] [data-key-icon] {
     font-size: 16px;
   }
 }
+
+body:has(#device-buffer) #screen {
+  background-color: var(--vdex-ink-950);
+  background-image: repeating-linear-gradient(0deg, transparent 0 2px, rgb(0 0 0 / 0.55) 2px 3px);
+}
