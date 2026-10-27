@@ -43,7 +43,7 @@ export function RoleCard({
         }}
         onMouseEnter={() => play("hover")}
         onFocus={() => play("hover")}
-        className="group/card relative block h-full w-full cursor-pointer text-left focus-visible:outline-none"
+        className="group/card relative block h-full w-full cursor-pointer rounded-panel text-left focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-brand-yellow"
       >
         <BracketFrame
           className={`text-brand-cyan transition-all duration-200 ${
@@ -52,7 +52,9 @@ export function RoleCard({
         />
         <div
           className={`relative flex h-full flex-col overflow-hidden rounded-panel transition-colors ${
-            active ? "bg-brand-cyan/10" : "bg-surface-soft group-hover/card:bg-brand-cyan/10"
+            active
+              ? "bg-brand-cyan/10"
+              : "bg-surface-soft group-hover/card:bg-brand-cyan/10 group-focus-visible/card:bg-brand-cyan/10"
           }`}
         >
           <div className="relative z-10 flex items-center gap-3 p-3">
