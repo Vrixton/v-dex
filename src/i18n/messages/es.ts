@@ -1,6 +1,11 @@
 import type { Messages } from "./en";
 
 export const es: Messages = {
+  notFound: {
+    breadcrumb: "NO_ENCONTRADO",
+    body: "La dirección que seguiste no tiene ningún registro en este dispositivo.",
+    home: "VOLVER_AL_INICIO",
+  },
   device: {
     sync: "[SINC]: LISTO",
     terminal: {
