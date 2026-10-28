@@ -27,7 +27,7 @@ export function WindowHeader({
         className,
       )}
     >
-      <StatusLed tone={ledTone} shape="square" pulse={ledPulse} className="size-2 md:size-3" />
+      <StatusLed tone={ledTone} shape="square" pulse={false} className="size-2 md:size-3" />
       <h2 className="text-sm text-fg md:text-base">{title}</h2>
       {breadcrumb ? (
         <span className="hidden text-xs text-fg-muted sm:inline md:text-sm">

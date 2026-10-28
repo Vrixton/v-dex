@@ -233,9 +233,6 @@
   /* Viewer refocus: the corners spring outward when the record changes */
   --animate-bracket-focus: bracket-focus 320ms cubic-bezier(0.16, 1, 0.3, 1) both;
 
-  /* Marker breathing: it rises and falls one pixel, with no new frames */
-  --animate-marker-breathe: marker-breathe 1s ease infinite;
-
   --animate-crt-collapse: crt-collapse 680ms cubic-bezier(0.4, 0, 0.2, 1) both;
   --animate-crt-blackout: crt-blackout 90ms linear both;
 
@@ -476,16 +473,6 @@
   to {
     inset: -0.5rem;
     opacity: 1;
-  }
-}
-
-@keyframes marker-breathe {
-  0%,
-  100% {
-    translate: 0 0px;
-  }
-  50% {
-    translate: 0 -2px;
   }
 }
 

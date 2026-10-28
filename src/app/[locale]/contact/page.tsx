@@ -19,7 +19,7 @@ export default async function ContactPage({ params }: LocaleRouteProps) {
       fill
       scrollable
       actions={
-        <Badge tone="green" led pulse>
+        <Badge tone="green" led>
           {m.window.connection}
         </Badge>
       }

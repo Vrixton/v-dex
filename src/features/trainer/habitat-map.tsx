@@ -34,7 +34,7 @@ export function HabitatMap({ locale }: HabitatMapProps) {
           />
           <span
             aria-hidden="true"
-            className="relative block h-10 w-8 bg-[url('/team-sheet.webp')] bg-no-repeat motion-safe:animate-marker-breathe"
+            className="relative block h-10 w-8 bg-[url('/team-sheet.webp')] bg-no-repeat"
             style={{ backgroundSize: "200% 100%", imageRendering: "pixelated" }}
           />
           <span className="absolute bottom-full left-1/2 mb-3 -translate-x-1/2">

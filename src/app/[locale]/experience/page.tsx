@@ -25,7 +25,7 @@ export default async function ExperiencePage({ params }: LocaleRouteProps) {
               count: String(ROLES.length).padStart(2, "0"),
             })}
           </Badge>
-          <Badge tone="green" led pulse className="hidden sm:flex">
+          <Badge tone="green" led className="hidden sm:flex">
             {messages.device.sync}
           </Badge>
         </>
