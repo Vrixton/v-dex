@@ -31,7 +31,7 @@ export function StatusLed({ tone, shape = "round", pulse = false, className }: S
     >
       <span
         className={cn(
-          "absolute inset-0 shadow-[0_0_10px_4px_currentColor]",
+          "absolute inset-0 opacity-50 shadow-[0_0_10px_4px_currentColor]",
           shapeClass[shape],
           pulse && "motion-safe:animate-led-pulse",
         )}

@@ -25,7 +25,7 @@ export default async function ProjectsPage({ params }: LocaleRouteProps) {
               count: String(PROJECTS_BY_NUMBER.length).padStart(2, "0"),
             })}
           </Badge>
-          <Badge tone="green" className="hidden sm:flex" led pulse>
+          <Badge tone="green" className="hidden sm:flex" led>
             {messages.device.sync}
           </Badge>
         </>

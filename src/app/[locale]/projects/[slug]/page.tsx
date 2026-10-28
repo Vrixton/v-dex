@@ -48,7 +48,7 @@ export default async function ProjectDetailPage({ params }: ProjectDetailProps) 
       actions={
         <>
           <Badge tone="yellow">{format(m.detail.entry, { number: pad(project.number) })}</Badge>
-          <Badge tone="green" led pulse className="hidden sm:flex">
+          <Badge tone="green" led className="hidden sm:flex">
             {messages.device.sync}
           </Badge>
         </>

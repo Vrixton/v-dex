@@ -25,7 +25,7 @@ export default async function HomePage({ params }: LocaleRouteProps) {
           <Badge tone="yellow" className="hidden sm:flex">
             {m.window.number}
           </Badge>
-          <Badge tone="green" led pulse>
+          <Badge tone="green" led>
             {messages.device.sync}
           </Badge>
         </>
