@@ -1,22 +1,27 @@
 "use client";
 
-import { PixelPet } from "@vrixton/pixel-pet";
-
+import { useRef } from "react";
+import { PixelPet, type PixelPetHandle } from "@vrixton/pixel-pet";
 import { format } from "@/i18n/format";
 import { useMessages } from "@/i18n/locale-provider";
-
 import { useBoot } from "./boot-context";
 import { findPet } from "./pets";
 
 export function PetLayer() {
   const { phase, petId, resting, setResting, replayTour } = useBoot();
   const m = useMessages().device.pet;
+  const petRef = useRef<PixelPetHandle>(null);
 
   if (phase !== "done" || petId === null) return null;
 
   const pet = findPet(petId);
   const values = { name: pet.name };
   const actions = [
+    {
+      id: "greet",
+      label: format(m.greet, values),
+      onSelect: () => petRef.current?.say(format(m.greeting, values), { emotion: "happy" }),
+    },
     {
       id: "rest",
       label: resting ? format(m.wake, values) : format(m.rest, values),
@@ -35,8 +40,9 @@ export function PetLayer() {
         petName={pet.name}
         color={pet.color}
         label={format(m.label, values)}
+        ref={petRef}
         dialogStyle={{
-          borderRadius: "5px",
+          borderRadius: "var(--radius-control)",
         }}
         messages={{
           happy: format(m.happy, values),
