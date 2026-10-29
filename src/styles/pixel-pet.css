@@ -4,7 +4,7 @@
   --pixel-pet-menu-fg: var(--color-fg);
   --pixel-pet-menu-font: var(--font-tech);
   --pixel-pet-menu-font-size: 0.75rem;
-  --pixel-pet-menu-border: color-mix(in oklab, var(--color-brand-cyan) 50%, transparent);
+  --pixel-pet-menu-border: color-mix(in oklab, var(--color-white) 10%, transparent);
   --pixel-pet-menu-focus: var(--color-brand-cyan);
   --pixel-pet-menu-item-hover-bg: color-mix(in oklab, var(--color-brand-cyan) 15%, transparent);
 }

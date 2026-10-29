@@ -127,7 +127,7 @@ export function TourOverlay() {
 
       <div className="absolute inset-0 flex overflow-y-auto p-4">
         <div
-          className={`relative w-full max-w-lg rounded-window border border-brand-cyan/20 bg-window p-4 inset-shadow-window sm:p-6 ${placement}`}
+          className={`relative w-full max-w-lg rounded-window border border-white/10 bg-window p-4 inset-shadow-window sm:p-6 ${placement}`}
         >
           <Image
             src={tourArt(pet, stepKey)}

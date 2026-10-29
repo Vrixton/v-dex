@@ -54,7 +54,7 @@ export function ProjectCard({ project }: { project: Project }) {
               </ul>
 
               <p className="flex shrink-0 items-center gap-2 text-xs text-fg transition-colors group-hover/card:text-brand-cyan group-focus-visible/card:text-brand-cyan md:text-base">
-                <PixelChevron className="size-3 text-brand-yellow opacity-0 transition-opacity group-hover/card:opacity-100 group-focus-visible/card:opacity-100 motion-safe:group-hover/card:animate-nudge-right motion-safe:group-focus-visible/card:animate-nudge-right" />
+                <PixelChevron className="size-3 text-brand-yellow opacity-0 transition-opacity group-hover/card:opacity-100 group-focus-visible/card:opacity-100 motion-safe:group-hover/card:animate-cursor-blink motion-safe:group-focus-visible/card:animate-cursor-blink" />
                 {project.name}
               </p>
             </div>

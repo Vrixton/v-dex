@@ -169,7 +169,7 @@ export const es: Messages = {
     program: "BITÁCORA",
     companyLabel: "EMPRESA",
     selectLabel: "ELEGIR_REGISTRO",
-    scanning: "ESCANEANDO",
+    onScreen: "EN PANTALLA",
     nav: {
       previous: "Puestos anteriores",
       next: "Puestos siguientes",

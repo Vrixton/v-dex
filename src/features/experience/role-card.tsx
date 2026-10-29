@@ -8,7 +8,6 @@ import { PixelChevron } from "@/components/ui/pixel-chevron";
 import type { Role } from "@/content/experience";
 import { useMessages } from "@/i18n/locale-provider";
 import { formatPeriod } from "@/lib/date";
-import { BracketFrame } from "@/components/ui/bracket-frame";
 
 export function RoleCard({
   role,
@@ -45,11 +44,6 @@ export function RoleCard({
         onFocus={() => play("hover")}
         className="group/card relative block h-full w-full cursor-pointer rounded-panel text-left focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-brand-yellow"
       >
-        <BracketFrame
-          className={`text-brand-cyan transition-all duration-200 ${
-            active ? "inset-0 opacity-100" : "inset-3 opacity-0"
-          }`}
-        />
         <div
           className={`relative flex h-full flex-col overflow-hidden rounded-panel transition-colors ${
             active
@@ -81,8 +75,8 @@ export function RoleCard({
               active ? "translate-y-0 opacity-100" : "translate-y-full opacity-0"
             }`}
           >
-            {m.scanning}
-            <PixelChevron className="size-3 text-brand-yellow motion-safe:animate-nudge-right" />
+            {m.onScreen}
+            <PixelChevron className="size-3 rotate-90 text-brand-yellow" />
           </p>
         </div>
       </button>
