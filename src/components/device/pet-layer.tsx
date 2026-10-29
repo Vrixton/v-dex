@@ -23,7 +23,6 @@ export function PetLayer() {
     };
   }, [isTour, m.waiting]);
 
-  // if (phase !== "done" || petId === null) return null;
   if (petId === null || (phase !== "done" && !isTour)) return null;
 
   const pet = findPet(petId);
