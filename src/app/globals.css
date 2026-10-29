@@ -77,3 +77,11 @@ body:has(#device-buffer) #screen {
   background-color: var(--vdex-ink-950);
   background-image: repeating-linear-gradient(0deg, transparent 0 2px, rgb(0 0 0 / 0.55) 2px 3px);
 }
+
+:root {
+  --pixel-pet-menu-bg: var(--color-window-header);
+  --pixel-pet-menu-fg: var(--color-fg);
+  --pixel-pet-menu-font: var(--font-tech);
+  --pixel-pet-menu-font-size: 0.75rem;
+  --pixel-pet-menu-item-hover-bg: color-mix(in oklab, var(--color-brand-cyan) 10%, transparent);
+}
