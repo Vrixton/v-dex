@@ -1,8 +1,12 @@
-import type { ReactNode } from "react";
+import { Fragment, type ReactNode } from "react";
 
-const MARKED = /(\*\*[^*]+\*\*|__[^_]+__|\(\([^)]+\)\))/g;
+const MARKED = /(\*\*[^*]+\*\*|__[^_]+__|\(\([^)]+\)\)|\{\{[^}]+\}\})/g;
 
-export function highlight(text: string, petColor: string): ReactNode[] {
+export function highlight(
+  text: string,
+  petColor: string,
+  glyphs?: Record<string, ReactNode>,
+): ReactNode[] {
   return text.split(MARKED).map((part, index) => {
     const named = /^__([^_]+)__$/.exec(part);
     if (named?.[1]) {
@@ -30,6 +34,12 @@ export function highlight(text: string, petColor: string): ReactNode[] {
         </span>
       );
     }
+
+    const glyph = /^\{\{([^}]+)\}\}$/.exec(part);
+    if (glyph?.[1]) {
+      return <Fragment key={index}>{glyphs?.[glyph[1]] ?? null}</Fragment>;
+    }
+
     return part;
   });
 }
