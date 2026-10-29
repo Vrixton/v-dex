@@ -55,6 +55,7 @@ export const es: Messages = {
     },
 
     pet: {
+      waiting: "...",
       menu: "Acciones de {name}",
       menuClose: "Cerrar acciones",
       greet: "__{name}__, saluda",
