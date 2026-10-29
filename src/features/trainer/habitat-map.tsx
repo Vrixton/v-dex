@@ -30,7 +30,7 @@ export function HabitatMap({ locale }: HabitatMapProps) {
         <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
           <span
             aria-hidden="true"
-            className="absolute -bottom-1 left-1/2 h-2 w-8 -translate-x-1/2 rounded-full bg-black/35 blur-[1px]"
+            className="absolute -bottom-1 left-1/2 h-2 w-6 -translate-x-1/2 rounded-full bg-black/25 blur-[1px]"
           />
           <span
             aria-hidden="true"
