@@ -20,6 +20,7 @@ const SAME_IN_BOTH = new Set<string>([
   "contact.signal.labels.error",
   "contact.form.title",
   "contact.form.fields.name.placeholder",
+  "device.pet.waiting",
 ]);
 const TECH_NAME_KEYS = /^experience\.roles\.[^.]+\.stack\[\d+\]$/;
 

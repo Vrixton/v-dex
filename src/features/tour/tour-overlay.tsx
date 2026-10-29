@@ -37,6 +37,7 @@ export function TourOverlay() {
 
   useEffect(() => {
     if (!isOpen) return;
+    deadlineRef.current = Date.now() + STEP_MS;
     nextRef.current?.focus();
   }, [isOpen]);
 

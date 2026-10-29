@@ -1,18 +1,29 @@
 "use client";
 
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { PixelPet, type PixelPetHandle } from "@vrixton/pixel-pet";
 import { format } from "@/i18n/format";
 import { useMessages } from "@/i18n/locale-provider";
 import { useBoot } from "./boot-context";
 import { findPet } from "./pets";
 
+const TOUR_BUBBLE_MS = 900_000;
+
 export function PetLayer() {
   const { phase, petId, resting, setResting, replayTour } = useBoot();
   const m = useMessages().device.pet;
   const petRef = useRef<PixelPetHandle>(null);
+  const isTour = phase === "tour";
 
-  if (phase !== "done" || petId === null) return null;
+  useEffect(() => {
+    if (!isTour) return;
+    petRef.current?.say(m.waiting, { duration: TOUR_BUBBLE_MS });
+    return () => {
+      petRef.current?.hush();
+    };
+  }, [isTour, m.waiting]);
+
+  if (petId === null || (phase !== "done" && !isTour)) return null;
 
   const pet = findPet(petId);
   const values = { name: pet.name };
@@ -25,7 +36,13 @@ export function PetLayer() {
     {
       id: "rest",
       label: resting ? format(m.wake, values) : format(m.rest, values),
-      onSelect: () => setResting(resting ? null : "right"),
+      onSelect: () => {
+        if (resting) {
+          setResting(null);
+          return;
+        }
+        petRef.current?.rest("nearest");
+      },
     },
     {
       id: "tour",
@@ -41,6 +58,7 @@ export function PetLayer() {
         color={pet.color}
         label={format(m.label, values)}
         ref={petRef}
+        walk={!isTour}
         dialogStyle={{
           borderRadius: "var(--radius-control)",
         }}

@@ -60,6 +60,7 @@ export const en = {
     },
 
     pet: {
+      waiting: "...",
       menu: "{name}'s actions",
       menuClose: "Close actions",
       greet: "__{name}__, say hi",
