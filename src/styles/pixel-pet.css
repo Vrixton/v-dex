@@ -94,3 +94,14 @@
   border-radius: 50%;
   background-color: rgb(255 255 255 / 0.5);
 }
+
+.pixel-pet-menu-item .pixel-pet-highlight-pet {
+  color: inherit;
+  font-weight: inherit;
+}
+
+.pixel-pet-menu-item:hover .pixel-pet-highlight-pet,
+.pixel-pet-menu-item:focus-visible .pixel-pet-highlight-pet {
+  color: var(--pixel-pet-color);
+  font-weight: 700;
+}
