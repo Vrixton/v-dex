@@ -11,7 +11,6 @@ type WindowProps = {
   title?: string | undefined;
   breadcrumb?: string | undefined;
   ledTone?: LedTone | undefined;
-  ledPulse?: boolean | undefined;
   actions?: ReactNode | undefined;
   fill?: boolean | undefined;
   scrollable?: boolean | undefined;
@@ -25,7 +24,6 @@ export function Window({
   title,
   breadcrumb,
   ledTone = "cyan",
-  ledPulse = true,
   actions,
   fill = false,
   scrollable = false,
@@ -43,13 +41,7 @@ export function Window({
       )}
     >
       {title ? (
-        <WindowHeader
-          title={title}
-          breadcrumb={breadcrumb}
-          ledTone={ledTone}
-          ledPulse={ledPulse}
-          actions={actions}
-        />
+        <WindowHeader title={title} breadcrumb={breadcrumb} ledTone={ledTone} actions={actions} />
       ) : null}
 
       {scrollable ? (

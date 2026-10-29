@@ -7,7 +7,6 @@ type WindowHeaderProps = {
   title: string;
   breadcrumb?: string | undefined;
   ledTone?: LedTone | undefined;
-  ledPulse?: boolean | undefined;
   actions?: ReactNode | undefined;
   className?: string | undefined;
 };
@@ -16,7 +15,6 @@ export function WindowHeader({
   title,
   breadcrumb,
   ledTone = "cyan",
-  ledPulse = true,
   actions,
   className,
 }: WindowHeaderProps) {

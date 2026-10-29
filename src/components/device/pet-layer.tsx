@@ -17,9 +17,10 @@ export function PetLayer() {
 
   useEffect(() => {
     if (!isTour) return;
-    petRef.current?.say(m.waiting, { duration: TOUR_BUBBLE_MS });
+    const pet = petRef.current;
+    pet?.say(m.waiting, { duration: TOUR_BUBBLE_MS });
     return () => {
-      petRef.current?.hush();
+      pet?.hush();
     };
   }, [isTour, m.waiting]);
 
