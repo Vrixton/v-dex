@@ -11,10 +11,14 @@ import {
   type ReactNode,
 } from "react";
 
+import type { RestAt } from "@vrixton/pixel-pet";
+
 import {
   petCookie,
   readPetId,
+  readRestingAt,
   resolvePhase,
+  restCookie,
   type BootPhase,
   type BootProgress,
 } from "./boot-rules";
@@ -24,9 +28,12 @@ export const POWER_ON_MS = 940;
 type BootContextValue = {
   phase: BootPhase;
   petId: string | null;
+  resting: RestAt | null;
   powerOn: () => void;
   completeBoot: (petId: string) => void;
   completeTour: () => void;
+  replayTour: () => void;
+  setResting: (at: RestAt | null) => void;
 };
 
 const BootContext = createContext<BootContextValue | null>(null);
@@ -51,14 +58,28 @@ function getPetServerSnapshot(): string | null {
   return null;
 }
 
+function getRestingSnapshot(): RestAt | null {
+  return readRestingAt(document.cookie);
+}
+
+function getRestingServerSnapshot(): RestAt | null {
+  return null;
+}
+
 export function BootProvider({ children }: { children: ReactNode }) {
   const isFirstVisit = useSyncExternalStore(subscribe, getBootSnapshot, getBootServerSnapshot);
   const storedPetId = useSyncExternalStore(subscribe, getPetSnapshot, getPetServerSnapshot);
   const [progress, setProgress] = useState<BootProgress>("idle");
   const [chosenPetId, setChosenPetId] = useState<string | null>(null);
-
+  const storedResting = useSyncExternalStore(
+    subscribe,
+    getRestingSnapshot,
+    getRestingServerSnapshot,
+  );
+  const [chosenResting, setChosenResting] = useState<RestAt | null | undefined>(undefined);
   const phase = resolvePhase(progress, isFirstVisit);
   const petId = chosenPetId ?? storedPetId;
+  const resting = chosenResting === undefined ? storedResting : chosenResting;
 
   useEffect(() => {
     if (phase !== "powering") return;
@@ -79,9 +100,16 @@ export function BootProvider({ children }: { children: ReactNode }) {
 
   const completeTour = useCallback(() => setProgress("done"), []);
 
+  const replayTour = useCallback(() => setProgress("tour"), []);
+
+  const setResting = useCallback((at: RestAt | null) => {
+    document.cookie = restCookie(at);
+    setChosenResting(at);
+  }, []);
+
   const value = useMemo(
-    () => ({ phase, petId, powerOn, completeBoot, completeTour }),
-    [phase, petId, powerOn, completeBoot, completeTour],
+    () => ({ phase, petId, resting, powerOn, completeBoot, completeTour, replayTour, setResting }),
+    [phase, petId, resting, powerOn, completeBoot, completeTour, replayTour, setResting],
   );
 
   return <BootContext value={value}>{children}</BootContext>;
