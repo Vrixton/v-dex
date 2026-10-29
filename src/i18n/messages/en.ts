@@ -60,6 +60,11 @@ export const en = {
     },
 
     pet: {
+      menu: "{name}'s actions",
+      menuClose: "Close actions",
+      rest: "Send her to rest in the corner",
+      wake: "Wake {name} up",
+      replayTour: "Replay the tour",
       label: "__{name}__, the pet",
       greeting: "Hi, I'm __{name}__!",
       happy: "__{name}__ is **happy**.",
