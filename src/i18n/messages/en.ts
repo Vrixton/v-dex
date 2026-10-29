@@ -175,7 +175,7 @@ export const en = {
     companyLabel: "COMPANY",
     selectLabel: "SELECT_LOG",
     /** Badge on the card that is currently open. */
-    scanning: "SCANNING",
+    onScreen: "ON SCREEN",
     nav: {
       previous: "Previous roles",
       next: "Next roles",
