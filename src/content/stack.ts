@@ -17,8 +17,8 @@ export const TECHNOLOGIES: readonly Technology[] = [
   { icon: "angular", name: "Angular", level: "gold" },
   { icon: "react", name: "React", level: "gold" },
   { icon: "nextjs", name: "Next.js", level: "gold" },
+  { icon: "tailwind", name: "Tailwind CSS", level: "gold" },
   { icon: "nodejs", name: "Node.js", level: "silver" },
-  { icon: "tailwind", name: "Tailwind CSS", level: "silver" },
   { icon: "cypress", name: "Cypress", level: "silver" },
   { icon: "graphql", name: "GraphQL", level: "silver" },
 ];
