@@ -10,6 +10,8 @@ import { ProgressBar } from "@/components/ui/progress-bar";
 import { format } from "@/i18n/format";
 import { useMessages } from "@/i18n/locale-provider";
 import { highlight } from "@/i18n/highlight";
+import { MenuButtonGlyph } from "@/components/device/menu-button-glyph";
+import { CartridgeGlyph } from "@/components/ui/cartridge-glyph";
 
 const STEP_KEYS = ["menu", "cv", "contact"] as const;
 
@@ -135,7 +137,7 @@ export function TourOverlay() {
             width={96}
             height={96}
             unoptimized
-            className="pointer-events-none absolute -bottom-15 -left-10 size-38 [image-rendering:pixelated] sm:-bottom-23 sm:-left-9 sm:size-48"
+            className="pointer-events-none absolute -bottom-18 -left-10 size-38 [image-rendering:pixelated] sm:-bottom-24 sm:-left-9 sm:size-48"
           />
 
           <div className="flex items-baseline justify-between text-sm">
@@ -150,7 +152,10 @@ export function TourOverlay() {
           </div>
 
           <p id="tour-text" className="mt-4 text-base leading-relaxed text-fg">
-            {highlight(text, pet.color)}
+            {highlight(text, pet.color, {
+              button: <MenuButtonGlyph />,
+              cartridge: <CartridgeGlyph />,
+            })}
           </p>
 
           <div className="mt-6 flex justify-end gap-3 pl-28 sm:pl-52">

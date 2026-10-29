@@ -86,8 +86,8 @@ export const es: Messages = {
       intro:
         "Hola, explorador. Mi nombre es __{name}__, tu compañero **PixelPet**. Te enseño tres cosas importantes que debes saber de este portafolio.",
       steps: {
-        menu: "En primer lugar debes saber que hay más pantallas de las que ves. Todas se abren desde el **botón central**. ((Ahora está desactivado))",
-        cv: "En la pantalla de inicio y en contacto verás la **FICHA_DE_ENTRENADOR**. Pulsa **DESCARGAR** y guarda la hoja de vida del entrenador.",
+        menu: "En primer lugar debes saber que hay más pantallas de las que ves. Todas se abren desde el **botón central** {{button}} de arriba. ((Ahora está desactivado))",
+        cv: "En la pantalla de inicio y en contacto verás la **FICHA_DE_ENTRENADOR** {{cartridge}}. Pulsa **DESCARGAR** y guarda la hoja de vida del entrenador.",
         contact:
           "¿Quieres escribirle? La pantalla de **contacto** tiene un formulario, su correo y sus enlaces.",
       },
