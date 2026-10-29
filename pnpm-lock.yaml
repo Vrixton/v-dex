@@ -170,8 +170,8 @@ importers:
         specifier: ^2.0.0
         version: 2.0.0(next@16.3.5(@babel/core@7.29.7(supports-color@7.2.0))(@types/node@24.13.6)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react@19.2.8)
       '@vrixton/pixel-pet':
-        specifier: ^0.5.2
-        version: 0.5.2(react@19.2.8)
+        specifier: ^0.6.2
+        version: 0.6.2(react@19.2.8)
       next:
         specifier: 16.3.5
         version: 16.3.5(@babel/core@7.29.7(supports-color@7.2.0))(@types/node@24.13.6)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
@@ -1310,9 +1310,8 @@ packages:
   '@vitest/spy@5.0.1':
     resolution: {integrity: sha512-rbto/mF/SGERxEgYOek7Xm6B9b+y+mVoo+f4b2LymYO8zM1b7uB5nHuhVMTP2hxdzgxvGiZYGxGIaMvL5y180Q==}
 
-  '@vrixton/pixel-pet@0.5.2':
-    resolution: {integrity: sha512-ci5Zh96zlRCL+8bwHb3f/vCiTOn+d9PIP/iQ/Xov1EjM9fY1LMT8NcuVAjoLUgJxnW3u07foX1j76F+fpvNmhA==}
-    engines: {node: '>=24'}
+  '@vrixton/pixel-pet@0.6.2':
+    resolution: {integrity: sha512-pcVhC9QAtEob1FYaYXTSuF5Wfgv8NdT+9DdDqRO5iu4abfaFUyfBzTv9lJfRtVv3K9Ml33c/vahXPpXyb+q+gA==}
     peerDependencies:
       react: ^19
 
@@ -4074,7 +4073,7 @@ snapshots:
 
   '@vitest/spy@5.0.1': {}
 
-  '@vrixton/pixel-pet@0.5.2(react@19.2.8)':
+  '@vrixton/pixel-pet@0.6.2(react@19.2.8)':
     dependencies:
       react: 19.2.8
 
