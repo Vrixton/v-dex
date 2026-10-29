@@ -36,7 +36,13 @@ export function PetLayer() {
     {
       id: "rest",
       label: resting ? format(m.wake, values) : format(m.rest, values),
-      onSelect: () => setResting(resting ? null : "right"),
+      onSelect: () => {
+        if (resting) {
+          setResting(null);
+          return;
+        }
+        petRef.current?.rest("nearest");
+      },
     },
     {
       id: "tour",
