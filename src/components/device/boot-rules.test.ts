@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { petCookie, readPetId, resolvePhase } from "./boot-rules";
+import { petCookie, readPetId, readRestingAt, resolvePhase, restCookie } from "./boot-rules";
 import { DEFAULT_PET } from "./pets";
 
 describe("resolvePhase", () => {
@@ -49,5 +49,51 @@ describe("readPetId", () => {
 describe("petCookie", () => {
   it("writes a cookie that readPetId can read back", () => {
     expect(readPetId(petCookie("hamster"))).toBe("hamster");
+  });
+});
+
+describe("readRestingAt", () => {
+  it("returns null when there is no cookie", () => {
+    expect(readRestingAt("")).toBeNull();
+  });
+
+  it("reads the position when it is the only cookie", () => {
+    expect(readRestingAt("vdex-pet-rest=right")).toBe("right");
+  });
+
+  it("reads the position from the middle of the cookie string", () => {
+    expect(readRestingAt("theme=dark; vdex-pet-rest=center; sound=on")).toBe("center");
+  });
+
+  it("returns null when the cookie is there but empty", () => {
+    expect(readRestingAt("vdex-pet-rest=")).toBeNull();
+  });
+
+  it("returns null for a value outside the allowed positions", () => {
+    expect(readRestingAt("vdex-pet-rest=somewhere")).toBeNull();
+  });
+
+  it("does not read the pet cookie by mistake", () => {
+    expect(readRestingAt("vdex-pet=cat")).toBeNull();
+  });
+});
+
+describe("restCookie", () => {
+  it("writes a cookie that readRestingAt can read back", () => {
+    expect(readRestingAt(restCookie("left"))).toBe("left");
+    expect(readRestingAt(restCookie("center"))).toBe("center");
+    expect(readRestingAt(restCookie("right"))).toBe("right");
+  });
+
+  it("clears the cookie when the pet wakes up", () => {
+    expect(readRestingAt(restCookie(null))).toBeNull();
+  });
+});
+
+describe("the two pet cookies", () => {
+  it("do not read each other despite the shared prefix", () => {
+    const both = `${petCookie("alien")}; ${restCookie("right")}`;
+    expect(readPetId(both)).toBe("alien");
+    expect(readRestingAt(both)).toBe("right");
   });
 });

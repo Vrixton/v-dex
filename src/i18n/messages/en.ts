@@ -60,6 +60,12 @@ export const en = {
     },
 
     pet: {
+      menu: "{name}'s actions",
+      menuClose: "Close actions",
+      greet: "__{name}__, say hi",
+      rest: "__{name}__, go rest",
+      wake: "__{name}__, wake up",
+      replayTour: "__{name}__, show me the V-MANUAL",
       label: "__{name}__, the pet",
       greeting: "Hi, I'm __{name}__!",
       happy: "__{name}__ is **happy**.",

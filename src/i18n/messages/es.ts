@@ -55,6 +55,12 @@ export const es: Messages = {
     },
 
     pet: {
+      menu: "Acciones de {name}",
+      menuClose: "Cerrar acciones",
+      greet: "__{name}__, saluda",
+      rest: "Ve a dormir __{name}__",
+      wake: "__{name}__, despierta",
+      replayTour: "__{name}__, abre el V-MANUAL",
       label: "__{name}__, la mascota",
       greeting: "¡Hola, soy __{name}__!",
       happy: "__{name}__ está **feliz**.",

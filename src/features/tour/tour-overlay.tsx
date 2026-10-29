@@ -99,6 +99,7 @@ export function TourOverlay() {
 
   function finish() {
     completeTour();
+    goTo(0);
     document.getElementById("menu-toggle")?.focus();
   }
 
