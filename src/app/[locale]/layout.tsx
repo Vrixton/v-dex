@@ -79,6 +79,11 @@ export async function generateMetadata({ params }: LocaleRouteProps): Promise<Me
       description: m.description,
       images: ["/opengraph-image.png"],
     },
+    appleWebApp: {
+      capable: true,
+      title: "V-DEX",
+      statusBarStyle: "black-translucent",
+    },
   };
 }
 
