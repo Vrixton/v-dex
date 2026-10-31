@@ -18,8 +18,9 @@ synthesized in the browser, and every sprite is pixel art drawn for this
 project. It reads in English and Spanish, installs as an app, and the pet
 living at the bottom of the screen is a package published to npm.
 
-**100 in all four Lighthouse categories** on the home view. 103 unit tests.
-No UI library, no animation library, no icon package, no audio files.
+**100 in all four Lighthouse categories** on the home view, measured on the
+deployed site in October 2026. 103 unit tests. No UI library, no animation
+library, no icon package, no audio files.
 
 ![The device on the home view](docs/screenshots/home.webp)
 
