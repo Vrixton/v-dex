@@ -82,7 +82,7 @@ export async function generateMetadata({ params }: LocaleRouteProps): Promise<Me
     appleWebApp: {
       capable: true,
       title: "V-DEX",
-      statusBarStyle: "black-translucent",
+      statusBarStyle: "black",
     },
   };
 }
